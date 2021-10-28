@@ -1,2 +1,2 @@
 # project-group-134
-# test making an edit in VS Code and then pushing to GitHub
+# We will use this repo to do our team project for CS 340. 
