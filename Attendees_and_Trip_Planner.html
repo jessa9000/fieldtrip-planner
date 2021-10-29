@@ -18,7 +18,114 @@
 		</table>
 	</div>
 
+	<h1>Trip in Planning</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Trip ID</th>
+				<th>Trip Name</th>
+				<th>Date</th>
+				<th>Meet Time</th>
+				<th>Return Time</th>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>The President Woodrow Wilson House</td>
+				<td>November 11, 2022</td>
+				<td>9:00 AM</td>
+				<td>12:00 PM</td>
+			</tr>
+		</table>
+	</div>
+
 	<h1>Attendees</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Trip ID</th>
+				<th>Student ID</th>
+				<th>Student First Name</th>
+				<th>Student Last Name</th>
+				<th>Responsible Chaperone ID</th>				
+				<th>Responsible Chaperone FName</th>
+				<th>Responsible Chaperone LName</th>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>Rutabaga</td>
+				<td>Jones</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>Alexander</td>
+				<td>Nguyen</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+		</table>
+	</div>
+
+	<h1>Planned Snacks</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Trip ID</th>
+				<th>Snack ID</th>
+				<th>Snack Name</th>
+				<th>Snack Bringer ID</th>				
+				<th>Snack Bringer FName</th>
+				<th>Snack Bringer LName</th>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>Trail Mix</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>4</td>
+				<td>Pudding</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="narrow">		
+		<form>
+			<legend class="bold">Add an Attendee</legend>
+			<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+			<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
+			<label for="adultID">Chaperone ID: </label><br><input type="text" name="adultID"><br>
+			<input type="submit" value="Submit" id="form-submit">
+
+		  </form> 
+	</div>
+
+	<div class="narrow-right">		
+		<form>
+			<legend class="bold">Add a Planned Snack</legend>
+			<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+			<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
+			<label for="adultID">Snack Bringer ID: </label><br><input type="text" name="adultID"><br>
+			<input type="submit" value="Submit" id="form-submit">
+
+		  </form> 
+	</div>
 
 </body>
 </html>
