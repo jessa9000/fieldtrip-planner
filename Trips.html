@@ -20,5 +20,58 @@
 
 	<h1>Trips</h1>
 
+	<div>
+		<table>
+			<tr>
+				<th>Trip ID</th>
+				<th>Name</th>
+				<th>Street</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Zip Code</th>
+				<th>Date</th>
+				<th>Meet Time</th>
+				<th>Return Time</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>The Mütter Museum</td>
+				<td>19 S 22nd St</td>
+				<td>Philadelphia</td>
+				<td>PA</td>
+				<td>19103</td>
+				<td>October 31, 2022</td>
+				<td>10:00 AM</td>
+				<td>3:00 PM</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>The President Woodrow Wilson House</td>
+				<td>2340 S St NW</td>
+				<td>Washington</td>
+				<td>DC</td>
+				<td>20008</td>
+				<td>November 11, 2022</td>
+				<td>9:00 AM</td>
+				<td>12:00 PM</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<div class="narrow">		
+		<form>
+			<legend class="bold">Add a Trip</legend>
+			<label for="tripName">Trip Name: </label><br><input type="text" id="tripName" name="tripName"><br>
+			<label for="street">Street Address: </label><br><input type="text" id="street" name="street"><br>
+			<label for="city">City: </label><br><input type="text" id="city" name="city"><br>
+			<label for="state">State: </label><br><input type="text" maxlength="2" id="state" name="state"><br>
+			<label for="zipCode">Zip Code: </label><br><input type="text" maxlength="5" id="zipCode" name="zipCode"><br
+			<label for="date">Date: </label><br><input type="date" id="date" name="date"><br>
+			<label for="meetTime">Meet Time: </label><br><input type="time" id="meetTime" name="meetTime"><br>
+			<label for="returnTime">Return Time: </label><br><input type="time" id="returnTime" name="returnTime"><br><br>
+			<input type="submit" value="Submit" id="form-submit">
+		</form> 
+	</div>
+	
 </body>
 </html>
