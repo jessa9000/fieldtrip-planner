@@ -35,6 +35,28 @@ table{
 
 }
 
+.narrow{
+	width: 25%
+}
+
+.narrow-right{
+	float: right;
+	width: 25%
+}
+
+.two-third{
+	float: left;
+	width: 66%
+}
+
+th{
+	font-weight: bold;
+}
+
+.bold{
+	font-weight: bold;
+}
+
 a:link{
 	text-decoration: none;
 }
