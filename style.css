@@ -49,6 +49,10 @@ table{
 	width: 66%
 }
 
+.margin-top{
+	margin-top: 10px;
+}
+
 th{
 	font-weight: bold;
 }
