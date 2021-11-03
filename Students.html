@@ -55,11 +55,26 @@
 			<fieldset>
 				<legend>Does the student have any allergies?</legend>
 				<label><input type="radio" name="allergyFlag" value="Yes">Yes</label><br>
-				<label><input type="radio" name="allergyFlag" value="No">No</label><br>
+				<label><input type="radio" name="allergyFlag" value="No">No</label><br><br>
+				<label for="student-allergies">Add student allergies:</label><br>	
+				<select name="student-allergies" multiple>
+					<option value="milk">Milk</option>
+					<option value="eggs">Eggs</option>
+					<option value="fish">Fish</option>
+					<option value="milk">Shellfish</option>
+					<option value="milk">Tree Nuts</option>
+					<option value="milk">Peanuts</option>
+					<option value="milk">Wheat</option>
+					<option value="milk">Soybeans</option>
+	
+				</select><br>
+				<label>(Ctrl+click to add multiple. Click <a href="Allergies.html" class="bold">here</a> if allergy is not listed.</label>
 			</fieldset><br>
+
+
 			<input type="submit" value="Submit" id="form-submit">
 
-		  </form> 
+		  </form>  
 	</div>
 
 	<h1>Emergency Contacts</h1>
