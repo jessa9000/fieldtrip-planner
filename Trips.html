@@ -55,23 +55,46 @@
 				<td>9:00 AM</td>
 				<td>12:00 PM</td>
 			</tr>
+			<tr>
+				<td>3</td>
+				<td>Fern Hill Park</td>
+				<td>1000 Western Highway</td>
+				<td>Newark</td>
+				<td>DE</td>
+				<td>19711</td>
+				<td>March 14, 2022</td>
+				<td>9:00 AM</td>
+				<td>3:00 PM</td>
+			</tr>
 		</table>
 	</div>
 	<br>
-	<div class="narrow">		
-		<form>
-			<legend class="bold">Add a Trip</legend>
-			<label for="tripName">Trip Name: </label><br><input type="text" id="tripName" name="tripName"><br>
-			<label for="street">Street Address: </label><br><input type="text" id="street" name="street"><br>
-			<label for="city">City: </label><br><input type="text" id="city" name="city"><br>
-			<label for="state">State: </label><br><input type="text" maxlength="2" id="state" name="state"><br>
-			<label for="zipCode">Zip Code: </label><br><input type="text" maxlength="5" id="zipCode" name="zipCode"><br>
-			<label for="date">Date: </label><br><input type="date" id="date" name="date"><br>
-			<label for="meetTime">Meet Time: </label><br><input type="time" id="meetTime" name="meetTime"><br>
-			<label for="returnTime">Return Time: </label><br><input type="time" id="returnTime" name="returnTime"><br><br>
-			<input type="submit" value="Submit" id="form-submit">
-		</form> 
-	</div>
+
+	<div class="row">
+		<div class="column"> 		
+			<form>
+				<legend class="bold">Add a Trip</legend>
+				<label for="tripName">Trip Name: </label><br><input type="text" id="tripName" name="tripName"><br>
+				<label for="street">Street Address: </label><br><input type="text" id="street" name="street"><br>
+				<label for="city">City: </label><br><input type="text" id="city" name="city"><br>
+				<label for="state">State: </label><br><input type="text" maxlength="2" id="state" name="state"><br>
+				<label for="zipCode">Zip Code: </label><br><input type="text" maxlength="5" id="zipCode" name="zipCode"><br>
+				<label for="date">Date: </label><br><input type="date" id="date" name="date"><br>
+				<label for="meetTime">Meet Time: </label><br><input type="time" id="meetTime" name="meetTime"><br>
+				<label for="returnTime">Return Time: </label><br><input type="time" id="returnTime" name="returnTime"><br><br>
+				<input type="submit" value="Submit" id="form-submit">
+			</form> 
+		</div>
+
+
+		<div class="column">
+			<form>
+				<legend class="bold">To modify a Trip, enter the Trip ID</legend>
+				<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+				<input type="submit" value="Submit" id="form-submit">	
+			</form> 
+		</div>
+	  </div><br>
 	
 </body>
 </html>

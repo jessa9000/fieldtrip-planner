@@ -87,6 +87,7 @@
 	<div>
 		<table>
 			<tr>
+				<th>Planned Snack ID</th>
 				<th>Trip ID</th>
 				<th>Snack ID</th>
 				<th>Snack Name</th>
@@ -95,6 +96,7 @@
 				<th>Snack Bringer LName</th>
 			</tr>
 			<tr>
+				<td>1</td>
 				<td>2</td>
 				<td>1</td>
 				<td>Trail Mix</td>
@@ -104,6 +106,7 @@
 			</tr>
 			<tr>
 				<td>2</td>
+				<td>2</td>
 				<td>4</td>
 				<td>Pudding</td>
 				<td>3</td>
@@ -111,30 +114,40 @@
 				<td>Nguyen</td>
 			</tr>
 		</table>
-	</div>
+	</div><br>
 
+	<div class="row">
+		<div class="column"> 
+		
+			<form>
+				<legend class="bold">Add an Attendee</legend>
+				<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+				<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
+				<label for="adultID">Chaperone ID: </label><br><input type="text" name="adultID"><br>
+				<input type="submit" value="Submit" id="form-submit">
+	
+			</form> 
 
-	<div class="narrow">		
-		<form>
-			<legend class="bold">Add an Attendee</legend>
-			<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
-			<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
-			<label for="adultID">Chaperone ID: </label><br><input type="text" name="adultID"><br>
-			<input type="submit" value="Submit" id="form-submit">
+		</div>
+		<div class="column">
+			<form>
+				<legend class="bold">Add a Planned Snack</legend>
+				<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+				<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
+				<label for="adultID">Snack Bringer ID: </label><br><input type="text" name="adultID"><br>
+				<input type="submit" value="Submit" id="form-submit">
+	
+			</form> 
+		</div>
 
-		  </form> 
-	</div>
-
-	<div class="narrow-right">		
-		<form>
-			<legend class="bold">Add a Planned Snack</legend>
-			<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
-			<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
-			<label for="adultID">Snack Bringer ID: </label><br><input type="text" name="adultID"><br>
-			<input type="submit" value="Submit" id="form-submit">
-
-		</form> 
-	</div>
+		<div class="column">
+			<form>
+				<legend class="bold">To modify a Planned Snack, enter the Planned Snack ID</legend>
+				<label for="plannedSnackID">Planned Snack ID: </label><br><input type="text" name="plannedSnackID"><br>
+				<input type="submit" value="Submit" id="form-submit">	
+			</form> 
+		</div>
+	  </div><br>
 
 </body>
 </html>
