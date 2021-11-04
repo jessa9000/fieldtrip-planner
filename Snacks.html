@@ -47,11 +47,24 @@
 	<br>
 	<div class="narrow">		
 		<form>
-			<legend class="bold">Add a Snack:</legend>
-			<label for="name">Snack Name: </label><br><input type="text" id="snackName" name="snackName">
-			<br>
-			<br>
-			<input type="submit" value="Submit" id="form-submit">
+			<fieldset>
+				<legend class="bold">Add a Snack:</legend>
+				<label for="snackAdd">Snack Name: </label><br>
+				<input type="text" id="snackAdd" name="snackAdd">
+				<br>
+				<br>
+				<input type="submit" value="Submit" id="snackAddSubmit">
+			</fieldset>
+		</form><br> 
+		<form>
+			<fieldset>
+				<legend class="bold">Remove a Snack:</legend>
+				<label for="snackDelete">Name of Unpopular Snack: </label><br>
+				<input type="text" id="snackDelete" name="snackDelete">
+				<br>
+				<br>
+				<input type="submit" value="Submit" id="snackDeleteSubmit">
+			</fieldset>
 		</form> 
 	</div>
 
@@ -84,15 +97,17 @@
 				<td>Wheat</td>
 			</tr>
 		</table>
-	</div>
+	</div><br>
 	<div class="narrow">		
 		<form>
-			<legend class="bold">Add Labeled Ingredients:</legend>
-			<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
-			<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>			<br>
-			<input type="submit" value="Submit" id="form-submit">
+			<fieldset>
+				<legend class="bold">Add Labeled Ingredients:</legend>
+				<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
+				<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>			<br>
+				<input type="submit" value="Submit" id="form-submit">
+			</fieldset>
 		</form> 
-	</div>
+	</div><br>
 	
 </body>
 </html>
