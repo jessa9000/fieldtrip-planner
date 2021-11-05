@@ -30,9 +30,23 @@
 				<th>Allergen</th>
 			</tr>
 			<tr>
-				<td>1</td>
+				<td>2</td>
 				<td>Alexander</td>
 				<td>Nguyen</td>
+				<td>5</td>
+				<td>Tree Nuts</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Alexander</td>
+				<td>Nguyen</td>
+				<td>8</td>
+				<td>Soy Beans</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Jack-Jack</td>
+				<td>Parr</td>
 				<td>5</td>
 				<td>Tree Nuts</td>
 			</tr>
@@ -80,25 +94,29 @@
 				<td>Soybeans</td>
 			</tr>
 		</table>
-	</div>
+	</div><br>
 
-	<div class="narrow">		
-		<form>
-			<legend class="bold">Add an Allergy</legend>
-			<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
-			<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>
-			<input type="submit" value="Submit" id="form-submit">
+	<div class="row">
+		<div class="column">
+			<form>
+				<legend class="bold">Add an Allergy</legend>
+				<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
+				<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>
+				<input type="submit" value="Submit" id="form-submit">
+	
+			  </form> 
+		</div>
+		<div class="column">		
+			<form>
+				<legend class="bold">Add an Allergen</legend>
+				<label for="allergen">Allergen Name: </label><br><input type="text" name="allergen"><br>
+				<input type="submit" value="Submit" id="form-submit">	
+			</form> 
+		</div>
+	</div><br>
+		
 
-		  </form> 
-	</div>
-	<div class="narrow-right">		
-		<form>
-			<legend class="bold">Add an Allergen</legend>
-			<label for="allergen">Allergen Name: </label><br><input type="text" name="allergen"><br>
-			<input type="submit" value="Submit" id="form-submit">
 
-		  </form> 
-	</div>
 
 </body>
 </html>
