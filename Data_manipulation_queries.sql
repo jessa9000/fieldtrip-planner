@@ -70,3 +70,68 @@ INSERT INTO allergies
 INSERT INTO allergens 
     (name)
     VALUES (::name);
+
+
+---------------------------------------------------------------------------------------
+-- Snacks webpage
+---------------------------------------------------------------------------------------
+
+-- Snacks table
+
+SELECT * FROM snacks;
+
+-- "Add a Snack" input form
+
+INSERT INTO snacks  
+    (name)
+    VALUES (::name);
+
+-- "Remove a Snack" input form
+
+DELETE FROM snacks
+    WHERE name = ::name;
+
+-- Ingredients table with two joins
+
+SELECT ingredients.snackID, snacks.name, ingredients.allergenID, allergens.name
+    FROM ingredients
+    JOIN snacks ON ingredients.snackID = snacks.snackID
+    JOIN allergens ON ingredients.allergenID = allergens.allergenID;
+
+-- "Add Labeled Ingredients" input form
+
+INSERT INTO ingredients
+    (snackID, allergenID)
+    VALUES (::snackID, ::allergenID);
+
+---------------------------------------------------------------------------------------
+-- Trips webpage
+---------------------------------------------------------------------------------------
+
+-- Trips table
+
+SELECT * FROM trips;
+
+-- "Add a Trip" input form
+
+INSERT INTO trips
+    (name, street, city, state, zipCode, date, meetTime, returnTime)
+    VALUES (::name, ::street, ::city, ::zipCode, ::date, ::meetTime, ::returnTime);
+
+-- "Modify a Trip" input form
+
+UPDATE trips
+    SET name = ::name, 
+        street = ::street, 
+        city = ::city, 
+        zipCode = ::zipCode, 
+        date = ::date, 
+        meetTime = ::meetTime, 
+        returnTime = ::returnTime
+    WHERE tripID = ::tripID;
+
+---------------------------------------------------------------------------------------
+-- Trip Planner webpage
+---------------------------------------------------------------------------------------
+
+-- in progress...
