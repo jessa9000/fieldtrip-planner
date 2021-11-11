@@ -134,4 +134,46 @@ UPDATE trips
 -- Trip Planner webpage
 ---------------------------------------------------------------------------------------
 
--- in progress...
+-- "Select a trip to plan" input form and resulting Trip in Planning table
+
+SELECT * FROM trips WHERE tripID = ::tripID OR name LIKE %::keyword%;
+
+-- Attendees table
+
+SELECT attendees.tripID, attendees.studentID, students.firstName, students.lastName, attendees.adultID, 
+    adults.firstName, adults.lastName
+    FROM attendees
+    JOIN students ON attendees.studentID = students.studentID
+    JOIN trustedAdults ON attendees.adultID = trustedAdults.adultID
+    WHERE tripID = ::trip-from-above-filter;
+
+-- Planned Snacks table
+
+SELECT plannedSnacks.plannedSnackID AS 'Planned Snack ID', plannedSnacks.tripID AS 'Trip ID', 
+    plannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', 
+    plannedSnacks.adultID AS 'Snack Bringer ID', 
+    trustedAdults.firstName AS 'Snack Bringer FName',  trustedAdults.lastName AS 'Snack Bringer LName'
+    FROM plannedSnacks
+    JOIN snacks ON plannedSnacks.snackID = snacks.snackID
+    JOIN trustedAdults ON plannedSnacks.adultID = trustedAdults.adultID
+    WHERE tripID = ::trip-from-above-filter;
+
+-- "Add an Attendee" input form
+
+INSERT INTO attendees
+    (tripID, studentID, adultID)
+    VALUES (::tripID, ::studentID, ::adultID);
+
+-- "Add a Planned Snack" input form
+
+INSERT INTO plannedSnacks
+    (tripID, snackID, adultID)
+    VALUES (::tripID, ::studentID, ::adultID);
+
+-- "Modify a Planned Snack" input form
+
+UPDATE plannedSnacks
+    SET snackID = ::snackID, 
+        tripID = ::tripID, 
+        adultID = ::adultID, 
+    WHERE plannedSnackID = ::plannedSnackID;
