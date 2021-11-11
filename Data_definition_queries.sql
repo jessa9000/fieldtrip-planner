@@ -31,7 +31,7 @@ CREATE TABLE `Students` (
   `schoolYear` YEAR,
   `allergiesFlag` BOOLEAN DEFAULT 0,
   `specialPower` VARCHAR(255),
-  PRIMARY KEY (`studentID`)
+  PRIMARY KEY (`studentID`),
   UNIQUE KEY (`studentID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -62,7 +62,7 @@ CREATE TABLE `TrustedAdults` (
   `lastName` VARCHAR(255) NOT NULL,
   `primaryPhone` CHAR(10) NOT NULL,
   PRIMARY KEY (`adultID`),
-  UNIQUE KEY (`adultID`),
+  UNIQUE KEY (`adultID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -98,7 +98,7 @@ CREATE TABLE `Trips` (
   `meetTime` TIME,
   `returnTime` TIME,
   PRIMARY KEY (`tripID`),
-  UNIQUE KEY (`tripID`),
+  UNIQUE KEY (`tripID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,8 +106,8 @@ CREATE TABLE `Trips` (
 -- Dumping data for table `Trips`
 --
 
-LOCK TABLES `bsg_people` WRITE;
-/*!40000 ALTER TABLE `bsg_people` DISABLE KEYS */;
+LOCK TABLES `Trips` WRITE;
+/*!40000 ALTER TABLE `Trips` DISABLE KEYS */;
 INSERT INTO `Trips` VALUES
   (1, 'The Mutter Museum', '19 S 22nd St', 'Philadelphia', 'PA', '19103', "2022-10-31", '10:00:00', '15:00:00'),
   (2, 'The President Woodrow Wilson House', '2340 S St NW', 'Washington', 'DC', '20008', "2022-11-11", '9:00:00', '12:00:00'),
@@ -169,7 +169,7 @@ INSERT INTO `Allergens` VALUES
   (1, 'Milk'),
   (2, 'Eggs'),
   (3, 'Fish'),
-  (4, 'Shellfish')
+  (4, 'Shellfish'),
   (5, 'Tree Nuts'),
   (6, 'Peanuts'),
   (7, 'Wheat'),
@@ -192,7 +192,7 @@ CREATE TABLE `Attendees` (
   PRIMARY KEY (`studentID`, `tripID`),
   CONSTRAINT `AttendeesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`),
   CONSTRAINT `AttendeesTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`),
-  CONSTRAINT `AttendeesTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`),
+  CONSTRAINT `AttendeesTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -226,7 +226,7 @@ CREATE TABLE `PlannedSnacks` (
   UNIQUE KEY (`plannedSnackID`),
   CONSTRAINT `PlannedSnacksSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`),
   CONSTRAINT `PlannedSnacksTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`),
-  CONSTRAINT `PlannedSnacksTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`),
+  CONSTRAINT `PlannedSnacksTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -256,7 +256,7 @@ CREATE TABLE `Allergies` (
   `allergenID` INT NOT NULL,
   PRIMARY KEY (`studentID`, `allergenID`),
   CONSTRAINT `AllergiesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`),
-  CONSTRAINT `AllergiesAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`),
+  CONSTRAINT `AllergiesAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -286,7 +286,7 @@ CREATE TABLE `Ingredients` (
   `allergenID` INT NOT NULL,
   PRIMARY KEY (`snackID`, `allergenID`),
   CONSTRAINT `IngredientsSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`),
-  CONSTRAINT `IngredientsAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`),
+  CONSTRAINT `IngredientsAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -316,7 +316,7 @@ CREATE TABLE `EmergencyContacts` (
   `adultID` INT NOT NULL,
   PRIMARY KEY (`studentID`, `adultID`),
   CONSTRAINT `EmergencyContactsStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`),
-  CONSTRAINT `EmergencyContactsTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`),
+  CONSTRAINT `EmergencyContactsTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
