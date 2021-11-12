@@ -180,6 +180,8 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `Attendees`
+-- RESTRICT for deletion of studentID and adultID FKs
+-- CASCADE for deletion of tripID FK
 --
 
 DROP TABLE IF EXISTS `Attendees`;
@@ -190,9 +192,9 @@ CREATE TABLE `Attendees` (
   `tripID` INT NOT NULL,
   `adultID` INT,
   PRIMARY KEY (`studentID`, `tripID`),
-  CONSTRAINT `AttendeesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`),
-  CONSTRAINT `AttendeesTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`),
-  CONSTRAINT `AttendeesTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`)
+  CONSTRAINT `AttendeesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT `AttendeesTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `AttendeesTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`) ON UPDATE CASCADE ON DELETE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -212,6 +214,8 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `PlannedSnacks`
+-- SET NULL for deletion of snackID and adultID FKs
+-- CASCADE for deletion of tripID FK
 --
 
 DROP TABLE IF EXISTS `PlannedSnacks`;
@@ -224,9 +228,9 @@ CREATE TABLE `PlannedSnacks` (
   `adultID` INT,
   PRIMARY KEY (`plannedSnackID`),
   UNIQUE KEY (`plannedSnackID`),
-  CONSTRAINT `PlannedSnacksSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`),
-  CONSTRAINT `PlannedSnacksTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`),
-  CONSTRAINT `PlannedSnacksTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`)
+  CONSTRAINT `PlannedSnacksSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`) ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT `PlannedSnacksTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `PlannedSnacksTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -246,7 +250,8 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `Allergies`
---
+-- CASCADE for deletion of studentID and allergenID FKs
+-- 
 
 DROP TABLE IF EXISTS `Allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -255,8 +260,8 @@ CREATE TABLE `Allergies` (
   `studentID` INT NOT NULL,
   `allergenID` INT NOT NULL,
   PRIMARY KEY (`studentID`, `allergenID`),
-  CONSTRAINT `AllergiesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`),
-  CONSTRAINT `AllergiesAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`)
+  CONSTRAINT `AllergiesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `AllergiesAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -276,6 +281,7 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `Ingredients`
+-- CASCADE for deletion of snackID and allergenID FKs
 --
 
 DROP TABLE IF EXISTS `Ingredients`;
@@ -285,8 +291,8 @@ CREATE TABLE `Ingredients` (
   `snackID` INT NOT NULL,
   `allergenID` INT NOT NULL,
   PRIMARY KEY (`snackID`, `allergenID`),
-  CONSTRAINT `IngredientsSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`),
-  CONSTRAINT `IngredientsAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`)
+  CONSTRAINT `IngredientsSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `IngredientsAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -306,7 +312,8 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `EmergencyContacts`
---
+-- RESTRICT for deletion of studentID and adultID FKs
+-- 
 
 DROP TABLE IF EXISTS `EmergencyContacts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -315,8 +322,8 @@ CREATE TABLE `EmergencyContacts` (
   `studentID` INT NOT NULL,
   `adultID` INT NOT NULL,
   PRIMARY KEY (`studentID`, `adultID`),
-  CONSTRAINT `EmergencyContactsStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`),
-  CONSTRAINT `EmergencyContactsTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`)
+  CONSTRAINT `EmergencyContactsStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `EmergencyContactsTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
