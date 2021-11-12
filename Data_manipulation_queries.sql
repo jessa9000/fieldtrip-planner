@@ -157,7 +157,7 @@ SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', 
 SELECT attendees.tripID AS 'Trip ID', attendees.studentID AS 'Student ID', 
     students.firstName AS 'Student First Name', students.lastName AS 'Student Last Name', 
     attendees.adultID AS 'Responsible Chaperone ID', 
-    adults.firstName AS 'Responsible Chaperone FName', adults.lastName AS 'Responsible Chaperone LName'
+    trustedAdults.firstName AS 'Responsible Chaperone FName', trustedAdults.lastName AS 'Responsible Chaperone LName'
     FROM attendees
     JOIN students ON attendees.studentID = students.studentID
     JOIN trustedAdults ON attendees.adultID = trustedAdults.adultID
