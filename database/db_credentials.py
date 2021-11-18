@@ -14,6 +14,6 @@ db = 'bsg'
 # For OSU Flip Servers
 
 # host = 'classmysql.engr.oregonstate.edu'      # MUST BE THIS
-# user = '<your-cs-340-db-username-here>'       # don't forget the CS_340 prefix
-# passwd = '<your-password-here>'               # should only be 4 digits if default
-# db = '<name-of-database-on-osu-server>'                                  
+# user = 'cs-340-ealickj'                       # don't forget the CS_340 prefix
+# passwd = '****'                               # should only be 4 digits if default
+# db = '<name-of-database-on-osu-server>'       # Jess here - Where do we name this??                           
