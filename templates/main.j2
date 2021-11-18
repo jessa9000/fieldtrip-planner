@@ -2,15 +2,26 @@
 <html>
 <head>
 	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-
+	<div class="table">
+		<table>
+			<td><a href="Home.html">Home</a></td>
+			<td><a href="Students.html">Students</a></td>
+			<td><a href="TrustedAdults.html">Trusted Adults</a></td>
+			<td><a href="Allergies.html">Allergies</a></td>
+			<td><a href="Snacks.html">Snacks</a></td>
+			<td><a href="Trips.html">Trips</a></td>
+			<td><a href="Attendees_and_Trip_Planner.html">Trip Planner</a></td>
+		</table>
+	</div>
 
 	<h1>Ms. Frizzle's Kindergarten Class Field Trip Planner</h1>
 
+{#
 <table>
     <thead>
     <tr>
@@ -29,7 +40,7 @@
     </tr>
     {% endfor %}
     </table>
-
+#}
 
 	<p class="wide-center">
 		Welcome to Ms. Frizzle's kindergarten class field trip planner! ~ A database-driven website to help keep track 
@@ -39,7 +50,7 @@
 		Scholastic Productions' "The Magic School Bus.")
 	</p><br>
 
-
+	<img class="list" src="https://i.imgur.com/AjKnYUE.jpeg" alt="TAKE CHANCES MAKE MISTAKES GET MESSY">
 
 	
 </body>
