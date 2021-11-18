@@ -11,6 +11,26 @@
 
 	<h1>Ms. Frizzle's Kindergarten Class Field Trip Planner</h1>
 
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Location</th>
+        <th>Favorite Language</th>
+    </tr>
+    <tbody>
+    {% for item in people %}
+    <tr>
+        <td>{{item['name']}}</td>
+        <td>{{item['age']}}</td>
+        <td>{{item['location']}}</td>
+        <td>{{item['favorite_color']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
 	<p class="wide-center">
 		Welcome to Ms. Frizzle's kindergarten class field trip planner! ~ A database-driven website to help keep track 
 		of Ms. Frizzle's gifted and unruly students on exciting adventures. Herein you will find web pages to keep track of 
