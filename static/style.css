@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;500&display=swap');
+
+body{
+	margin: 0;
+}
+
+h1{
+	font-family: 'Oxanium';
+	font-weight: 500;
+	font-size: 72px;
+	text-align: center;
+}
+
+*{
+	font-family: 'Oxanium';
+	font-weight: 300;
+	font-size: 16px;
+}
+
+div.table{
+	background-color: lightgray;
+	width: 100%;
+	margin: 0;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+table{
+	background-color: lightgray;
+	table-layout: fixed;
+	width: 100%;
+	text-align: center;
+
+}
+
+.narrow{
+	width: 25%
+	
+}
+
+.wide-center{
+	margin: auto;
+	width: 75%
+}
+
+.narrow-right{
+	float: right;
+	width: 25%
+}
+
+.two-third{
+	float: left;
+	width: 66%
+}
+
+.margin-top{
+	margin-top: 10px;
+}
+
+th{
+	font-weight: bold;
+}
+
+.bold{
+	font-weight:500
+}
+
+a:link{
+	text-decoration: none;
+}
+
+a:visited{
+	text-decoration: none;
+	color: black;
+}
+
+/*
+Carousel CSS adapted from:
+“How To Create An Image Slider In HTML, CSS & Javascript.” YouTube, uploaded by Dev Ed, 30 Jun. 2018, https://youtube.com/watch?v=KcdBOoK3Pfw
+*/
+
+div.carousel{
+	width: 1000px;
+	margin: auto;
+	overflow: hidden;
+}
+
+div.images{
+	display: flex;
+	height: 500px;
+}
+
+img.list {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 24px;
+	height: 500px;
+	width: auto;
+}
+
+div.description {
+	margin-left: auto;
+	margin-right: auto;
+	height: 6em;
+	width: 888px;
+	border: 1px;
+	border-color: grey;
+	border-style: ridge;
+	overflow: auto;
+}
+
+form {
+	text-align: center;
+}
+
+li {
+	text-align: center;
+	list-style-type: none;
+	font-size: 24px;
+}
+
+video {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Trying some options for columns */
+/*source: https://www.w3schools.com/howto/howto_css_two_columns.asp */
+
+.column {
+	float: left;
+	width: 33%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+
