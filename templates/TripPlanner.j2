@@ -1,28 +1,156 @@
-    <table>
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Students[0].keys() %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+	<div class="table">
+		<table>
+			<td><a href="/">Home</a></td>
+			<td><a href="Students">Students</a></td>
+			<td><a href="TrustedAdults">Trusted Adults</a></td>
+			<td><a href="Allergies">Allergies</a></td>
+			<td><a href="Snacks">Snacks</a></td>
+			<td><a href="Trips">Trips</a></td>
+			<td><a href="TripPlanner">Trip Planner</a></td>
+		</table>
+	</div>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
 
-    <!-- Now, iterate through every person in Students -->
-    {% for person in Students %}
-    <tr>
-        <!-- Then iterate through every key in the current person dictionary -->
-        {% for key in person.keys() %}
+	<div class="narrow">
+		<form class="margin-top">
+			<legend class="bold">Select a trip to plan:</legend>
+			<input type="text" name="trip-to-plan" size="35" placeholder="Filter by Trip ID or keyword"><br>
+			<input type="submit" value="Submit" id="tripPlannerSubmit">
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{person[key]}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </table>
+		</form>
+	</div>
+
+	<h1>Trip in Planning</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Trip ID</th>
+				<th>Trip Name</th>
+				<th>Date</th>
+				<th>Meet Time</th>
+				<th>Return Time</th>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>The President Woodrow Wilson House</td>
+				<td>November 11, 2022</td>
+				<td>9:00 AM</td>
+				<td>12:00 PM</td>
+			</tr>
+		</table>
+	</div>
+
+	<h1>Attendees</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Trip ID</th>
+				<th>Student ID</th>
+				<th>Student First Name</th>
+				<th>Student Last Name</th>
+				<th>Responsible Chaperone ID</th>				
+				<th>Responsible Chaperone FName</th>
+				<th>Responsible Chaperone LName</th>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1</td>
+				<td>Rutabaga</td>
+				<td>Jones</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>Alexander</td>
+				<td>Nguyen</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+		</table>
+	</div>
+
+	<h1>Planned Snacks</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Planned Snack ID</th>
+				<th>Trip ID</th>
+				<th>Snack ID</th>
+				<th>Snack Name</th>
+				<th>Snack Bringer ID</th>				
+				<th>Snack Bringer FName</th>
+				<th>Snack Bringer LName</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>1</td>
+				<td>Trail Mix</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+				<td>4</td>
+				<td>Pudding</td>
+				<td>3</td>
+				<td>An</td>
+				<td>Nguyen</td>
+			</tr>
+		</table>
+	</div><br>
+
+	<div class="row">
+		<div class="column"> 
+		
+			<form>
+				<legend class="bold">Add an Attendee</legend>
+				<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+				<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
+				<label for="adultID">Chaperone ID: </label><br><input type="text" name="adultID"><br>
+				<input type="submit" value="Submit" id="addAttendeeSubmit">
+	
+			</form> 
+
+		</div>
+		<div class="column">
+			<form>
+				<legend class="bold">Add a Planned Snack</legend>
+				<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+				<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
+				<label for="adultID">Snack Bringer ID: </label><br><input type="text" name="adultID"><br>
+				<input type="submit" value="Submit" id="addPlannedSnack">
+	
+			</form> 
+		</div>
+
+		<div class="column">
+			<form>
+				<legend class="bold">To modify a Planned Snack, enter the Planned Snack ID</legend>
+				<label for="plannedSnackID">Planned Snack ID: </label><br><input type="text" name="plannedSnackID"><br>
+				<input type="submit" value="Edit" id="modifyPlannedSnack">	
+			</form> 
+		</div>
+	  </div><br>
+
+
+</body>
+</html>
