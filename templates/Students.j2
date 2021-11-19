@@ -1,28 +1,117 @@
-    <table>
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Students[0].keys() %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+	<div class="table">
+		<table>
+			<td><a href="/">Home</a></td>
+			<td><a href="Students">Students</a></td>
+			<td><a href="TrustedAdults">Trusted Adults</a></td>
+			<td><a href="Allergies">Allergies</a></td>
+			<td><a href="Snacks">Snacks</a></td>
+			<td><a href="Trips">Trips</a></td>
+			<td><a href="TripPlanner">Trip Planner</a></td>
+		</table>
+	</div>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
+	<h1>Students</h1>
 
-    <!-- Now, iterate through every person in Students -->
-    {% for person in Students %}
-    <tr>
-        <!-- Then iterate through every key in the current person dictionary -->
-        {% for key in person.keys() %}
+	<div>
+		<table>
+        <thead>
+			<tr>
+				<th>Student ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>School Year</th>
+				<th>Any Allergies?</th>
+				<th>Special Power</th>
+			</tr>
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{person[key]}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </table>
+        <tbody>
+             <!-- Iterate through every person in Students -->
+            {% for person in Students %}
+            <tr>
+                <!-- Iterate through every key in the current person dictionary -->
+                {% for key in person.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{person[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+		</table>
+	</div>
+    <br>
+	<div class="narrow">		
+		<form>
+			<legend class="bold">Add a Student</legend>
+			<label for="fname">First Name: </label><br><input type="text" id="fname" name="fname"><br>
+			<label for="lname">Last Name: </label><br><input type="text" id="lname" name="lname"><br>
+			<label for="year">School Year: </label><br><input type="text" id="year" name="year"><br>
+			<label for="power">Special Power: </label><br><input type="text" id="power" name="power"><br><br>
+			<fieldset>
+				<legend>Does the student have any allergies?</legend>
+				<label><input type="radio" name="allergyFlag" value="Yes">Yes</label><br>
+				<label><input type="radio" name="allergyFlag" value="No">No</label><br><br>
+				<label for="student-allergies">Add student allergies:</label><br>	
+				<select name="student-allergies" multiple>
+					<option value="milk">Milk</option>
+					<option value="eggs">Eggs</option>
+					<option value="fish">Fish</option>
+					<option value="shellfish">Shellfish</option>
+					<option value="treeNuts">Tree Nuts</option>
+					<option value="peanuts">Peanuts</option>
+					<option value="wheat">Wheat</option>
+					<option value="soybeans">Soybeans</option>
+	
+				</select><br>
+				<label>(Ctrl+click to add multiple. Click <a href="Allergies.html" class="bold">here</a> if allergy is not listed.</label>
+			</fieldset><br>
+			<input type="submit" value="Submit" id="addStudentSubmit">
+		  </form>  
+	</div>
+
+	<h1>Emergency Contacts</h1>
+
+	<div class="two-third">
+		<table>
+        <thead>
+			<tr>
+				<th>Student ID</th>
+				<th>Adult ID</th>
+			</tr>
+
+        <tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>3</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="narrow-right">		
+		<form>
+			<legend class="bold">Add an Emergency Contact</legend>
+			<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
+			<label for="adultID">Adult ID: </label><br><input type="text" name="adultID"><br>
+			<input type="submit" value="Submit" id="addEmerContactSubmit">
+
+		  </form> 
+	</div>
+
+</body>
+</html>
