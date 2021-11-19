@@ -1,28 +1,85 @@
-    <table>
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first row to get the
-        column name -->
-        {% for key in Trips[0].keys() %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+	<div class="table">
+		<table>
+			<td><a href="/">Home</a></td>
+			<td><a href="Students">Students</a></td>
+			<td><a href="TrustedAdults">Trusted Adults</a></td>
+			<td><a href="Allergies">Allergies</a></td>
+			<td><a href="Snacks">Snacks</a></td>
+			<td><a href="Trips">Trips</a></td>
+			<td><a href="TripPlanner">Trip Planner</a></td>
+		</table>
+	</div>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
+	<h1>Trips</h1>
 
-    <!-- Now, iterate through every row in Trips -->
-    {% for row in Trips %}
-    <tr>
-        <!-- Then iterate through every key in the current row dictionary -->
-        {% for key in row.keys() %}
+	<div>
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{row[key]}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </table>
+        <table>
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first row to get the
+                column name -->
+                {% for key in Trips[0].keys() %}
+
+                <!-- Create a <th> tag with the key inside of it, this will be
+                our header row -->
+                <th>{{ key }}</th>
+
+                <!-- End of this for loop -->
+                {% endfor %}
+            </tr>
+
+        <tbody>
+            <!-- Now, iterate through every row in Trips -->
+            {% for row in Trips %}
+            <tr>
+                <!-- Then iterate through every key in the current row dictionary -->
+                {% for key in row.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{row[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="column"> 		
+			<form>
+				<legend class="bold">Add a Trip</legend>
+				<label for="tripName">Trip Name: </label><br><input type="text" id="tripName" name="tripName"><br>
+				<label for="street">Street Address: </label><br><input type="text" id="street" name="street"><br>
+				<label for="city">City: </label><br><input type="text" id="city" name="city"><br>
+				<label for="state">State: </label><br><input type="text" maxlength="2" id="state" name="state"><br>
+				<label for="zipCode">Zip Code: </label><br><input type="text" maxlength="5" id="zipCode" name="zipCode"><br>
+				<label for="date">Date: </label><br><input type="date" id="date" name="date"><br>
+				<label for="meetTime">Meet Time: </label><br><input type="time" id="meetTime" name="meetTime"><br>
+				<label for="returnTime">Return Time: </label><br><input type="time" id="returnTime" name="returnTime"><br><br>
+				<input type="submit" value="Submit" id="addTripSubmit">
+			</form> 
+		</div>
+
+
+		<div class="column">
+			<form>
+				<legend class="bold">To modify a Trip, enter the Trip ID</legend>
+				<label for="tripID">Trip ID: </label><br><input type="text" name="tripID"><br>
+				<input type="submit" value="Submit" id="modifyTripSubmit">	
+			</form> 
+		</div>
+	  </div><br>
+      
+</body>
+</html>
