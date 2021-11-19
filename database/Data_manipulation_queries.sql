@@ -9,26 +9,26 @@
 
 SELECT studentID AS 'Student ID', firstName AS 'First Name', lastName AS 'Last Name', schoolYear AS 'School Year',
     allergiesFlag AS 'Any Allergies', specialPower AS 'Special Power' 
-    FROM students;
+    FROM Students;
 
 -- "Add a Student" input form will kick off up to two separate INSERT statements:
 
-INSERT INTO students
+INSERT INTO Students
     (firstName, lastName, schoolYear, allergiesFlag, specialPower) 
     VALUES (::firstName, ::lastName, ::schoolYear, ::allergiesFlag, ::specialPower);
 
-INSERT INTO allergies 
+INSERT INTO Allergies 
     (studentID, allergenID)
     VALUES (::studentID-of-newly-created-student, ::allergenID-of-selected-allergen);
 
 -- Emergency Contacts table
 
 SELECT studentID AS 'Student ID', adultID AS 'Adult ID' 
-    FROM emergencyContacts;
+    FROM EmergencyContacts;
 
 -- "Add an Emergency Contact" input form
 
-INSERT INTO emergencyContacts 
+INSERT INTO EmergencyContacts 
     (studentID, adultID)
     VALUES (::studentID, ::adultID);
 
@@ -41,11 +41,11 @@ INSERT INTO emergencyContacts
 
 SELECT adultID AS 'Trusted Adult ID', firstName AS 'First Name', lastName AS 'Last Name', 
     primaryPhone AS 'Primary Phone' 
-    FROM trustedAdults;
+    FROM TrustedAdults;
 
 -- "Add a Trusted Adult" input form
 
-INSERT INTO trustedAdults 
+INSERT INTO TrustedAdults 
     (firstName, lastName, primaryPhone)
     VALUES (::firstName, ::lastName, ::primaryPhone);
 
@@ -55,26 +55,26 @@ INSERT INTO trustedAdults
 
 -- Allergies table with two joins
 
-SELECT allergies.studentID AS 'Student ID', students.firstName AS 'Student First Name', 
-    students.lastName AS 'Student Last Name', allergies.allergenID AS 'Allergen ID', allergens.name AS 'Allergen'
-    FROM allergies
-    JOIN students ON allergies.studentID = students.studentID
-    JOIN allergens ON allergies.allergenID = allergens.allergenID;
+SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First Name', 
+    Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen'
+    FROM Allergies
+    JOIN Students ON Allergies.studentID = Students.studentID
+    JOIN Allergens ON Allergies.allergenID = Sllergens.allergenID;
 
 -- Possible allergens
 
 SELECT allergenID AS 'Allergen ID', name AS 'Allergen Name' 
-    FROM allergens;
+    FROM Allergens;
 
 -- "Add an Allergy" input form
 
-INSERT INTO allergies
+INSERT INTO Allergies
     (studentID, allergenID)
     VALUES (::studentID, ::allergenID);
 
 -- "Add an Allergen" input form
 
-INSERT INTO allergens 
+INSERT INTO Allergens 
     (name)
     VALUES (::name);
 
@@ -86,30 +86,30 @@ INSERT INTO allergens
 -- Snacks table
 
 SELECT snackID AS 'Snack ID', name AS 'Snack Name' 
-    FROM snacks;
+    FROM Snacks;
 
 -- "Add a Snack" input form
 
-INSERT INTO snacks  
+INSERT INTO Snacks  
     (name)
     VALUES (::name);
 
 -- "Remove a Snack" input form
 
-DELETE FROM snacks
+DELETE FROM Snacks
     WHERE name = ::name;
 
 -- Ingredients table with two joins
 
-SELECT ingredients.snackID AS 'Snack ID', snacks.name AS 'Snack Name', 
-    ingredients.allergenID AS 'Allergen ID', allergens.name AS 'Allergen'
-    FROM ingredients
-    JOIN snacks ON ingredients.snackID = snacks.snackID
-    JOIN allergens ON ingredients.allergenID = allergens.allergenID;
+SELECT Ingredients.snackID AS 'Snack ID', Snacks.name AS 'Snack Name', 
+    Ingredients.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen'
+    FROM Ingredients
+    JOIN Snacks ON Ingredients.snackID = Snacks.snackID
+    JOIN Allergens ON Ingredients.allergenID = Allergens.allergenID;
 
 -- "Add Labeled Ingredients" input form
 
-INSERT INTO ingredients
+INSERT INTO Ingredients
     (snackID, allergenID)
     VALUES (::snackID, ::allergenID);
 
@@ -121,17 +121,17 @@ INSERT INTO ingredients
 
 SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State',
     zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' 
-    FROM trips;
+    FROM Trips;
 
 -- "Add a Trip" input form
 
-INSERT INTO trips
+INSERT INTO Trips
     (name, street, city, state, zipCode, date, meetTime, returnTime)
     VALUES (::name, ::street, ::city, ::zipCode, ::date, ::meetTime, ::returnTime);
 
 -- "Modify a Trip" input form
 
-UPDATE trips
+UPDATE Trips
     SET name = ::name, 
         street = ::street, 
         city = ::city, 
@@ -149,46 +149,46 @@ UPDATE trips
 
 SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State',
     zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' 
-    FROM trips 
+    FROM Trips 
     WHERE tripID = ::tripID OR name LIKE %::keyword%;
 
 -- Attendees table
 
-SELECT attendees.tripID AS 'Trip ID', attendees.studentID AS 'Student ID', 
-    students.firstName AS 'Student First Name', students.lastName AS 'Student Last Name', 
-    attendees.adultID AS 'Responsible Chaperone ID', 
-    trustedAdults.firstName AS 'Responsible Chaperone FName', trustedAdults.lastName AS 'Responsible Chaperone LName'
-    FROM attendees
-    JOIN students ON attendees.studentID = students.studentID
-    JOIN trustedAdults ON attendees.adultID = trustedAdults.adultID
+SELECT Attendees.tripID AS 'Trip ID', Attendees.studentID AS 'Student ID', 
+    Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', 
+    Attendees.adultID AS 'Responsible Chaperone ID', 
+    TrustedAdults.firstName AS 'Responsible Chaperone FName', TrustedAdults.lastName AS 'Responsible Chaperone LName'
+    FROM Attendees
+    JOIN Students ON Attendees.studentID = Students.studentID
+    JOIN TrustedAdults ON Attendees.adultID = TrustedAdults.adultID
     WHERE tripID = ::trip-from-above-filter;
 
 -- Planned Snacks table
 
-SELECT plannedSnacks.plannedSnackID AS 'Planned Snack ID', plannedSnacks.tripID AS 'Trip ID', 
-    plannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', 
-    plannedSnacks.adultID AS 'Snack Bringer ID', 
-    trustedAdults.firstName AS 'Snack Bringer FName',  trustedAdults.lastName AS 'Snack Bringer LName'
-    FROM plannedSnacks
-    JOIN snacks ON plannedSnacks.snackID = snacks.snackID
-    JOIN trustedAdults ON plannedSnacks.adultID = trustedAdults.adultID
+SELECT PlannedSnacks.plannedSnackID AS 'Planned Snack ID', PlannedSnacks.tripID AS 'Trip ID', 
+    PlannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', 
+    PlannedSnacks.adultID AS 'Snack Bringer ID', 
+    TrustedAdults.firstName AS 'Snack Bringer FName',  TrustedAdults.lastName AS 'Snack Bringer LName'
+    FROM PlannedSnacks
+    JOIN Snacks ON PlannedSnacks.snackID = Snacks.snackID
+    JOIN TrustedAdults ON PlannedSnacks.adultID = TrustedAdults.adultID
     WHERE tripID = ::trip-from-above-filter;
 
 -- "Add an Attendee" input form
 
-INSERT INTO attendees
+INSERT INTO Attendees
     (tripID, studentID, adultID)
     VALUES (::tripID, ::studentID, ::adultID);
 
 -- "Add a Planned Snack" input form
 
-INSERT INTO plannedSnacks
+INSERT INTO PlannedSnacks
     (tripID, snackID, adultID)
     VALUES (::tripID, ::studentID, ::adultID);
 
 -- "Modify a Planned Snack" input form
 
-UPDATE plannedSnacks
+UPDATE PlannedSnacks
     SET snackID = ::snackID, 
         tripID = ::tripID, 
         adultID = ::adultID, 
