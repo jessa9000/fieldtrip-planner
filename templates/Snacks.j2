@@ -1,28 +1,123 @@
-    <table>
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Snacks[0].keys() %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+	<div class="table">
+		<table>
+			<td><a href="/">Home</a></td>
+			<td><a href="Students">Students</a></td>
+			<td><a href="TrustedAdults">Trusted Adults</a></td>
+			<td><a href="Allergies">Allergies</a></td>
+			<td><a href="Snacks">Snacks</a></td>
+			<td><a href="Trips">Trips</a></td>
+			<td><a href="TripPlanner">Trip Planner</a></td>
+		</table>
+	</div>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
+	<h1>Snacks</h1>
 
-    <!-- Now, iterate through every snack in Snacks -->
-    {% for snack in Snacks %}
-    <tr>
-        <!-- Then iterate through every key in the current snack dictionary -->
-        {% for key in snack.keys() %}
+	<div>
+        <table>
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the
+                column name -->
+                {% for key in Snacks[0].keys() %}
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{snack[key]}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </table>
+                <!-- Create a <th> tag with the key inside of it, this will be
+                our header row -->
+                <th>{{ key }}</th>
+
+                <!-- End of this for loop -->
+                {% endfor %}
+            </tr>
+
+        <tbody>
+            <!-- Now, iterate through every snack in Snacks -->
+            {% for snack in Snacks %}
+            <tr>
+                <!-- Then iterate through every key in the current snack dictionary -->
+                {% for key in snack.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{snack[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+	</div>
+
+	<br>
+
+	<div class="narrow">		
+		<form>
+			<fieldset>
+				<legend class="bold">Add a Snack:</legend>
+				<label for="snackAdd">Snack Name: </label><br>
+				<input type="text" id="snackAdd" name="snackAdd">
+				<br>
+				<br>
+				<input type="submit" value="Submit" id="snackAddSubmit">
+			</fieldset>
+		</form><br> 
+		<form>
+			<fieldset>
+				<legend class="bold">Remove a Snack:</legend>
+				<label for="snackDelete">Name of Unpopular Snack: </label><br>
+				<input type="text" id="snackDelete" name="snackDelete">
+				<br>
+				<br>
+				<input type="submit" value="Submit" id="snackDeleteSubmit">
+			</fieldset>
+		</form> 
+	</div>
+
+	<h1>FDA Labeled Ingredients</h1>
+
+	<div>
+		<table>
+			<tr>
+				<th>Snack ID</th>
+				<th>Snack Name</th>
+				<th>Allergen ID </th>
+				<th>Allergen</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Trail Mix</td>
+				<td>5</td>
+				<td>Tree Nuts</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Shrimp Crackers</td>
+				<td>4</td>
+				<td>Shellfish</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Shrimp Crackers</td>
+				<td>7</td>
+				<td>Wheat</td>
+			</tr>
+		</table>
+	</div><br>
+	<div class="narrow">		
+		<form>
+			<fieldset>
+				<legend class="bold">Add Labeled Ingredients:</legend>
+				<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
+				<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>			<br>
+				<input type="submit" value="Submit" id="addIngredientSubmit">
+			</fieldset>
+		</form> 
+	</div><br>
+	
+
+</body>
+</html>
