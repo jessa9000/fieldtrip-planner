@@ -13,7 +13,7 @@
 
 # For OSU Flip Servers
 
-host = 'classmysql.engr.oregonstate.edu'      # MUST BE THIS
-user = 'cs-340-ealickj'                       # don't forget the CS_340 prefix
-passwd = '3912'                               # should only be 4 digits if default
-db = 'fieldtrips'       # Jess here - I just wrote 'fieldtrips' here, but not sure what it maps to??                           
+host = 'classmysql.engr.oregonstate.edu'
+user = 'cs340_ealickj'
+passwd = '3912'
+db = 'cs340_ealickj'

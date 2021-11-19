@@ -14,7 +14,7 @@ load_dotenv(find_dotenv())
 host = 'classmysql.engr.oregonstate.edu'
 user = 'cs340_ealickj'
 passwd = '3912'
-db = 'fieldtrips'
+db = 'cs340_ealickj'
 
 def connect_to_database(host = host, user = user, passwd = passwd, db = db):
     '''
