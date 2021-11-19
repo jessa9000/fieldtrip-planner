@@ -1,6 +1,7 @@
 from flask import Flask, render_template, json
 import os
 import database.db_connector as db
+from database.db_connector import connect_to_database, execute_query
 
 # Configuration
 
@@ -9,6 +10,10 @@ app = Flask(__name__)
 db_connection = db.connect_to_database()
 
 # Routes 
+
+@app.route('/hello')
+def hello():
+    return "Hello"
 
 @app.route('/')
 def root():
