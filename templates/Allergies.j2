@@ -1,28 +1,78 @@
-    <table>
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Allergies[0].keys() %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+	<div class="table">
+		<table>
+			<td><a href="/">Home</a></td>
+			<td><a href="Students">Students</a></td>
+			<td><a href="TrustedAdults">Trusted Adults</a></td>
+			<td><a href="Allergies">Allergies</a></td>
+			<td><a href="Snacks">Snacks</a></td>
+			<td><a href="Trips">Trips</a></td>
+			<td><a href="TripPlanner">Trip Planner</a></td>
+		</table>
+	</div>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
+	<h1>Allergies</h1>
 
-    <!-- Now, iterate through every entry in Allergies -->
-    {% for entry in Allergies %}
-    <tr>
-        <!-- Then iterate through every key in the current entry dictionary -->
-        {% for key in entry.keys() %}
+	<div>
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{entry[key]}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </table>
+        <table>
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the
+                column name -->
+                {% for key in Allergies[0].keys() %}
+
+                <!-- Create a <th> tag with the key inside of it, this will be
+                our header row -->
+                <th>{{ key }}</th>
+
+                <!-- End of this for loop -->
+                {% endfor %}
+            </tr>
+
+        <tbody>
+            <!-- Now, iterate through every entry in Allergies -->
+            {% for entry in Allergies %}
+            <tr>
+                <!-- Then iterate through every key in the current entry dictionary -->
+                {% for key in entry.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{entry[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <br>
+
+	<div class="row">
+		<div class="column">
+			<form>
+				<legend class="bold">Add an Allergy</legend>
+				<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
+				<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>
+				<input type="submit" value="Submit" id="addAllergySubmit">
+	
+			  </form> 
+		</div>
+		<div class="column">		
+			<form>
+				<legend class="bold">Add an Allergen</legend>
+				<label for="allergen">Allergen Name: </label><br><input type="text" name="allergen"><br>
+				<input type="submit" value="Submit" id="addAllergenSubmit">	
+			</form> 
+		</div>
+	</div><br>
+
+</body>
+</html>
