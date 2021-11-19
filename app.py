@@ -10,9 +10,9 @@ db_connection = db.connect_to_database()
 
 # Routes 
 
-# @app.route('/')
-# def root():
-#     return render_template("main.j2", people=people_from_app_py)
+@app.route('/')
+def root():
+    return render_template("main.j2")
 
 
 @app.route('/Students')
