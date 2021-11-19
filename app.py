@@ -11,10 +11,6 @@ db_connection = db.connect_to_database()
 
 # Routes 
 
-@app.route('/hello')
-def hello():
-    return "Hello"
-
 @app.route('/')
 def root():
     return render_template("main.j2")
@@ -75,15 +71,16 @@ def Trips():
     results = cursor.fetchall()
     return render_template("Trips.j2", Trips=results)
 
-"""
 @app.route('/TripPlanner')
 def TripPlanner():
- 
+    """
     query = "SELECT * FROM TripPlanner;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
+    
     return render_template("TripPlanner.j2", TripPlanner=results)
-"""
+    """
+    return render_template("TripPlanner.j2")
 
 # Listener
 
