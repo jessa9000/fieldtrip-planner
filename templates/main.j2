@@ -7,55 +7,21 @@
 </head>
 <body>
 
-	{# <div class="table">
-		<table>
-			<td><a href="Home.html">Home</a></td>
-			<td><a href="Students.html">Students</a></td>
-			<td><a href="TrustedAdults.html">Trusted Adults</a></td>
-			<td><a href="Allergies.html">Allergies</a></td>
-			<td><a href="Snacks.html">Snacks</a></td>
-			<td><a href="Trips.html">Trips</a></td>
-			<td><a href="Attendees_and_Trip_Planner.html">Trip Planner</a></td>
-		</table>
-	</div> #}
-
-{# Below is the navigation bar with updated hyperlinks. 
-I left the original table commented out above in case I'm doing something wrong. #}
+{# Below is the navigation bar with updated hyperlinks. #}
 
 	<div class="table">
 		<table>
 			<td><a href="main.j2">Home</a></td>
-			<td><a href="Students.j2">Students</a></td>
-			<td><a href="TrustedAdults.j2">Trusted Adults</a></td>
-			<td><a href="Allergies.j2">Allergies</a></td>
-			<td><a href="Snacks.j2">Snacks</a></td>
-			<td><a href="Trips.j2">Trips</a></td>
-			<td><a href="Trip_Planner.j2">Trip Planner</a></td>
+			<td><a href={{url_for('Students')}}>Students</a></td>
+			<td><a href={{url_for('TrustedAdults')}}>Trusted Adults</a></td>
+			<td><a href={{url_for('Allergies')}}>Allergies</a></td>
+			<td><a href={{url_for('Snacks')}}>Snacks</a></td>
+			<td><a href={{url_for('Trips')}}>Trips</a></td>
+			<td><a href={{url_for('TripPlanner')}}>Trip Planner</a></td>
 		</table>
 	</div>	
 
 	<h1>Ms. Frizzle's Kindergarten Class Field Trip Planner</h1>
-
-{#
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Location</th>
-        <th>Favorite Language</th>
-    </tr>
-    <tbody>
-    {% for item in people %}
-    <tr>
-        <td>{{item['name']}}</td>
-        <td>{{item['age']}}</td>
-        <td>{{item['location']}}</td>
-        <td>{{item['favorite_color']}}</td>
-    </tr>
-    {% endfor %}
-    </table>
-#}
 
 	<p class="wide-center">
 		Welcome to Ms. Frizzle's kindergarten class field trip planner! ~ A database-driven website to help keep track 
