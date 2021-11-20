@@ -85,7 +85,7 @@ def TripPlanner():
 # Listener
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 9322)) 
+    port = int(os.environ.get('PORT', 9321)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     
