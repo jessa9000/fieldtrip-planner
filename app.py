@@ -21,12 +21,14 @@ def Students():
  
     # Write the query and save it to a variable
     query = "SELECT * FROM Students;"
+    print("Test1")
 
     # The way the interface between MySQL and Flask works is by using an
     # object called a cursor. Think of it as the object that acts as the
     # person typing commands directly into the MySQL command line and
     # reading them back to you when it gets results
     cursor = db.execute_query(db_connection=db_connection, query=query)
+    print("Test2")
 
     # The cursor.fetchall() function tells the cursor object to return all
     # the results from the previously executed
@@ -35,6 +37,7 @@ def Students():
     # returned by the fetchall() call to JSON so we can display it on the
     # page.
     results = cursor.fetchall()
+    print("Test3")
 
     # Sends the results back to the web browser.
     return render_template("Students.j2", Students=results)
