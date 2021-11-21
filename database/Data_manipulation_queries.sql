@@ -59,7 +59,7 @@ SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First
     Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen'
     FROM Allergies
     JOIN Students ON Allergies.studentID = Students.studentID
-    JOIN Allergens ON Allergies.allergenID = Sllergens.allergenID;
+    JOIN Allergens ON Allergies.allergenID = Allergens.allergenID;
 
 -- Possible allergens
 
