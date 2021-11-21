@@ -7,3 +7,6 @@ else
   kill $pid
   echo "killed gunicorn deamon on port $Port"
 fi
+
+# Author of this code -- 'takasoft' user on StackOverflow
+# https://stackoverflow.com/questions/14604653/how-to-stop-gunicorn-properly
