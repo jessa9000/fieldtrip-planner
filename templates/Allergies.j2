@@ -53,7 +53,30 @@
         </table>
     </div>
 
-    <br>
+	<h1>Possible Allergens</h1>
+
+	<div>
+		<table>
+		<thead>
+			<tr>
+				<th>Allergen ID</th>
+				<th>Allergen Name</th>
+			</tr>
+
+        <tbody>
+            <!-- Now, iterate through every row in Allergens -->
+            {% for row in Allergens %}
+            <tr>
+                <!-- Then iterate through every key in the current row dictionary -->
+                {% for key in row.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{row[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+		</table>
+	</div><br>
 
 	<div class="row">
 		<div class="column">
