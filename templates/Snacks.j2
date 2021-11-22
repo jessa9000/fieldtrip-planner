@@ -80,32 +80,34 @@
 	<h1>FDA Labeled Ingredients</h1>
 
 	<div>
-		<table>
-			<tr>
-				<th>Snack ID</th>
-				<th>Snack Name</th>
-				<th>Allergen ID </th>
-				<th>Allergen</th>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Trail Mix</td>
-				<td>5</td>
-				<td>Tree Nuts</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Shrimp Crackers</td>
-				<td>4</td>
-				<td>Shellfish</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Shrimp Crackers</td>
-				<td>7</td>
-				<td>Wheat</td>
-			</tr>
-		</table>
+        <table>
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the
+                column name -->
+                {% for key in Ingredients[0].keys() %}
+
+                <!-- Create a <th> tag with the key inside of it, this will be
+                our header row -->
+                <th>{{ key }}</th>
+
+                <!-- End of this for loop -->
+                {% endfor %}
+            </tr>
+
+        <tbody>
+            <!-- Now, iterate through every item in Ingredients -->
+            {% for item in Ingredients %}
+            <tr>
+                <!-- Then iterate through every key in the current item dictionary -->
+                {% for key in item.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{item[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
 	</div><br>
 	<div class="narrow">		
 		<form>

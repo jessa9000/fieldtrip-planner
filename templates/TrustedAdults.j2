@@ -19,18 +19,54 @@
 		</table>
 	</div>
 
-	<h1>Ms. Frizzle's Kindergarten Class Field Trip Planner</h1>
+	<h1>Trusted Adults</h1>
 
-	<p class="wide-center">
-		Welcome to Ms. Frizzle's kindergarten class field trip planner! ~ A database-driven website to help keep track 
-		of Ms. Frizzle's gifted and unruly students on exciting adventures. Herein you will find web pages to keep track of 
-		students, their emergency contacts, planned field trips and parent chaperones, as well as detailed information 
-		about allergens that students with allergies may need to avoid for particular trip snacks. (Image courtesy of 
-		Scholastic Productions' "The Magic School Bus.")
-	</p><br>
+	<div>
 
-	<img class="list" src="https://i.imgur.com/AjKnYUE.jpeg" alt="TAKE CHANCES MAKE MISTAKES GET MESSY">
+        <table>
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first row to get the
+                column name -->
+                {% for key in TrustedAdults[0].keys() %}
 
+                <!-- Create a <th> tag with the key inside of it, this will be
+                our header row -->
+                <th>{{ key }}</th>
+
+                <!-- End of this for loop -->
+                {% endfor %}
+            </tr>
+
+        <tbody>
+            <!-- Now, iterate through every row in TrustedAdults -->
+            {% for row in TrustedAdults %}
+            <tr>
+                <!-- Then iterate through every key in the current row dictionary -->
+                {% for key in row.keys() %}
+
+                <!-- Create a <td> element with the value of that key in it -->
+                <td>{{row[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+	</div>
+
+	<br>
+	
+	<div class="narrow">		
+		<form>
+			<legend class="bold">Add a Trusted Adult</legend>
+			<label for="fname">First Name: </label><br><input type="text" id="fname" name="fname"><br>
+			<label for="lname">Last Name: </label><br><input type="text" id="lname" name="lname"><br>
+			<label for="power">Primary Phone: </label><br><input type="text" id="power" name="power"><br><br>
+
+			<input type="submit" value="Submit" id="addAdultSubmit">
+
+		  </form> 
+	</div>
 	
 </body>
 </html>
