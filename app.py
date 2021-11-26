@@ -10,6 +10,11 @@ app = Flask(__name__)
 
 db_connection = db.connect_to_database()
 
+# Trying Ed #203 again -- putting a copy here and at bottom, not sure if it matters:
+
+db_connection.ping(True)
+cur=db_connection.cursor()
+
 # Routes 
 
 @app.route('/')
@@ -278,9 +283,29 @@ def TripPlanner():
 
 # Listener
 
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 9321)) 
-    #                                 ^^^^
-    #              You can replace this number with any valid port
+# if __name__ == "__main__":
+#     port = int(os.environ.get('PORT', 9321)) 
+#     #                                 ^^^^
+#     #              You can replace this number with any valid port
     
-    app.run(port=port, debug=True) 
+#     app.run(port=port, debug=True) 
+
+# Trying something that was described in Ed #167 
+# to see if it makes the crashing gunicorn issue any better.
+
+if __name__ == "__main__":
+    
+    app.run(host="flip3.engr.oregonstate.edu", port=9321, debug=True) 
+
+# Tried to follow instructions at the link provided in Ed #203: 
+# First time didn't help cuz aprntly I did it wrong, got this AttributeError:
+# 'function' object has no attribute 'ping'
+
+# connect_to_database.ping(True)
+# cur=connect_to_database.cursor()
+
+# So I did it again but used db_connection instead.
+# Seems to be working now but I'm leaving these comments here till I'm sure.
+
+db_connection.ping(True)
+cur=db_connection.cursor()
