@@ -55,21 +55,28 @@
 	<br>
 
 	<div class="narrow">		
-		<form>
+		<form action="/Snacks" method="POST">
 			<fieldset>
+				<input type="hidden" name="add" value="addSnacks">
 				<legend class="bold">Add a Snack:</legend>
 				<label for="snackAdd">Snack Name: </label><br>
-				<input type="text" id="snackAdd" name="snackAdd">
+				<input type="text" id="snackAdd" name="snackAdd" required="required">
 				<br>
 				<br>
 				<input type="submit" value="Submit" id="snackAddSubmit">
 			</fieldset>
 		</form><br> 
-		<form>
+		<form action="/Snacks" method="POST">
 			<fieldset>
+				<input type="hidden" name="add" value="removeSnacks">
 				<legend class="bold">Remove a Snack:</legend>
 				<label for="snackDelete">Name of Unpopular Snack: </label><br>
-				<input type="text" id="snackDelete" name="snackDelete">
+					<select name="snackSelect">
+						<option value="">Please select a Snack</option>
+					{% for row in Snacks %}
+						<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+					{% endfor %}
+					</select>
 				<br>
 				<br>
 				<input type="submit" value="Submit" id="snackDeleteSubmit">
@@ -110,11 +117,24 @@
         </table>
 	</div><br>
 	<div class="narrow">		
-		<form>
+		<form action="/Snacks" method="POST">
 			<fieldset>
+				<input type="hidden" name="add" value="addIngredients">
 				<legend class="bold">Add Labeled Ingredients:</legend>
-				<label for="snackID">Snack ID: </label><br><input type="text" name="snackID"><br>
-				<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>			<br>
+				<label for="snackID">Snack ID: </label><br>
+					<select name="addAllergenSnack">
+						<option value="">Please select a Snack</option>
+					{% for row in Snacks %}
+						<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+					{% endfor %}
+					</select> <br>
+				<label for="allergenID">Allergen ID: </label><br>
+					<select name="addSnackAllergen">
+						<option value="">Please select an Allergen</option>
+					{% for row in Allergens %}
+						<option value="{{row["allergenID"]}}">{{row["name"]}}</option>
+					{% endfor %}
+					</select> <br>
 				<input type="submit" value="Submit" id="addIngredientSubmit">
 			</fieldset>
 		</form> 
