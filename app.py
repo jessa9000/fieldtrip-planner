@@ -1,4 +1,5 @@
 from flask import Flask, render_template, json
+from flask import request
 import os
 import database.db_connector as db
 from database.db_connector import connect_to_database, execute_query
@@ -21,13 +22,47 @@ def root():
     return render_template("main.j2")
 
 
-@app.route('/Students')
+@app.route('/Students', methods=["POST", "GET"])
 def Students():
- 
+
+    if request.method == "POST":
+        # Student form stuff
+        if request.form["add"] == "addStudents":
+            fname = request.form['fname']
+            lname = request.form.get('lname', default=None) # request.form.get() method is used to implement default values if a form entry can be left blank
+            year = request.form['year'] # I couldn't get request.form.get() working for this one so let's just change it to NOT NULL :)
+            power = request.form.get('power', default=None)
+            allergyFlag = request.form.get('allergyFlag', default=0)
+            allergies = request.form.getlist('student-allergies', type=int)
+
+            queryInsertStudents = "INSERT INTO Students (firstName, lastName, schoolYear, allergiesFlag, specialPower) VALUES (%s, %s, %s, %s, %s);"
+            dataInsertStudents = (fname, lname, year, allergyFlag, power)
+            execute_query(db_connection, queryInsertStudents, dataInsertStudents)
+
+            # TODO - figure out how to update Allergies table from multiple select
+            if allergyFlag == 1:
+                newStudentInsert = "SELECT LAST_INSERT_ID();"
+                newStudentID = newStudentInsert["studentID"]
+
+                for allergy in allergies:
+                    queryInsertAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
+                    dataInsertAllergies = (newStudentID, allergy)
+                    execute_query(db_connection, queryInsertAllergies, dataInsertAllergies)
+
+        # Emergency Contacts form stuff
+        elif request.form["add"] == "addEmergencyContacts":
+            studentID = request.form['addEmergencyContactsStudents']
+            adultID = request.form['addEmergencyContactsTrustedAdults']
+
+            queryInsertEmergencyContacts = "INSERT INTO EmergencyContacts (studentID, adultID) VALUES (%s, %s);"
+            dataInsertEmergencyContacts = (studentID, adultID)
+            execute_query(db_connection, queryInsertEmergencyContacts, dataInsertEmergencyContacts)
+
     # Write the query and save it to a variable
     queryStudents = "SELECT studentID AS 'Student ID', firstName AS 'First Name', lastName AS 'Last Name', schoolYear AS 'School Year', allergiesFlag AS 'Any Allergies', specialPower AS 'Special Power' FROM Students;"
     queryEmergencyContacts = "SELECT studentID AS 'Student ID', adultID AS 'Adult ID' FROM EmergencyContacts;"
     queryAllergens = "SELECT allergenID, name FROM Allergens;"
+    queryTrustedAdults = "SELECT adultID, firstName, lastName FROM TrustedAdults;"
     print("Test1")
 
     # The way the interface between MySQL and Flask works is by using an
@@ -37,6 +72,7 @@ def Students():
     cursorStudents = db.execute_query(db_connection=db_connection, query=queryStudents)
     cursorEmergencyContacts = db.execute_query(db_connection=db_connection, query=queryEmergencyContacts)
     cursorAllergens = db.execute_query(db_connection=db_connection, query=queryAllergens)
+    cursorTrustedAdults = db.execute_query(db_connection=db_connection, query=queryTrustedAdults)
     print("Test2")
 
     # The cursor.fetchall() function tells the cursor object to return all
@@ -48,58 +84,201 @@ def Students():
     resultsStudents = cursorStudents.fetchall()
     resultsEmergencyContacts = cursorEmergencyContacts.fetchall()
     resultsAllergens = cursorAllergens.fetchall()
+    resultsTrustedAdults = cursorTrustedAdults.fetchall()
     print("Test3")
 
     # Sends the results back to the web browser.
-    return render_template("Students.j2", Students=resultsStudents, Allergens=resultsAllergens, EmergencyContacts=resultsEmergencyContacts)
+    return render_template("Students.j2", Students=resultsStudents, Allergens=resultsAllergens, EmergencyContacts=resultsEmergencyContacts, TrustedAdults=resultsTrustedAdults)
 
-@app.route('/TrustedAdults')
+@app.route('/TrustedAdults', methods=["POST", "GET"])
 def TrustedAdults():
- 
+
+    # Form stuff
+    if request.method == "POST":
+        fname = request.form['fname']
+        lname = request.form['lname']
+        phone = request.form['phone']
+
+        queryInsertAdults = "INSERT INTO TrustedAdults (firstName, lastName, primaryPhone) VALUES (%s, %s, %s);"
+        dataInsertAdults = (fname, lname, phone)
+        execute_query(db_connection, queryInsertAdults, dataInsertAdults)
+
+    # Retrieve table data
     query = "SELECT adultID AS 'Trusted Adult ID', firstName AS 'First Name', lastName AS 'Last Name', primaryPhone AS 'Primary Phone' FROM TrustedAdults;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("TrustedAdults.j2", TrustedAdults=results)
 
-@app.route('/Allergies')
+@app.route('/Allergies', methods=["POST", "GET"])
 def Allergies():
  
+    # Form stuff
+    if request.method == "POST":
+        # Student-Allergy form stuff
+        if request.form["add"] == "addStudentsAllergies":
+            studentID = request.form['addAllergyStudents']
+            allergenID = request.form['addAllergyAllergens']
+
+            queryInsertStudentsAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
+            dataInsertStudentsAllergies = (studentID, allergenID)
+            execute_query(db_connection, queryInsertStudentsAllergies, dataInsertStudentsAllergies)
+
+        # Allergen form stuff
+        elif request.form["add"] == "addAllergens":
+            allergenName = request.form['allergenName']
+
+            queryInsertAllergen = "INSERT INTO Allergens (name) VALUES (%s);"
+            dataInsertAllergen = (allergenName,) # PROTIP this needs to be a tuple, so the comma has to be there even for a list of one
+            execute_query(db_connection, queryInsertAllergen, dataInsertAllergen)
+
+    # Retrieve table data
     queryAllergies = "SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen' FROM Allergies JOIN Students ON Allergies.studentID = Students.studentID JOIN Allergens ON Allergies.allergenID = Allergens.allergenID;"
     queryAllergens = "SELECT allergenID AS 'Allergen ID', name AS 'Allergen Name' FROM Allergens;"
+    queryStudents = "SELECT studentID, firstName, lastName FROM Students;"
     cursorAllergies = db.execute_query(db_connection=db_connection, query=queryAllergies)
     cursorAllergens = db.execute_query(db_connection=db_connection, query=queryAllergens)
+    cursorStudents = db.execute_query(db_connection=db_connection, query=queryStudents)
     resultsAllergies = cursorAllergies.fetchall()
     resultsAllergens = cursorAllergens.fetchall()
-    return render_template("Allergies.j2", Allergies=resultsAllergies, Allergens=resultsAllergens)
+    resultsStudents = cursorStudents.fetchall()
+    return render_template("Allergies.j2", Allergies=resultsAllergies, Allergens=resultsAllergens, Students=resultsStudents)
 
-@app.route('/Snacks')
+@app.route('/Snacks', methods=["POST", "GET"])
 def Snacks():
- 
+
+    # Form stuff
+    if request.method == "POST":
+        # Add Snack form stuff
+        if request.form["add"] == "addSnacks":
+            snackName = request.form['snackAdd']
+
+            queryInsertSnacks = "INSERT INTO Snacks (name) VALUES (%s);"
+            dataInsertSnacks = (snackName,)
+            execute_query(db_connection, queryInsertSnacks, dataInsertSnacks)
+
+        # Remove Snack form stuff
+        elif request.form["add"] == "removeSnacks":
+            snackID = request.form['snackSelect']
+
+            queryDeleteSnack = "DELETE FROM Snacks WHERE snackID = %s;"
+            dataDeleteSnack = (snackID,)
+            execute_query(db_connection, queryDeleteSnack, dataDeleteSnack)
+
+         # Add Ingredients form stuff
+        elif request.form["add"] == "addIngredients":
+            snackID = request.form['addAllergenSnack']
+            allergenID = request.form['addSnackAllergen']
+
+            queryInsertIngredients = "INSERT INTO Ingredients (snackID, allergenID) VALUES (%s, %s);"
+            dataInsertIngredients = (snackID, allergenID)
+            execute_query(db_connection, queryInsertIngredients, dataInsertIngredients)
+
+    # Retrieve table data
     querySnacks = "SELECT snackID AS 'Snack ID', name AS 'Snack Name' FROM Snacks;"
     queryIngredients = "SELECT Ingredients.snackID AS 'Snack ID', Snacks.name AS 'Snack Name', Ingredients.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen' FROM Ingredients JOIN Snacks ON Ingredients.snackID = Snacks.snackID JOIN Allergens ON Ingredients.allergenID = Allergens.allergenID;"
+    queryAllergens = "SELECT * FROM Allergens;"
     cursorSnacks = db.execute_query(db_connection=db_connection, query=querySnacks)
     cursorIngredients = db.execute_query(db_connection=db_connection, query=queryIngredients)
+    cursorAllergens = db.execute_query(db_connection=db_connection, query=queryAllergens)
     resultsSnacks = cursorSnacks.fetchall()
     resultsIngredients = cursorIngredients.fetchall()
-    return render_template("Snacks.j2", Snacks=resultsSnacks, Ingredients=resultsIngredients)
+    resultsAllergens = cursorAllergens.fetchall()
+    return render_template("Snacks.j2", Snacks=resultsSnacks, Ingredients=resultsIngredients, Allergens=resultsAllergens)
 
-@app.route('/Trips')
+@app.route('/Trips', methods=["POST", "GET"])
 def Trips():
- 
+
+    # Form stuff
+    if request.method == "POST":
+
+        tripID = request.form['selectUpdateTrip']
+        tripName = request.form['tripName']
+        street = request.form['street']
+        city = request.form['city']
+        state = request.form['state']
+        zipCode = request.form['zipCode']
+        date = request.form['date']
+        meetTime = request.form.get('meetTime', default=None)
+        returnTime = request.form.get('returnTime', default=None)
+
+        # Add Trip form stuff
+        if request.form["add"] == "addTrips":
+            queryInsertTrips = "INSERT INTO Trips (name, street, city, state, zipCode, date, meetTime, returnTime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+            dataInsertTrips = (tripName, street, city, state, zipCode, date, meetTime, returnTime)
+            execute_query(db_connection, queryInsertTrips, dataInsertTrips)
+
+        # Update Trip form stuff
+        elif request.form["add"] == "updateTrips":
+            queryUpdateTrip = "UPDATE Trips SET name = (%s), street = (%s), city = (%s), state = (%s), zipCode = (%s), date = (%s), meetTime = (%s), returnTime = (%s) WHERE tripID = (%s);"
+            dataUpdateTrip = (tripName, street, city, state, zipCode, date, meetTime, returnTime, tripID)
+            execute_query(db_connection, queryUpdateTrip, dataUpdateTrip)
+
+    # Retrieve table data
     query = "SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State', zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' FROM Trips;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("Trips.j2", Trips=results)
 
-@app.route('/TripPlanner')
+@app.route('/TripPlanner', methods=["POST", "GET"])
 def TripPlanner():
-    """
-    query = "SELECT * FROM TripPlanner;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
-    
-    return render_template("TripPlanner.j2", TripPlanner=results)
-    """
+
+    # Trip Selector
+    if request.method == "GET":
+        selectTripPlanning = request.form['selectTrip']
+
+        # Retrieve table data using selected Trip
+        queryTripPlanning = "SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State', zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' FROM Trips WHERE tripID = " + str(selectTripPlanning) + ";"
+        queryAttendees = "SELECT Attendees.tripID AS 'Trip ID', Attendees.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Attendees.adultID AS 'Responsible Chaperone ID', TrustedAdults.firstName AS 'Responsible Chaperone FName', TrustedAdults.lastName AS 'Responsible Chaperone LName' FROM Attendees JOIN Students ON Attendees.studentID = Students.studentID JOIN TrustedAdults ON Attendees.adultID = TrustedAdults.adultID WHERE tripID = " + str(selectTripPlanning) + ";"
+        queryPlannedSnack = "SELECT PlannedSnacks.plannedSnackID AS 'Planned Snack ID', PlannedSnacks.tripID AS 'Trip ID', PlannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', PlannedSnacks.adultID AS 'Snack Bringer ID', TrustedAdults.firstName AS 'Snack Bringer FName',  TrustedAdults.lastName AS 'Snack Bringer LName' FROM PlannedSnacks JOIN Snacks ON PlannedSnacks.snackID = Snacks.snackID JOIN TrustedAdults ON PlannedSnacks.adultID = TrustedAdults.adultID WHERE tripID = " + str(selectTripPlanning) + ";"
+        queryTrips = "SELECT tripID, name FROM Trips;"
+        cursorTripPlanning = db.execute_query(db_connection=db_connection, query=queryTripPlanning)
+        cursorAttendees = db.execute_query(db_connection=db_connection, query=queryAttendees)
+        cursorPlannedSnack = db.execute_query(db_connection=db_connection, query=queryPlannedSnack)
+        cursorTrips = db.execute_query(db_connection=db_connection, query=queryTrips)
+        resultsTripPlanning = cursorTripPlanning.fetchall()
+        resultsAttendees = cursorAttendees.fetchall()
+        resultsPlannedSnack = cursorPlannedSnack.fetchall()
+        resultsTrips = cursorTrips.fetchall()
+        return render_template("TripPlanner.j2", TripPlanning=resultsTripPlanning, Attendees=resultsAttendees, PlannedSnack=resultsPlannedSnack, Trips=resultsTrips)
+
+    # Form stuff
+    if request.method == "POST":
+        
+        # Add Attendee form stuff
+        if request.form["add"] == "addAttendee":
+            attendeeTrip = request.form['attendeeTrip']
+            attendeeStudent = request.form['attendeeStudent']
+            attendeeChaperone = request.form['attendeeChaperone']
+
+            queryInsertAttendee = "INSERT INTO Attendees (tripID, studentID, adultID) VALUES (%s, %s, %s);"
+            dataInsertAttendee = (attendeeTrip, attendeeStudent, attendeeChaperone)
+            execute_query(db_connection, queryInsertAttendee, dataInsertAttendee)
+
+        # Add Planned Snack form stuff
+        elif request.form["add"] == "addPlannedSnack":
+            plannedSnackTrip = request.form['plannedSnackTrip']
+            plannedSnackName = request.form['plannedSnackName']
+            plannedSnackBringer = request.form['plannedSnackBringer']
+
+            queryInsertPlannedSnack = "INSERT INTO PlannedSnacks (tripID, snackID, adultID) VALUES (%s, %s, %s);"
+            dataInsertPlannedSnack = (plannedSnackTrip, plannedSnackName, plannedSnackBringer)
+            execute_query(db_connection, queryInsertPlannedSnack, dataInsertPlannedSnack)
+
+        # Update Planned Snack form stuff
+        elif request.form["add"] == "updatePlannedSnack":
+            selectUpdatePlannedSnack = request.form['selectUpdatePlannedSnack']
+            updatePlannedSnackTrip = request.form['updatePlannedSnackTrip']
+            updatePlannedSnackName = request.form['updatePlannedSnackName']
+            if updatePlannedSnackName == "":
+                updatePlannedSnackName = None
+            updateSnackBringer = request.form['updateSnackBringer']
+            if updateSnackBringer == "":
+                updateSnackBringer = None
+
+            queryUpdatePlannedSnack = "UPDATE PlannedSnacks SET snackID = (%s), tripID = (%s), adultID = (%s), WHERE plannedSnackID = (%s);"
+            dataUpdatePlannedSnack = (updatePlannedSnackName, updatePlannedSnackTrip, updateSnackBringer, selectUpdatePlannedSnack)
+            execute_query(db_connection, queryUpdatePlannedSnack, dataUpdatePlannedSnack)
+
     return render_template("TripPlanner.j2")
 
 # Listener

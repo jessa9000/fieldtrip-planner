@@ -53,25 +53,26 @@
 	</div>
     <br>
 	<div class="narrow">		
-		<form id="addStudent" action="/URL-TO-BE-DETERMINED" method="post">
+		<form action="/Students" method="POST">
+			<input type="hidden" name="add" value="addStudents">
 			<legend class="bold">Add a Student</legend>
-			<label for="fname">First Name: </label><br><input type="text" id="fname" name="fname"><br>
+			<label for="fname">First Name: </label><br><input type="text" id="fname" name="fname" required="required"><br>
 			<label for="lname">Last Name: </label><br><input type="text" id="lname" name="lname"><br>
-			<label for="year">School Year: </label><br><input type="text" id="year" name="year"><br>
+			<label for="year">School Year: </label><br><input type="text" id="year" name="year" required="required"><br>
 			<label for="power">Special Power: </label><br><input type="text" id="power" name="power"><br><br>
 			<fieldset>
 				<legend>Does the student have any allergies?</legend>
-				<label><input type="radio" name="allergyFlag" value="Yes">Yes</label><br>
-				<label><input type="radio" name="allergyFlag" value="No">No</label><br><br>
+				<label><input type="radio" name="allergyFlag" value=1>Yes</label><br>
+				<label><input type="radio" name="allergyFlag" value=0>No</label><br><br>
 				<label for="student-allergies">Add student allergies:</label><br>	
 				<select name="student-allergies" multiple>
-					{% for row in Allergens %}
-						<option value="{{row[0]}}">{{row[1]}}</option>  <!-- TODO -->
-					{% endfor %}
+				{% for row in Allergens %}
+					<option value="{{row["allergenID"]}}">{{row["name"]}}</option>
+				{% endfor %}
 				</select><br>
 				<label>(Ctrl+click to add multiple. Click <a href="Allergies" class="bold">here</a> if allergy is not listed.</label>
 			</fieldset><br>
-			<input type="submit" value="Submit" id="addStudentSubmit">
+			<input type="submit" value="Submit" name="addStudentSubmit">
 		  </form>  
 	</div>
 
@@ -109,13 +110,28 @@
 	</div>
 
 	<div class="narrow-right">		
-		<form>
+		<form action="/Students" method="POST">
+			<input type="hidden" name="add" value="addEmergencyContacts">
 			<legend class="bold">Add an Emergency Contact</legend>
-			<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
-			<label for="adultID">Adult ID: </label><br><input type="text" name="adultID"><br>
-			<input type="submit" value="Submit" id="addEmerContactSubmit">
+			<label for="student">Student: </label><br>
+				<select name="addEmergencyContactsStudents">
+					<option value="">Please select a Student</option>
+				{% for row in Students %}
+					<option value="{{row["Student ID"]}}">{{row["First Name"]}} {{row["Last Name"]}}</option>
+				{% endfor %}
+				</select> <br>
+			<label for="adult">Adult: </label><br>
+				<select name="addEmergencyContactsTrustedAdults">
+					<option value="">Please select an Adult</option>
+				{% for row in TrustedAdults %}
+					<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
+				{% endfor %}
+				</select>			
+			<br>
 
-		  </form> 
+			<input type="submit" value="Submit" name="addEmerContactSubmit">
+
+		</form> 
 	</div>
 
 </body>

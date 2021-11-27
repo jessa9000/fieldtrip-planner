@@ -80,19 +80,32 @@
 
 	<div class="row">
 		<div class="column">
-			<form>
+			<form action="/Allergies" method="POST">
+				<input type="hidden" name="add" value="addStudentsAllergies">
 				<legend class="bold">Add an Allergy</legend>
-				<label for="studentID">Student ID: </label><br><input type="text" name="studentID"><br>
-				<label for="allergenID">Allergen ID: </label><br><input type="text" name="allergenID"><br>
+				<label for="student">Student: </label><br>
+					<select name="addAllergyStudents">
+						<option value="">Please select a Student</option>
+					{% for row in Students %}
+						<option value="{{row["studentID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
+					{% endfor %}
+					</select> <br>
+				<label for="allergen">Allergen: </label><br>
+					<select name="addAllergyAllergens">
+						<option value="">Please select an Allergen</option>
+					{% for row in Allergens %}
+						<option value="{{row["Allergen ID"]}}">{{row["Allergen Name"]}}</option>
+					{% endfor %}
+					</select> <br>
 				<input type="submit" value="Submit" id="addAllergySubmit">
-	
-			  </form> 
+			</form> 
 		</div>
 		<div class="column">		
-			<form>
+			<form action="/Allergies" method="POST">
+				<input type="hidden" name="add" value="addAllergens">
 				<legend class="bold">Add an Allergen</legend>
-				<label for="allergen">Allergen Name: </label><br><input type="text" name="allergen"><br>
-				<input type="submit" value="Submit" id="addAllergenSubmit">	
+				<label for="allergenName">Allergen Name: </label><br><input type="text" id="allergenName" name="allergenName" required="required"><br>
+				<input type="submit" value="Submit" id="addAllergenSubmit">
 			</form> 
 		</div>
 	</div><br>
