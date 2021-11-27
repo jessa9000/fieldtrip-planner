@@ -28,6 +28,13 @@ form{
 	background: linear-gradient(to right, rgb(168, 168, 209), rgb(245, 245, 111), rgb(168, 168, 209));
 }
 
+img{
+	border: 1px solid;
+	border-color: rgb(129, 115, 99);
+	border-radius: 20px;
+	box-shadow: 4px 6px 20px rgb(0 0 0 / 0.6);
+}
+
 div.table{
 	background-color: lightgray;
 	width: 100%;
