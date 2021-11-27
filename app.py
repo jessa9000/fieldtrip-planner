@@ -59,7 +59,9 @@ def Students():
             execute_query(db_connection, queryInsertEmergencyContacts, dataInsertEmergencyContacts)
 
     # Write the query and save it to a variable
-    queryStudents = "SELECT studentID AS 'Student ID', firstName AS 'First Name', lastName AS 'Last Name', schoolYear AS 'School Year', allergiesFlag AS 'Any Allergies', specialPower AS 'Special Power' FROM Students;"
+    queryStudents = "SELECT studentID AS 'Student ID', firstName AS 'First Name', lastName AS 'Last Name', \
+        schoolYear AS 'School Year', (CASE WHEN allergiesFlag = 1 THEN 'Yes' ELSE 'No' END) AS 'Any Allergies', \
+            specialPower AS 'Special Power' FROM Students;"
     queryEmergencyContacts = "SELECT studentID AS 'Student ID', adultID AS 'Adult ID' FROM EmergencyContacts;"
     queryAllergens = "SELECT allergenID, name FROM Allergens;"
     queryTrustedAdults = "SELECT adultID, firstName, lastName FROM TrustedAdults;"
