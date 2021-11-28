@@ -176,6 +176,9 @@ video {
 	clear: both;
 }
 
+/* Initial guidance for the vertical line styling courtesy of geeksforgeeks.com
+ https://www.geeksforgeeks.org/how-to-make-a-vertical-line-using-html/ */
+
 .vertical-line{
 	border-left: 2px solid black;
 	height: 60%;
