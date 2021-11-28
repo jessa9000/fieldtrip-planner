@@ -36,6 +36,10 @@ form{
 
 }
 
+input.short{
+	width: 9em;
+}
+
 img{
 	border: 1px solid;
 	border-color: rgb(129, 115, 99);
