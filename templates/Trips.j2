@@ -21,42 +21,8 @@
 
 	<h1>Trips</h1>
 
-	<div>
-
-        <table>
-        <thead>
-            <tr>
-                <!-- Iterate through each key in the first row to get the
-                column name -->
-                {% for key in Trips[0].keys() %}
-
-                <!-- Create a <th> tag with the key inside of it, this will be
-                our header row -->
-                <th>{{ key }}</th>
-
-                <!-- End of this for loop -->
-                {% endfor %}
-            </tr>
-
-        <tbody>
-            <!-- Now, iterate through every row in Trips -->
-            {% for row in Trips %}
-            <tr>
-                <!-- Then iterate through every key in the current row dictionary -->
-                {% for key in row.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{row[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-	</div>
-
-	<br>
-
 	<div class="row">
-		<div class="column"> 		
+		<div class="column1">
 			<form action="/Trips" method="POST">
 				<input type="hidden" name="add" value="addTrips">
 				<legend class="bold">Add a Trip</legend>
@@ -70,14 +36,9 @@
 				<label for="returnTime">Return Time: </label><br><input type="time" id="returnTime" name="returnTime"><br><br>
 				<input type="submit" value="Submit" id="addTripSubmit">
 			</form> 
-		</div>
-
-
-		<div class="column">
 			<form action="/Trips" method="POST">
 				<input type="hidden" name="add" value="updateTrips">
 				<legend class="bold">Modify a Trip</legend>
-				<label for="tripID">Trip ID: </label><br>
 					<select name="selectUpdateTrip">
 						<option value="">Please select a Trip</option>
 					{% for row in Trips %}
@@ -95,7 +56,37 @@
 				<input type="submit" value="Submit" id="modifyTripSubmit">	
 			</form> 
 		</div>
-	  </div><br>
-      
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<!-- Iterate through each key in the first row to get the
+					column name -->
+					{% for key in Trips[0].keys() %}
+
+					<!-- Create a <th> tag with the key inside of it, this will be
+					our header row -->
+					<th>{{ key }}</th>
+
+					<!-- End of this for loop -->
+					{% endfor %}
+				</tr>
+
+			<tbody>
+				<!-- Now, iterate through every row in Trips -->
+				{% for row in Trips %}
+				<tr>
+					<!-- Then iterate through every key in the current row dictionary -->
+					{% for key in row.keys() %}
+
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{row[key]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+     
 </body>
 </html>
