@@ -29,6 +29,13 @@ form{
 	text-align: center;
 }
 
+.long-form{
+	text-align: right;
+	padding-right: 15px;
+	background: linear-gradient(to right, rgb(245, 245, 111), rgb(168, 168, 209));
+
+}
+
 img{
 	border: 1px solid;
 	border-color: rgb(129, 115, 99);
@@ -57,7 +64,7 @@ table{
 	margin-left: 2%;
 }
 
-.narrow{
+/* .narrow{
 	width: 25%
 	}
 
@@ -74,7 +81,7 @@ table{
 .two-third{
 	float: left;
 	width: 66%
-}
+} */
 
 .margin-top{
 	margin-top: 10px;
