@@ -21,65 +21,8 @@
 
 	<h1>Allergies</h1>
 
-	<div>
-
-        <table>
-        <thead>
-            <tr>
-                <!-- Iterate through each key in the first entry to get the
-                column name -->
-                {% for key in Allergies[0].keys() %}
-
-                <!-- Create a <th> tag with the key inside of it, this will be
-                our header row -->
-                <th>{{ key }}</th>
-
-                <!-- End of this for loop -->
-                {% endfor %}
-            </tr>
-
-        <tbody>
-            <!-- Now, iterate through every entry in Allergies -->
-            {% for entry in Allergies %}
-            <tr>
-                <!-- Then iterate through every key in the current entry dictionary -->
-                {% for key in entry.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{entry[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-
-	<h1>Possible Allergens</h1>
-
-	<div>
-		<table>
-		<thead>
-			<tr>
-				<th>Allergen ID</th>
-				<th>Allergen Name</th>
-			</tr>
-
-        <tbody>
-            <!-- Now, iterate through every row in Allergens -->
-            {% for row in Allergens %}
-            <tr>
-                <!-- Then iterate through every key in the current row dictionary -->
-                {% for key in row.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{row[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-		</table>
-	</div><br>
-
 	<div class="row">
-		<div class="column">
+		<div class="column1">
 			<form action="/Allergies" method="POST">
 				<input type="hidden" name="add" value="addStudentsAllergies">
 				<legend class="bold">Add an Allergy</legend>
@@ -100,13 +43,70 @@
 				<input type="submit" value="Submit" id="addAllergySubmit">
 			</form> 
 		</div>
-		<div class="column">		
+
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<!-- Iterate through each key in the first entry to get the
+					column name -->
+					{% for key in Allergies[0].keys() %}
+
+					<!-- Create a <th> tag with the key inside of it, this will be
+					our header row -->
+					<th>{{ key }}</th>
+
+					<!-- End of this for loop -->
+					{% endfor %}
+				</tr>
+			<tbody>
+				<!-- Now, iterate through every entry in Allergies -->
+				{% for entry in Allergies %}
+				<tr>
+					<!-- Then iterate through every key in the current entry dictionary -->
+					{% for key in entry.keys() %}
+
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{entry[key]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<h1>Possible Allergens</h1>
+
+	<div class="row">
+		<div class="column1">
 			<form action="/Allergies" method="POST">
 				<input type="hidden" name="add" value="addAllergens">
 				<legend class="bold">Add an Allergen</legend>
 				<label for="allergenName">Allergen Name: </label><br><input type="text" id="allergenName" name="allergenName" required="required"><br>
 				<input type="submit" value="Submit" id="addAllergenSubmit">
 			</form> 
+		</div>
+		<div class="column2 vertical-line">
+			<table class="data-table">
+				<thead>
+					<tr>
+						<th>Allergen ID</th>
+						<th>Allergen Name</th>
+					</tr>
+
+				<tbody>
+					<!-- Now, iterate through every row in Allergens -->
+					{% for row in Allergens %}
+					<tr>
+						<!-- Then iterate through every key in the current row dictionary -->
+						{% for key in row.keys() %}
+
+						<!-- Create a <td> element with the value of that key in it -->
+						<td>{{row[key]}}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+			</table>
 		</div>
 	</div><br>
 
