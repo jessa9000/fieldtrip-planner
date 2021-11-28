@@ -21,125 +21,127 @@
 
 	<h1>Snacks</h1>
 
-	<div>
-        <table>
-        <thead>
-            <tr>
-                <!-- Iterate through each key in the first entry to get the
-                column name -->
-                {% for key in Snacks[0].keys() %}
+	<div class="row">
+		<div class="column1">
+			<form action="/Snacks" method="POST">
+				<fieldset>
+					<input type="hidden" name="add" value="addSnacks">
+					<legend class="bold">Add a Snack:</legend>
+					<label for="snackAdd">Snack Name: </label><br>
+					<input type="text" id="snackAdd" name="snackAdd" required="required">
+					<br>
+					<br>
+					<input type="submit" value="Submit" id="snackAddSubmit">
+				</fieldset>
+			</form><br> 
+			<form action="/Snacks" method="POST">
+				<fieldset>
+					<input type="hidden" name="add" value="removeSnacks">
+					<legend class="bold">Remove a Snack:</legend>
+					<label for="snackDelete">Name of Unpopular Snack: </label><br>
+						<select name="snackSelect">
+							<option value="">Please select a Snack</option>
+						{% for row in Snacks %}
+							<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+						{% endfor %}
+						</select>
+					<br>
+					<br>
+					<input type="submit" value="Submit" id="snackDeleteSubmit">
+				</fieldset>
+			</form> 
+		</div>
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<!-- Iterate through each key in the first entry to get the
+					column name -->
+					{% for key in Snacks[0].keys() %}
 
-                <!-- Create a <th> tag with the key inside of it, this will be
-                our header row -->
-                <th>{{ key }}</th>
+					<!-- Create a <th> tag with the key inside of it, this will be
+					our header row -->
+					<th>{{ key }}</th>
 
-                <!-- End of this for loop -->
-                {% endfor %}
-            </tr>
-
-        <tbody>
-            <!-- Now, iterate through every snack in Snacks -->
-            {% for snack in Snacks %}
-            <tr>
-                <!-- Then iterate through every key in the current snack dictionary -->
-                {% for key in snack.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{snack[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-	</div>
-
-	<br>
-
-	<div class="narrow">		
-		<form action="/Snacks" method="POST">
-			<fieldset>
-				<input type="hidden" name="add" value="addSnacks">
-				<legend class="bold">Add a Snack:</legend>
-				<label for="snackAdd">Snack Name: </label><br>
-				<input type="text" id="snackAdd" name="snackAdd" required="required">
-				<br>
-				<br>
-				<input type="submit" value="Submit" id="snackAddSubmit">
-			</fieldset>
-		</form><br> 
-		<form action="/Snacks" method="POST">
-			<fieldset>
-				<input type="hidden" name="add" value="removeSnacks">
-				<legend class="bold">Remove a Snack:</legend>
-				<label for="snackDelete">Name of Unpopular Snack: </label><br>
-					<select name="snackSelect">
-						<option value="">Please select a Snack</option>
-					{% for row in Snacks %}
-						<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+					<!-- End of this for loop -->
 					{% endfor %}
-					</select>
-				<br>
-				<br>
-				<input type="submit" value="Submit" id="snackDeleteSubmit">
-			</fieldset>
-		</form> 
+				</tr>
+
+			<tbody>
+				<!-- Now, iterate through every snack in Snacks -->
+				{% for snack in Snacks %}
+				<tr>
+					<!-- Then iterate through every key in the current snack dictionary -->
+					{% for key in snack.keys() %}
+
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{snack[key]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
 	</div>
 
 	<h1>FDA Labeled Ingredients</h1>
 
-	<div>
-        <table>
-        <thead>
-            <tr>
-                <!-- Iterate through each key in the first entry to get the
-                column name -->
-                {% for key in Ingredients[0].keys() %}
+	<div class="row">
 
-                <!-- Create a <th> tag with the key inside of it, this will be
-                our header row -->
-                <th>{{ key }}</th>
-
-                <!-- End of this for loop -->
-                {% endfor %}
-            </tr>
-
-        <tbody>
-            <!-- Now, iterate through every item in Ingredients -->
-            {% for item in Ingredients %}
-            <tr>
-                <!-- Then iterate through every key in the current item dictionary -->
-                {% for key in item.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{item[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-	</div><br>
-	<div class="narrow">		
-		<form action="/Snacks" method="POST">
-			<fieldset>
-				<input type="hidden" name="add" value="addIngredients">
-				<legend class="bold">Add Labeled Ingredients:</legend>
-				<label for="snackID">Snack ID: </label><br>
-					<select name="addAllergenSnack">
-						<option value="">Please select a Snack</option>
-					{% for row in Snacks %}
-						<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
-					{% endfor %}
-					</select> <br>
-				<label for="allergenID">Allergen ID: </label><br>
-					<select name="addSnackAllergen">
-						<option value="">Please select an Allergen</option>
-					{% for row in Allergens %}
-						<option value="{{row["allergenID"]}}">{{row["name"]}}</option>
-					{% endfor %}
-					</select> <br>
-				<input type="submit" value="Submit" id="addIngredientSubmit">
-			</fieldset>
-		</form> 
-	</div><br>
+		<div class="column1">
+			<form action="/Snacks" method="POST">
+				<fieldset>
+					<input type="hidden" name="add" value="addIngredients">
+					<legend class="bold">Add Labeled Ingredients:</legend>
+					<label for="snackID">Snack ID: </label><br>
+						<select name="addAllergenSnack">
+							<option value="">Please select a Snack</option>
+						{% for row in Snacks %}
+							<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+						{% endfor %}
+						</select> <br>
+					<label for="allergenID">Allergen ID: </label><br>
+						<select name="addSnackAllergen">
+							<option value="">Please select an Allergen</option>
+						{% for row in Allergens %}
+							<option value="{{row["allergenID"]}}">{{row["name"]}}</option>
+						{% endfor %}
+						</select> <br>
+					<input type="submit" value="Submit" id="addIngredientSubmit">
+				</fieldset>
+			</form> 
+		</div>
 	
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<!-- Iterate through each key in the first entry to get the
+					column name -->
+					{% for key in Ingredients[0].keys() %}
+
+					<!-- Create a <th> tag with the key inside of it, this will be
+					our header row -->
+					<th>{{ key }}</th>
+
+					<!-- End of this for loop -->
+					{% endfor %}
+				</tr>
+
+			<tbody>
+				<!-- Now, iterate through every item in Ingredients -->
+				{% for item in Ingredients %}
+				<tr>
+					<!-- Then iterate through every key in the current item dictionary -->
+					{% for key in item.keys() %}
+
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{item[key]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div><br>
+	</div><br>
 
 </body>
 </html>
