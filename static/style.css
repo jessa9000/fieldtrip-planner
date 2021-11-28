@@ -86,6 +86,10 @@ input.short{
 	margin-top: 10px;
 }
 
+.second-header{
+	padding-top: 3em;
+}
+
 th{
 	font-weight: bold;
 }
