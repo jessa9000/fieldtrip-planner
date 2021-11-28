@@ -151,25 +151,24 @@ video {
 .column1 {
 	float: left;
 	width: 20%;
-  }
+}
 
-  .column2 {
+.column2 {
 	float: left;
 	width: 74%;
-  }  
+ }  
   
-  /* Clear floats after the columns */
-  .row:after {
+ /* Clear floats after the columns */
+ .row:after {
 	content: "";
 	display: table;
 	clear: both;
-  }
+}
 
-  .vertical-line{
+.vertical-line{
 	border-left: 2px solid black;
 	height: 60%;
 	position: absolute;
 	left: 24%;
-	
 }
 
