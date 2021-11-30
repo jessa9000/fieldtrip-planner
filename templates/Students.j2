@@ -87,22 +87,20 @@
 		<div class="column1">		
 			<form action="/Students" method="POST">
 				<input type="hidden" name="add" value="addEmergencyContacts">
-				<legend class="bold">Add an Emergency Contact</legend>
-				<label for="student">Student: </label><br>
+				<legend class="bold">Add an Emergency Contact</legend><br>
 					<select name="addEmergencyContactsStudents">
 						<option value="">Please select a Student</option>
 					{% for row in Students %}
 						<option value="{{row["Student ID"]}}">{{row["First Name"]}} {{row["Last Name"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="adult">Adult: </label><br>
 					<select name="addEmergencyContactsTrustedAdults">
 						<option value="">Please select an Adult</option>
 					{% for row in TrustedAdults %}
 						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select>			
-				<br>
+				<br><br>
 
 				<input type="submit" value="Submit" name="addEmerContactSubmit">
 			</form> 
