@@ -28,12 +28,12 @@ CREATE TABLE `Students` (
   `studentID` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(255) NOT NULL,
   `lastName` VARCHAR(255),
-  `schoolYear` YEAR,
+  `schoolYear` YEAR NOT NULL,
   `allergiesFlag` BOOLEAN DEFAULT 0,
   `specialPower` VARCHAR(255),
   PRIMARY KEY (`studentID`),
   UNIQUE KEY (`studentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `Trips` (
   `returnTime` TIME,
   PRIMARY KEY (`tripID`),
   UNIQUE KEY (`tripID`)
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `Snacks` (
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`snackID`),
   UNIQUE KEY (`snackID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +156,7 @@ CREATE TABLE `Allergens` (
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`allergenID`),
   UNIQUE KEY (`allergenID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +195,7 @@ CREATE TABLE `Attendees` (
   CONSTRAINT `AttendeesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`) ON UPDATE CASCADE ON DELETE RESTRICT,
   CONSTRAINT `AttendeesTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `AttendeesTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`) ON UPDATE CASCADE ON DELETE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +222,7 @@ DROP TABLE IF EXISTS `PlannedSnacks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `PlannedSnacks` (
-  `plannedSnackID` INT NOT NULL AUTO_INCREMENT,
+  `plannedSnackID` INT NOT NULL AUTO_INCREMENT UNIQUE,
   `snackID` INT,
   `tripID` INT NOT NULL,
   `adultID` INT,
@@ -231,7 +231,7 @@ CREATE TABLE `PlannedSnacks` (
   CONSTRAINT `PlannedSnacksSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`) ON UPDATE CASCADE ON DELETE SET NULL,
   CONSTRAINT `PlannedSnacksTripsFK` FOREIGN KEY (`tripID`) REFERENCES `Trips` (`tripID`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `PlannedSnacksTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`) ON UPDATE CASCADE ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `Allergies` (
   PRIMARY KEY (`studentID`, `allergenID`),
   CONSTRAINT `AllergiesStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `AllergiesAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `Ingredients` (
   PRIMARY KEY (`snackID`, `allergenID`),
   CONSTRAINT `IngredientsSnacksFK` FOREIGN KEY (`snackID`) REFERENCES `Snacks` (`snackID`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `IngredientsAllergensFK` FOREIGN KEY (`allergenID`) REFERENCES `Allergens` (`allergenID`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +324,7 @@ CREATE TABLE `EmergencyContacts` (
   PRIMARY KEY (`studentID`, `adultID`),
   CONSTRAINT `EmergencyContactsStudentsFK` FOREIGN KEY (`studentID`) REFERENCES `Students` (`studentID`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `EmergencyContactsTrustedAdultsFK` FOREIGN KEY (`adultID`) REFERENCES `TrustedAdults` (`adultID`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

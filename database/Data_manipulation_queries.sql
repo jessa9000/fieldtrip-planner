@@ -170,8 +170,8 @@ SELECT PlannedSnacks.plannedSnackID AS 'Planned Snack ID', PlannedSnacks.tripID 
     PlannedSnacks.adultID AS 'Snack Bringer ID', 
     TrustedAdults.firstName AS 'Snack Bringer FName',  TrustedAdults.lastName AS 'Snack Bringer LName'
     FROM PlannedSnacks
-    JOIN Snacks ON PlannedSnacks.snackID = Snacks.snackID
-    JOIN TrustedAdults ON PlannedSnacks.adultID = TrustedAdults.adultID
+    LEFT JOIN Snacks ON PlannedSnacks.snackID = Snacks.snackID
+    LEFT JOIN TrustedAdults ON PlannedSnacks.adultID = TrustedAdults.adultID
     WHERE tripID = ::trip-from-above-filter;
 
 -- "Add an Attendee" input form
@@ -191,5 +191,5 @@ INSERT INTO PlannedSnacks
 UPDATE PlannedSnacks
     SET snackID = ::snackID, 
         tripID = ::tripID, 
-        adultID = ::adultID, 
+        adultID = ::adultID
     WHERE plannedSnackID = ::plannedSnackID;

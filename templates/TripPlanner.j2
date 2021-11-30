@@ -21,14 +21,14 @@
 
 
 	<div class="narrow">
-		<form class="margin-top" action="/TripPlanner" method="GET">
+		<form class="margin-top" action="/TripPlanner" method="POST">
 			<input type="hidden" name="add" value="selectPlanningTrip">
-			<legend class="bold">Select a trip to plan:</legend>
-			<input type="text" name="trip-to-plan" size="35" placeholder="Filter by Trip ID or keyword"><br>
+			<legend class="bold">Select a trip to filter:</legend>
 				<select name="selectTrip">
 					<option value="">Please select a Trip</option>
-				{% for row in TripPlanning %}
-					<option value="{{row["Trip ID"]}}">{{row["Name"]}}</option>
+					<option value="">Reset Tables</option>
+				{% for row in Trips %}
+					<option value="{{row["tripID"]}}">{{row["name"]}}</option>
 				{% endfor %}
 				</select> <br>
 			<input type="submit" value="Submit" id="tripPlannerSubmit">
@@ -135,22 +135,22 @@
 				<label for="tripID">Trip: </label><br>
 					<select name="attendeeTrip">
 						<option value="">Please select a Trip</option>
-					{% for row in Attendees %}
-						<option value="{{row["Trip ID"]}}">{{row["Name"]}}</option>
+					{% for row in Trips %}
+						<option value="{{row["tripID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<label for="studentID">Student: </label><br>
 					<select name="attendeeStudent">
 						<option value="">Please select a Student</option>
-					{% for row in Attendees %}
-						<option value="{{row["Student ID"]}}">{{row["Student First Name"]}} {{row["Student Last Name"]}}</option>
+					{% for row in Students %}
+						<option value="{{row["studentID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<label for="adultID">Chaperone: </label><br>
 					<select name="attendeeChaperone">
 						<option value="">Please select a Chaperone</option>
-					{% for row in Attendees %}
-						<option value="{{row["Responsible Chaperone ID"]}}">{{row["Responsible Chaperone FName"]}} {{row["Responsible Chaperone LName"]}}</option>
+					{% for row in Adults %}
+						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<input type="submit" value="Submit" id="addAttendeeSubmit">
@@ -171,15 +171,15 @@
 				<label for="studentID">Snack: </label><br>
 					<select name="plannedSnackName">
 						<option value="">Please select a Snack</option>
-					{% for row in PlannedSnack %}
-						<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+					{% for row in Snacks %}
+						<option value="{{row["snackID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<label for="adultID">Snack Bringer: </label><br>
 					<select name="plannedSnackBringer">
 						<option value="">Please select a Snack Bringer</option>
-					{% for row in PlannedSnack %}
-						<option value="{{row["Snack Bringer ID"]}}">{{row["Snack Bringer FName"]}} {{row["Snack Bringer LName"]}}</option>
+					{% for row in Adults %}
+						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<input type="submit" value="Submit" id="addPlannedSnackSubmit">
@@ -208,16 +208,16 @@
 					<select name="updatePlannedSnackName">
 						<option value="">Please select a Snack</option>
 						<option value="">None</option>
-					{% for row in PlannedSnack %}
-						<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
+					{% for row in Snacks %}
+						<option value="{{row["snackID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<label for="snackBringerName">Snack Bringer: </label><br>
 					<select name="updateSnackBringer">
 						<option value="">Please select a Snack Bringer</option>
 						<option value="">None</option>
-					{% for row in PlannedSnack %}
-						<option value="{{row["Snack Bringer ID"]}}">{{row["Snack Bringer FName"]}} {{row["Snack Bringer LName"]}}</option>
+					{% for row in Adults %}
+						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select> <br>
 				<input type="submit" value="Edit" id="modifyPlannedSnack">	

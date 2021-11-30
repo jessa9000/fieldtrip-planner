@@ -224,28 +224,16 @@ def Trips():
 @app.route('/TripPlanner', methods=["POST", "GET"])
 def TripPlanner():
 
-    # Trip Selector
-    if request.method == "GET":
-        selectTripPlanning = request.form['selectTrip']
-
-        # Retrieve table data using selected Trip
-        queryTripPlanning = "SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State', zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' FROM Trips WHERE tripID = " + str(selectTripPlanning) + ";"
-        queryAttendees = "SELECT Attendees.tripID AS 'Trip ID', Attendees.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Attendees.adultID AS 'Responsible Chaperone ID', TrustedAdults.firstName AS 'Responsible Chaperone FName', TrustedAdults.lastName AS 'Responsible Chaperone LName' FROM Attendees JOIN Students ON Attendees.studentID = Students.studentID JOIN TrustedAdults ON Attendees.adultID = TrustedAdults.adultID WHERE tripID = " + str(selectTripPlanning) + ";"
-        queryPlannedSnack = "SELECT PlannedSnacks.plannedSnackID AS 'Planned Snack ID', PlannedSnacks.tripID AS 'Trip ID', PlannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', PlannedSnacks.adultID AS 'Snack Bringer ID', TrustedAdults.firstName AS 'Snack Bringer FName',  TrustedAdults.lastName AS 'Snack Bringer LName' FROM PlannedSnacks JOIN Snacks ON PlannedSnacks.snackID = Snacks.snackID JOIN TrustedAdults ON PlannedSnacks.adultID = TrustedAdults.adultID WHERE tripID = " + str(selectTripPlanning) + ";"
-        queryTrips = "SELECT tripID, name FROM Trips;"
-        cursorTripPlanning = db.execute_query(db_connection=db_connection, query=queryTripPlanning)
-        cursorAttendees = db.execute_query(db_connection=db_connection, query=queryAttendees)
-        cursorPlannedSnack = db.execute_query(db_connection=db_connection, query=queryPlannedSnack)
-        cursorTrips = db.execute_query(db_connection=db_connection, query=queryTrips)
-        resultsTripPlanning = cursorTripPlanning.fetchall()
-        resultsAttendees = cursorAttendees.fetchall()
-        resultsPlannedSnack = cursorPlannedSnack.fetchall()
-        resultsTrips = cursorTrips.fetchall()
-        return render_template("TripPlanner.j2", TripPlanning=resultsTripPlanning, Attendees=resultsAttendees, PlannedSnack=resultsPlannedSnack, Trips=resultsTrips)
+    selectTripPlanning = ""
 
     # Form stuff
     if request.method == "POST":
-        
+
+        # Check if Trip filter is active
+        if request.form["add"] == "selectPlanningTrip":
+            selectTripPlanning = request.form['selectTrip']
+            print(selectTripPlanning)
+
         # Add Attendee form stuff
         if request.form["add"] == "addAttendee":
             attendeeTrip = request.form['attendeeTrip']
@@ -277,21 +265,75 @@ def TripPlanner():
             if updateSnackBringer == "":
                 updateSnackBringer = None
 
-            queryUpdatePlannedSnack = "UPDATE PlannedSnacks SET snackID = (%s), tripID = (%s), adultID = (%s), WHERE plannedSnackID = (%s);"
+            queryUpdatePlannedSnack = "UPDATE PlannedSnacks SET snackID = %s, tripID = %s, adultID = %s WHERE plannedSnackID = %s;"
             dataUpdatePlannedSnack = (updatePlannedSnackName, updatePlannedSnackTrip, updateSnackBringer, selectUpdatePlannedSnack)
             execute_query(db_connection, queryUpdatePlannedSnack, dataUpdatePlannedSnack)
 
-    return render_template("TripPlanner.j2")
+    queryTripPlanning = "SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State', zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' FROM Trips;"
+    queryAttendees = "SELECT Attendees.tripID AS 'Trip ID', Attendees.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Attendees.adultID AS 'Responsible Chaperone ID', TrustedAdults.firstName AS 'Responsible Chaperone FName', TrustedAdults.lastName AS 'Responsible Chaperone LName' FROM Attendees JOIN Students ON Attendees.studentID = Students.studentID JOIN TrustedAdults ON Attendees.adultID = TrustedAdults.adultID;"
+    queryPlannedSnack = "SELECT PlannedSnacks.plannedSnackID AS 'Planned Snack ID', PlannedSnacks.tripID AS 'Trip ID', PlannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', PlannedSnacks.adultID AS 'Snack Bringer ID', TrustedAdults.firstName AS 'Snack Bringer FName',  TrustedAdults.lastName AS 'Snack Bringer LName' FROM PlannedSnacks LEFT JOIN Snacks ON PlannedSnacks.snackID = Snacks.snackID LEFT JOIN TrustedAdults ON PlannedSnacks.adultID = TrustedAdults.adultID;"
+    queryTrips = "SELECT tripID, name FROM Trips;"
+    queryStudents = "SELECT studentID, firstName, lastName FROM Students;"
+    queryAdults = "SELECT adultID, firstName, lastName FROM TrustedAdults;"
+    querySnacks = "SELECT snackID, name FROM Snacks;"
+    
+    # Check if Trip filter is active
+    if selectTripPlanning != "":
+        selectQuery = " WHERE tripID = %s;" % (selectTripPlanning,)
+        queryTripPlanning = queryTripPlanning[:-1] + selectQuery
+        queryAttendees = queryAttendees[:-1] + selectQuery
+        queryPlannedSnack = queryPlannedSnack[:-1] + selectQuery
+        
+        cursorTripPlanning = db.execute_query(db_connection=db_connection, query=queryTripPlanning)
+        cursorAttendees = db.execute_query(db_connection=db_connection, query=queryAttendees)
+        cursorPlannedSnack = db.execute_query(db_connection=db_connection, query=queryPlannedSnack)
+        cursorTrips = db.execute_query(db_connection=db_connection, query=queryTrips)
+        cursorStudents = db.execute_query(db_connection=db_connection, query=queryStudents)
+        cursorAdults = db.execute_query(db_connection=db_connection, query=queryAdults)
+        cursorSnacks = db.execute_query(db_connection=db_connection, query=querySnacks)
+        resultsTripPlanning = cursorTripPlanning.fetchall()
+        resultsAttendees = cursorAttendees.fetchall()
+        resultsPlannedSnack = cursorPlannedSnack.fetchall()
+        resultsTrips = cursorTrips.fetchall()
+        resultsStudents = cursorStudents.fetchall()
+        resultsAdults = cursorAdults.fetchall()
+        resultsSnacks = cursorSnacks.fetchall()
+
+        return render_template("TripPlanner.j2", TripPlanning=resultsTripPlanning, Attendees=resultsAttendees, PlannedSnack=resultsPlannedSnack, Trips=resultsTrips, Students=resultsStudents, Adults=resultsAdults, Snacks=resultsSnacks)
+
+    cursorTripPlanning = db.execute_query(db_connection=db_connection, query=queryTripPlanning)
+    cursorAttendees = db.execute_query(db_connection=db_connection, query=queryAttendees)
+    cursorPlannedSnack = db.execute_query(db_connection=db_connection, query=queryPlannedSnack)
+    cursorTrips = db.execute_query(db_connection=db_connection, query=queryTrips)
+    cursorStudents = db.execute_query(db_connection=db_connection, query=queryStudents)
+    cursorAdults = db.execute_query(db_connection=db_connection, query=queryAdults)
+    cursorSnacks = db.execute_query(db_connection=db_connection, query=querySnacks)
+    resultsTripPlanning = cursorTripPlanning.fetchall()
+    resultsAttendees = cursorAttendees.fetchall()
+    resultsPlannedSnack = cursorPlannedSnack.fetchall()
+    resultsTrips = cursorTrips.fetchall()
+    resultsStudents = cursorStudents.fetchall()
+    resultsAdults = cursorAdults.fetchall()
+    resultsSnacks = cursorSnacks.fetchall()
+    return render_template("TripPlanner.j2", TripPlanning=resultsTripPlanning, Attendees=resultsAttendees, PlannedSnack=resultsPlannedSnack, Trips=resultsTrips, Students=resultsStudents, Adults=resultsAdults, Snacks=resultsSnacks)
 
 # Listener
 # Specifying the host explicitly as suggested by classmate in Ed #167 
 
 if __name__ == "__main__":
-    
+
+"""    
+    # Turn on for local dev
+    port = int(os.environ.get('PORT', 9321))
+
+    app.run(port=port, debug=True) 
+"""
+
     app.run(host="flip3.engr.oregonstate.edu", port=9321, debug=True) 
 
 # The following code used to maintain a connection to the db provided per Ed #203 by: 
 # http://www.neotitans.com/resources/python/mysql-python-connection-error-2006.html
+
 
 db_connection.ping(True)
 cur=db_connection.cursor()
