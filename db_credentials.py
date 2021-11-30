@@ -1,12 +1,12 @@
 # The following is used for local dev
 # Turn off for OSU Flip
 
-"""
-host = 'localhost'
-user = 'root'
-passwd = 'meatshake'
-db = 'Students'
-"""
+
+# host = 'localhost'
+# user = 'root'
+# passwd = 'meatshake'
+# db = 'Students'
+
 
 # The following will be used by the webapp.py to interact with the database
 # Turn on for OSU Flip

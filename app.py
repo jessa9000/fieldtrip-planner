@@ -339,12 +339,12 @@ def TripPlanner():
 
 if __name__ == "__main__":
 
-"""    
-    # Turn on for local dev
-    port = int(os.environ.get('PORT', 9321))
 
-    app.run(port=port, debug=True) 
-"""
+    # Turn on for local dev
+    # port = int(os.environ.get('PORT', 9321))
+
+    # app.run(port=port, debug=True) 
+
 
     app.run(host="flip3.engr.oregonstate.edu", port=9321, debug=True) 
 

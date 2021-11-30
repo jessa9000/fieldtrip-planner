@@ -41,16 +41,19 @@
 	<div>
         <table>
 
-		<!-- Table headers are manually generated on this page so they are rendered before a Trip is selected -->
         <thead>
-            <tr>
-				<th>Trip ID</th>
-				<th>Trip Name</th>
-				<th>Date</th>
-				<th>Meet Time</th>
-				<th>Return Time</th>
-            </tr>
+			<tr>
+				<!-- Iterate through each key in the first row to get the
+				column name -->
+				{% for key in TripPlanning[0].keys() %}
 
+				<!-- Create a <th> tag with the key inside of it, this will be
+				our header row -->
+				<th>{{ key }}</th>
+
+				<!-- End of this for loop -->
+				{% endfor %}
+			</tr>
         <tbody>
             <!-- Now, iterate through every row in TripPlanning -->
             {% for row in TripPlanning %}
@@ -71,15 +74,18 @@
 	<div>
         <table>
         <thead>
-            <tr>
-				<th>Trip ID</th>
-				<th>Student ID</th>
-				<th>Student First Name</th>
-				<th>Student Last Name</th>
-				<th>Responsible Chaperone ID</th>
-				<th>Responsible Chaperone FName</th>
-				<th>Responsible Chaperone LName</th>
-            </tr>
+			<tr>
+				<!-- Iterate through each key in the first row to get the
+				column name -->
+				{% for key in Attendees[0].keys() %}
+
+				<!-- Create a <th> tag with the key inside of it, this will be
+				our header row -->
+				<th>{{ key }}</th>
+
+				<!-- End of this for loop -->
+				{% endfor %}
+			</tr>
 
         <tbody>
             <!-- Now, iterate through every row in Attendees -->
@@ -101,15 +107,18 @@
 	<div>
         <table>
         <thead>
-            <tr>
-				<th>Planned Snack ID</th>
-				<th>Trip ID</th>
-				<th>Snack ID</th>
-				<th>Snack Name</th>
-				<th>Snack Bringer ID</th>
-				<th>Snack Bringer FName</th>
-				<th>Snack Bringer LName</th>
-            </tr>
+			<tr>
+				<!-- Iterate through each key in the first row to get the
+				column name -->
+				{% for key in PlannedSnack[0].keys() %}
+
+				<!-- Create a <th> tag with the key inside of it, this will be
+				our header row -->
+				<th>{{ key }}</th>
+
+				<!-- End of this for loop -->
+				{% endfor %}
+			</tr>
 
         <tbody>
             <!-- Now, iterate through every row in PlannedSnack -->
