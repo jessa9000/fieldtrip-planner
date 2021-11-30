@@ -74,18 +74,15 @@
 	<div>
         <table>
         <thead>
-			<tr>
-				<!-- Iterate through each key in the first row to get the
-				column name -->
-				{% for key in Attendees[0].keys() %}
-
-				<!-- Create a <th> tag with the key inside of it, this will be
-				our header row -->
-				<th>{{ key }}</th>
-
-				<!-- End of this for loop -->
-				{% endfor %}
-			</tr>
+            <tr>
+				<th>Trip ID</th>
+				<th>Student ID</th>
+				<th>Student First Name</th>
+				<th>Student Last Name</th>
+				<th>Responsible Chaperone ID</th>
+				<th>Responsible Chaperone FName</th>
+				<th>Responsible Chaperone LName</th>
+            </tr>
 
         <tbody>
             <!-- Now, iterate through every row in Attendees -->
@@ -107,18 +104,15 @@
 	<div>
         <table>
         <thead>
-			<tr>
-				<!-- Iterate through each key in the first row to get the
-				column name -->
-				{% for key in PlannedSnack[0].keys() %}
-
-				<!-- Create a <th> tag with the key inside of it, this will be
-				our header row -->
-				<th>{{ key }}</th>
-
-				<!-- End of this for loop -->
-				{% endfor %}
-			</tr>
+            <tr>
+				<th>Planned Snack ID</th>
+				<th>Trip ID</th>
+				<th>Snack ID</th>
+				<th>Snack Name</th>
+				<th>Snack Bringer ID</th>
+				<th>Snack Bringer FName</th>
+				<th>Snack Bringer LName</th>
+            </tr>
 
         <tbody>
             <!-- Now, iterate through every row in PlannedSnack -->
