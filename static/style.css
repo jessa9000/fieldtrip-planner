@@ -107,6 +107,10 @@ a:visited{
 	color: black;
 }
 
+.beige{
+	background-color: rgb(245, 245, 237);
+}
+
 /* Styling for two-column layout */
 /*source: https://www.w3schools.com/howto/howto_css_two_columns.asp */
 

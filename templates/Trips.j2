@@ -47,7 +47,7 @@
 			<form action="/Trips" method="POST" class="long-form">
 				<input type="hidden" name="add" value="updateTrips">
 				<legend class="bold">Modify a Trip</legend>
-					<select name="selectUpdateTrip">
+					<select name="selectUpdateTrip" class="beige">
 						<option value="">Please select a Trip</option>
 					{% for row in Trips %}
 						<option value="{{row["Trip ID"]}}">{{row["Name"]}}</option>

@@ -88,13 +88,13 @@
 			<form action="/Students" method="POST">
 				<input type="hidden" name="add" value="addEmergencyContacts">
 				<legend class="bold">Add an Emergency Contact</legend><br>
-					<select name="addEmergencyContactsStudents">
+					<select name="addEmergencyContactsStudents" class="beige">
 						<option value="">Please select a Student</option>
 					{% for row in Students %}
 						<option value="{{row["Student ID"]}}">{{row["First Name"]}} {{row["Last Name"]}}</option>
 					{% endfor %}
 					</select> <br>
-					<select name="addEmergencyContactsTrustedAdults">
+					<select name="addEmergencyContactsTrustedAdults" class="beige">
 						<option value="">Please select an Adult</option>
 					{% for row in TrustedAdults %}
 						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
