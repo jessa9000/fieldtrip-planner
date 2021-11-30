@@ -11,9 +11,8 @@ app = Flask(__name__)
 db_connection = db.connect_to_database()
 
 # Trying Ed #203 again -- putting a copy here and at bottom, not sure if it matters:
-
-db_connection.ping(True)
-cur=db_connection.cursor()
+# db_connection.ping(True)
+# cur=db_connection.cursor()
 
 # Routes 
 
@@ -63,18 +62,6 @@ def Students():
                     queryInsertAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
                     dataInsertAllergies = (newStudentID, allergy)
                     execute_query(db_connection, queryInsertAllergies, dataInsertAllergies)
-
-            # Here's a copy of the code I'm about to start messing with, in case it all goes bad
-            # execute_query(db_connection, queryInsertStudents, dataInsertStudents)
-
-            # if allergyFlag == 1:
-            #     newStudentInsert = "SELECT LAST_INSERT_ID();"
-            #     newStudentID = newStudentInsert["studentID"]
-
-            #     for allergy in allergies:
-            #         queryInsertAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
-            #         dataInsertAllergies = (newStudentID, allergy)
-            #         execute_query(db_connection, queryInsertAllergies, dataInsertAllergies)
 
         # Emergency Contacts form stuff
         elif request.form["add"] == "addEmergencyContacts":
