@@ -17,30 +17,12 @@ h1{
 	font-size: 16px;
 }
 
-form{
-	margin: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	border-style: solid;
-	border-width: 2px;
-	border-radius:5px;
-	border-color: rgb(54, 54, 68);
-	background: linear-gradient(to right, rgb(168, 168, 209), rgb(245, 245, 111), rgb(168, 168, 209));
-}
-
-img{
-	border: 1px solid;
-	border-color: rgb(129, 115, 99);
-	border-radius: 20px;
-	box-shadow: 4px 6px 20px rgb(0 0 0 / 0.6);
-}
-
-div.table{
+div.nav{
 	background-color: lightgray;
 	width: 100%;
 	margin: 0;
 	position: -webkit-sticky;
-	position: sticky;
+	position: sticky; 
 	top: 0;
 	z-index: 1;
 }
@@ -50,31 +32,62 @@ table{
 	table-layout: fixed;
 	width: 100%;
 	text-align: center;
-
 }
 
-.narrow{
-	width: 25%
-	
-}
+/* Styling for the homepage */
 
 .wide-center{
 	margin: auto;
 	width: 75%
 }
 
-.narrow-right{
-	float: right;
-	width: 25%
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 25px;
+	height: 500px;
+	width: auto;
+	border: 1px solid;
+	border-color: rgb(129, 115, 99);
+	border-radius: 20px;
+	box-shadow: 5px 10px 25px rgb(96 96 121 / 0.8);
 }
 
-.two-third{
-	float: left;
-	width: 66%
+/* Styling for dynamic pages */
+
+form{
+	margin: 0 10px 10px 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-style: solid;
+	border-width: 2px;
+	border-radius:5px;
+	border-color: rgb(54, 54, 68);
+	background: linear-gradient(to right, rgb(168, 168, 209), rgb(245, 245, 111), rgb(168, 168, 209));
+	text-align: center;
+}
+
+.long-form{
+	text-align: right;
+	padding-right: 15px;
+	background: linear-gradient(to right, rgb(245, 245, 111), rgb(168, 168, 209));
+}
+
+input.short{
+	width: 9em;
+}
+
+.data-table{
+	margin-left: 2%;
 }
 
 .margin-top{
 	margin-top: 10px;
+}
+
+.second-header{
+	padding-top: 3em;
 }
 
 th{
@@ -94,70 +107,37 @@ a:visited{
 	color: black;
 }
 
-/*
-Carousel CSS adapted from:
-“How To Create An Image Slider In HTML, CSS & Javascript.” YouTube, uploaded by Dev Ed, 30 Jun. 2018, https://youtube.com/watch?v=KcdBOoK3Pfw
-*/
-
-div.carousel{
-	width: 1000px;
-	margin: auto;
-	overflow: hidden;
+.beige{
+	background-color: rgb(245, 245, 237);
 }
 
-div.images{
-	display: flex;
-	height: 500px;
-}
-
-img.list {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 24px;
-	height: 500px;
-	width: auto;
-}
-
-div.description {
-	margin-left: auto;
-	margin-right: auto;
-	height: 6em;
-	width: 888px;
-	border: 1px;
-	border-color: grey;
-	border-style: ridge;
-	overflow: auto;
-}
-
-form {
-	text-align: center;
-}
-
-li {
-	text-align: center;
-	list-style-type: none;
-	font-size: 24px;
-}
-
-video {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* Trying some options for columns */
+/* Styling for two-column layout */
 /*source: https://www.w3schools.com/howto/howto_css_two_columns.asp */
 
-.column {
+.column1 {
 	float: left;
-	width: 33%;
-  }
+	width: 20%;
+}
+
+.column2 {
+	float: left;
+	width: 74%;
+ }  
   
-  /* Clear floats after the columns */
-  .row:after {
+ /* Clear floats after the columns */
+ .row:after {
 	content: "";
 	display: table;
 	clear: both;
-  }
+}
+
+/* Initial guidance for the vertical line styling courtesy of geeksforgeeks.com
+ https://www.geeksforgeeks.org/how-to-make-a-vertical-line-using-html/ */
+
+.vertical-line{
+	border-left: 2px solid black;
+	height: 60%;
+	position: absolute;
+	left: 24%;
+}
 

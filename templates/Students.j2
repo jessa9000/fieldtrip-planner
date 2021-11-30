@@ -21,118 +21,121 @@
 
 	<h1>Students</h1>
 
-	<div>
-		<table>
-        <thead>
-            <tr>
-                <!-- Iterate through each key in the first row to get the
-                column name -->
-                {% for key in Students[0].keys() %}
+	<div class="row">
+		<div class="column1">		
+			<form action="/Students" method="POST" class="long-form">
+				<input type="hidden" name="add" value="addStudents">
+				<legend class="bold">Add a Student</legend>
+				<label for="fname">First Name: </label>
+				<input type="text" id="fname" name="fname" required="required" class="short"><br>
+				<label for="lname">Last Name: </label>
+				<input type="text" id="lname" name="lname" class="short"><br>
+				<label for="year">School Year: </label>
+				<input type="text" id="year" name="year" required="required" class="short"><br>
+				<label for="power">Power: </label>
+				<input type="text" id="power" name="power" class="short"><br><br>
+				<fieldset>
+					<legend>Does the student have any allergies?</legend>
+					<label><input type="radio" name="allergyFlag" value=1>Yes</label><br>
+					<label><input type="radio" name="allergyFlag" value=0>No</label><br><br>
+					<label for="student-allergies">Add student allergies:</label><br>	
+					<select name="student-allergies" multiple>
+					{% for row in Allergens %}
+						<option value="{{row["allergenID"]}}">{{row["name"]}}</option>
+					{% endfor %}
+					</select><br>
+					<label>(Ctrl+click to add multiple. Click <a href="Allergies" class="bold">here</a> if allergy is not listed.</label>
+				</fieldset><br>
+				<input type="submit" value="Submit" name="addStudentSubmit">
+			</form>  
+		</div>
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<!-- Iterate through each key in the first row to get the
+					column name -->
+					{% for key in Students[0].keys() %}
 
-                <!-- Create a <th> tag with the key inside of it, this will be
-                our header row -->
-                <th>{{ key }}</th>
+					<!-- Create a <th> tag with the key inside of it, this will be
+					our header row -->
+					<th>{{ key }}</th>
 
-                <!-- End of this for loop -->
-                {% endfor %}
-            </tr>
+					<!-- End of this for loop -->
+					{% endfor %}
+				</tr>
 
-        <tbody>
-             <!-- Iterate through every person in Students -->
-            {% for person in Students %}
-            <tr>
-                <!-- Iterate through every key in the current person dictionary -->
-                {% for key in person.keys() %}
+			<tbody>
+				<!-- Iterate through every person in Students -->
+				{% for person in Students %}
+				<tr>
+					<!-- Iterate through every key in the current person dictionary -->
+					{% for key in person.keys() %}
 
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{person[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-		</table>
-	</div>
-    <br>
-	<div class="narrow">		
-		<form action="/Students" method="POST">
-			<input type="hidden" name="add" value="addStudents">
-			<legend class="bold">Add a Student</legend>
-			<label for="fname">First Name: </label><br><input type="text" id="fname" name="fname" required="required"><br>
-			<label for="lname">Last Name: </label><br><input type="text" id="lname" name="lname"><br>
-			<label for="year">School Year: </label><br><input type="text" id="year" name="year" required="required"><br>
-			<label for="power">Special Power: </label><br><input type="text" id="power" name="power"><br><br>
-			<fieldset>
-				<legend>Does the student have any allergies?</legend>
-				<label><input type="radio" name="allergyFlag" value=1>Yes</label><br>
-				<label><input type="radio" name="allergyFlag" value=0>No</label><br><br>
-				<label for="student-allergies">Add student allergies:</label><br>	
-				<select name="student-allergies" multiple>
-				{% for row in Allergens %}
-					<option value="{{row["allergenID"]}}">{{row["name"]}}</option>
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{person[key]}}</td>
+					{% endfor %}
+				</tr>
 				{% endfor %}
-				</select><br>
-				<label>(Ctrl+click to add multiple. Click <a href="Allergies" class="bold">here</a> if allergy is not listed.</label>
-			</fieldset><br>
-			<input type="submit" value="Submit" name="addStudentSubmit">
-		  </form>  
-	</div>
+			</table>
+		</div>
+	</div>	
 
 	<h1>Emergency Contacts</h1>
 
-	<div class="two-third">
-		<table>
-        <thead>
-            <tr>
-                <!-- Iterate through each key in the first row to get the
-                column name -->
-                {% for key in EmergencyContacts[0].keys() %}
+	<div class="row">
+		<div class="column1">		
+			<form action="/Students" method="POST">
+				<input type="hidden" name="add" value="addEmergencyContacts">
+				<legend class="bold">Add an Emergency Contact</legend><br>
+					<select name="addEmergencyContactsStudents" class="beige">
+						<option value="">Please select a Student</option>
+					{% for row in Students %}
+						<option value="{{row["Student ID"]}}">{{row["First Name"]}} {{row["Last Name"]}}</option>
+					{% endfor %}
+					</select> <br>
+					<select name="addEmergencyContactsTrustedAdults" class="beige">
+						<option value="">Please select an Adult</option>
+					{% for row in TrustedAdults %}
+						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
+					{% endfor %}
+					</select>			
+				<br><br>
 
-                <!-- Create a <th> tag with the key inside of it, this will be
-                our header row -->
-                <th>{{ key }}</th>
+				<input type="submit" value="Submit" name="addEmerContactSubmit">
+			</form> 
+		</div>
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<!-- Iterate through each key in the first row to get the
+					column name -->
+					{% for key in EmergencyContacts[0].keys() %}
 
-                <!-- End of this for loop -->
-                {% endfor %}
-            </tr>
+					<!-- Create a <th> tag with the key inside of it, this will be
+					our header row -->
+					<th>{{ key }}</th>
 
-        <tbody>
-             <!-- Iterate through every person in EmergencyContacts -->
-            {% for person in EmergencyContacts %}
-            <tr>
-                <!-- Iterate through every key in the current person dictionary -->
-                {% for key in person.keys() %}
+					<!-- End of this for loop -->
+					{% endfor %}
+				</tr>
 
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{person[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-		</table>
-	</div>
+			<tbody>
+				<!-- Iterate through every person in EmergencyContacts -->
+				{% for person in EmergencyContacts %}
+				<tr>
+					<!-- Iterate through every key in the current person dictionary -->
+					{% for key in person.keys() %}
 
-	<div class="narrow-right">		
-		<form action="/Students" method="POST">
-			<input type="hidden" name="add" value="addEmergencyContacts">
-			<legend class="bold">Add an Emergency Contact</legend>
-			<label for="student">Student: </label><br>
-				<select name="addEmergencyContactsStudents">
-					<option value="">Please select a Student</option>
-				{% for row in Students %}
-					<option value="{{row["Student ID"]}}">{{row["First Name"]}} {{row["Last Name"]}}</option>
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{person[key]}}</td>
+					{% endfor %}
+				</tr>
 				{% endfor %}
-				</select> <br>
-			<label for="adult">Adult: </label><br>
-				<select name="addEmergencyContactsTrustedAdults">
-					<option value="">Please select an Adult</option>
-				{% for row in TrustedAdults %}
-					<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
-				{% endfor %}
-				</select>			
-			<br>
-
-			<input type="submit" value="Submit" name="addEmerContactSubmit">
-
-		</form> 
-	</div>
+			</table>
+		</div>
+	</div>	
 
 </body>
 </html>

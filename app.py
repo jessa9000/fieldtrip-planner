@@ -11,9 +11,8 @@ app = Flask(__name__)
 db_connection = db.connect_to_database()
 
 # Trying Ed #203 again -- putting a copy here and at bottom, not sure if it matters:
-
-db_connection.ping(True)
-cur=db_connection.cursor()
+# db_connection.ping(True)
+# cur=db_connection.cursor()
 
 # Routes 
 
@@ -21,6 +20,7 @@ cur=db_connection.cursor()
 def root():
     return render_template("main.j2")
 
+# ===========================================================================
 
 @app.route('/Students', methods=["POST", "GET"])
 def Students():
@@ -29,21 +29,35 @@ def Students():
         # Student form stuff
         if request.form["add"] == "addStudents":
             fname = request.form['fname']
-            lname = request.form.get('lname', default=None) # request.form.get() method is used to implement default values if a form entry can be left blank
+            lname = request.form.get('lname', default=None) # request.form.get() method implements default values if form entry can be left blank
             year = request.form['year'] # I couldn't get request.form.get() working for this one so let's just change it to NOT NULL :)
             power = request.form.get('power', default=None)
             allergyFlag = request.form.get('allergyFlag', default=0)
             allergies = request.form.getlist('student-allergies', type=int)
 
-            queryInsertStudents = "INSERT INTO Students (firstName, lastName, schoolYear, allergiesFlag, specialPower) VALUES (%s, %s, %s, %s, %s);"
+            queryInsertStudents = "INSERT INTO Students \
+                (firstName, lastName, schoolYear, allergiesFlag, specialPower) VALUES (%s, %s, %s, %s, %s);"
             dataInsertStudents = (fname, lname, year, allergyFlag, power)
+            print("bobcat")
             execute_query(db_connection, queryInsertStudents, dataInsertStudents)
+            print("lion")
 
-            # TODO - figure out how to update Allergies table from multiple select
-            if allergyFlag == 1:
-                newStudentInsert = "SELECT LAST_INSERT_ID();"
-                newStudentID = newStudentInsert["studentID"]
+            # Implement update Allergies table from multiple select
 
+            # Get set up to get the ID of the student we just inserted
+            if allergyFlag == '1':
+                print("zebra")
+                # 1. Save the SQL query syntax to variable
+                queryNewID = "SELECT LAST_INSERT_ID() FROM Students;"
+                # 2. Execute query and save result to cursor
+                cursorNewID = db.execute_query(db_connection=db_connection, query=queryNewID)
+                # 3. Run fetchall and save to result variable
+                resultNewID = cursorNewID.fetchall()
+                # 4. Get the ID out of the fetchall array
+                almostNewStudentID = resultNewID[0]
+                newStudentID = almostNewStudentID['LAST_INSERT_ID()']
+                print(newStudentID)
+                
                 for allergy in allergies:
                     queryInsertAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
                     dataInsertAllergies = (newStudentID, allergy)
@@ -58,7 +72,7 @@ def Students():
             dataInsertEmergencyContacts = (studentID, adultID)
             execute_query(db_connection, queryInsertEmergencyContacts, dataInsertEmergencyContacts)
 
-    # Write the query and save it to a variable
+    # Write the query for all relevant tables and save those queries (we don't have results yet) to variables
     queryStudents = "SELECT studentID AS 'Student ID', firstName AS 'First Name', lastName AS 'Last Name', \
         schoolYear AS 'School Year', (CASE WHEN allergiesFlag = 1 THEN 'Yes' ELSE 'No' END) AS 'Any Allergies', \
             specialPower AS 'Special Power' FROM Students;"
@@ -90,7 +104,10 @@ def Students():
     print("Test3")
 
     # Sends the results back to the web browser.
-    return render_template("Students.j2", Students=resultsStudents, Allergens=resultsAllergens, EmergencyContacts=resultsEmergencyContacts, TrustedAdults=resultsTrustedAdults)
+    return render_template("Students.j2", Students=resultsStudents, Allergens=resultsAllergens, \
+        EmergencyContacts=resultsEmergencyContacts, TrustedAdults=resultsTrustedAdults)
+
+# ======================================================================
 
 @app.route('/TrustedAdults', methods=["POST", "GET"])
 def TrustedAdults():
