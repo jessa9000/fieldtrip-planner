@@ -166,7 +166,7 @@ SELECT Attendees.tripID AS 'Trip ID', Attendees.studentID AS 'Student ID',
 -- Planned Snacks table
 
 SELECT PlannedSnacks.plannedSnackID AS 'Planned Snack ID', PlannedSnacks.tripID AS 'Trip ID', 
-    PlannedSnacks.snackID AS 'Snack ID', snacks.name AS 'Snack Name', 
+    PlannedSnacks.snackID AS 'Snack ID', Snacks.name AS 'Snack Name', 
     PlannedSnacks.adultID AS 'Snack Bringer ID', 
     TrustedAdults.firstName AS 'Snack Bringer FName',  TrustedAdults.lastName AS 'Snack Bringer LName'
     FROM PlannedSnacks
