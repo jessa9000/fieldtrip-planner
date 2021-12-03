@@ -10,10 +10,6 @@ app = Flask(__name__)
 
 db_connection = db.connect_to_database()
 
-# Trying Ed #203 again -- putting a copy here and at bottom, not sure if it matters:
-# db_connection.ping(True)
-# cur=db_connection.cursor()
-
 # Routes 
 
 @app.route('/')

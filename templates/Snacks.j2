@@ -55,16 +55,8 @@
 			<table class="data-table">
 			<thead>
 				<tr>
-					<!-- Iterate through each key in the first entry to get the
-					column name -->
-					{% for key in Snacks[0].keys() %}
-
-					<!-- Create a <th> tag with the key inside of it, this will be
-					our header row -->
-					<th>{{ key }}</th>
-
-					<!-- End of this for loop -->
-					{% endfor %}
+					<th>Snack ID</th>
+					<th>Snack Name</th>
 				</tr>
 
 			<tbody>
@@ -114,16 +106,10 @@
 			<table class="data-table">
 			<thead>
 				<tr>
-					<!-- Iterate through each key in the first entry to get the
-					column name -->
-					{% for key in Ingredients[0].keys() %}
-
-					<!-- Create a <th> tag with the key inside of it, this will be
-					our header row -->
-					<th>{{ key }}</th>
-
-					<!-- End of this for loop -->
-					{% endfor %}
+					<th>Snack ID</th>
+					<th>Snack Name</th>
+					<th>Allergen ID</th>
+					<th>Allergen</th>
 				</tr>
 
 			<tbody>

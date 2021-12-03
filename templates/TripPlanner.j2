@@ -20,11 +20,11 @@
 	</div>
 
 
-	<div class="narrow">
+	<div>
 		<form class="margin-top" action="/TripPlanner" method="POST">
 			<input type="hidden" name="add" value="selectPlanningTrip">
 			<legend class="bold">Select a trip to filter:</legend>
-				<select name="selectTrip">
+				<select name="selectTrip" class="beige">
 					<option value="">Please select a Trip</option>
 					<option value="">Reset Tables</option>
 				{% for row in Trips %}
@@ -40,7 +40,6 @@
 
 	<div>
         <table>
-
         <thead>
 			<tr>
 				<!-- Iterate through each key in the first row to get the
@@ -71,163 +70,153 @@
 
 	<h1>Attendees</h1>
 
-	<div>
-        <table>
-        <thead>
-            <tr>
-				<th>Trip ID</th>
-				<th>Student ID</th>
-				<th>Student First Name</th>
-				<th>Student Last Name</th>
-				<th>Responsible Chaperone ID</th>
-				<th>Responsible Chaperone FName</th>
-				<th>Responsible Chaperone LName</th>
-            </tr>
-
-        <tbody>
-            <!-- Now, iterate through every row in Attendees -->
-            {% for row in Attendees %}
-            <tr>
-                <!-- Then iterate through every key in the current row dictionary -->
-                {% for key in row.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{row[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-	</div>
-
-	<h1>Planned Snacks</h1>
-
-	<div>
-        <table>
-        <thead>
-            <tr>
-				<th>Planned Snack ID</th>
-				<th>Trip ID</th>
-				<th>Snack ID</th>
-				<th>Snack Name</th>
-				<th>Snack Bringer ID</th>
-				<th>Snack Bringer FName</th>
-				<th>Snack Bringer LName</th>
-            </tr>
-
-        <tbody>
-            <!-- Now, iterate through every row in PlannedSnack -->
-            {% for row in PlannedSnack %}
-            <tr>
-                <!-- Then iterate through every key in the current row dictionary -->
-                {% for key in row.keys() %}
-
-                <!-- Create a <td> element with the value of that key in it -->
-                <td>{{row[key]}}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-	</div><br>
-
 	<div class="row">
-		<div class="column"> 
-		
+		<div class="column1">
 			<form action="/TripPlanner" method="POST">
 				<input type="hidden" name="add" value="addAttendee">
 				<legend class="bold">Add an Attendee</legend>
-				<label for="tripID">Trip: </label><br>
-					<select name="attendeeTrip">
+				<br>
+					<select name="attendeeTrip" class="beige">
 						<option value="">Please select a Trip</option>
 					{% for row in Trips %}
 						<option value="{{row["tripID"]}}">{{row["name"]}}</option>
 					{% endfor %}
-					</select> <br>
-				<label for="studentID">Student: </label><br>
-					<select name="attendeeStudent">
+					</select> <br>				
+					<select name="attendeeStudent" class="beige">
 						<option value="">Please select a Student</option>
 					{% for row in Students %}
 						<option value="{{row["studentID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="adultID">Chaperone: </label><br>
-					<select name="attendeeChaperone">
+					<select name="attendeeChaperone" class="beige">
 						<option value="">Please select a Chaperone</option>
 					{% for row in Adults %}
 						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
-					</select> <br>
+					</select> <br><br>
 				<input type="submit" value="Submit" id="addAttendeeSubmit">
 			</form> 
-
 		</div>
-		<div class="column">
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<th>Trip ID</th>
+					<th>Student ID</th>
+					<th>Student First Name</th>
+					<th>Student Last Name</th>
+					<th>Responsible Chaperone ID</th>
+					<th>Responsible Chaperone FName</th>
+					<th>Responsible Chaperone LName</th>
+				</tr>
+
+			<tbody>
+				<!-- Now, iterate through every row in Attendees -->
+				{% for row in Attendees %}
+				<tr>
+					<!-- Then iterate through every key in the current row dictionary -->
+					{% for key in row.keys() %}
+
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{row[key]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<h1>Planned Snacks</h1>
+
+	<div class="row">
+		<div class="column1">
 			<form action="/TripPlanner" method="POST">
 				<input type="hidden" name="add" value="addPlannedSnack">
 				<legend class="bold">Add a Planned Snack</legend>
-				<label for="tripID">Trip: </label><br>
-					<select name="plannedSnackTrip">
+				<br>
+					<select name="plannedSnackTrip" class="beige">
 						<option value="">Please select a Trip</option>
 					{% for row in Trips %}
 						<option value="{{row["tripID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="studentID">Snack: </label><br>
-					<select name="plannedSnackName">
+					<select name="plannedSnackName" class="beige">
 						<option value="">Please select a Snack</option>
 					{% for row in Snacks %}
 						<option value="{{row["snackID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="adultID">Snack Bringer: </label><br>
-					<select name="plannedSnackBringer">
+					<select name="plannedSnackBringer" class="beige">
 						<option value="">Please select a Snack Bringer</option>
 					{% for row in Adults %}
 						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
-					</select> <br>
+					</select> <br><br>
 				<input type="submit" value="Submit" id="addPlannedSnackSubmit">
 			</form> 
-		</div>
-
-		<div class="column">
 			<form action="/TripPlanner" method="POST">
 				<input type="hidden" name="add" value="updatePlannedSnack">
 				<legend class="bold">Modify a Planned Snack</legend>
-				<label for="plannedSnackID">Planned Snack: </label><br>
-					<select name="selectUpdatePlannedSnack">
+					<br>
+					<select name="selectUpdatePlannedSnack" class="beige">
 						<option value="">Please select a Planned Snack</option>
 					{% for row in PlannedSnack %}
 						<option value="{{row["Planned Snack ID"]}}">{{row["Planned Snack ID"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="tripName">Trip: </label><br>
-					<select name="updatePlannedSnackTrip">
+					<select name="updatePlannedSnackTrip" class="beige">
 						<option value="">Please select a Trip</option>
 					{% for row in Trips %}
 						<option value="{{row["tripID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="snackName">Snack: </label><br>
-					<select name="updatePlannedSnackName">
+					<select name="updatePlannedSnackName" class="beige">
 						<option value="">Please select a Snack</option>
 						<option value="">None</option>
 					{% for row in Snacks %}
 						<option value="{{row["snackID"]}}">{{row["name"]}}</option>
 					{% endfor %}
 					</select> <br>
-				<label for="snackBringerName">Snack Bringer: </label><br>
-					<select name="updateSnackBringer">
+					<select name="updateSnackBringer" class="beige">
 						<option value="">Please select a Snack Bringer</option>
 						<option value="">None</option>
 					{% for row in Adults %}
 						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
-					</select> <br>
+					</select> <br><br>
 				<input type="submit" value="Edit" id="modifyPlannedSnack">	
 			</form> 
 		</div>
-	  </div><br>
 
+
+		<div class="column2 vertical-line">
+			<table class="data-table">
+			<thead>
+				<tr>
+					<th>Planned Snack ID</th>
+					<th>Trip ID</th>
+					<th>Snack ID</th>
+					<th>Snack Name</th>
+					<th>Snack Bringer ID</th>
+					<th>Snack Bringer FName</th>
+					<th>Snack Bringer LName</th>
+				</tr>
+
+			<tbody>
+				<!-- Now, iterate through every row in PlannedSnack -->
+				{% for row in PlannedSnack %}
+				<tr>
+					<!-- Then iterate through every key in the current row dictionary -->
+					{% for key in row.keys() %}
+
+					<!-- Create a <td> element with the value of that key in it -->
+					<td>{{row[key]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div><br>
+	</div>
 
 </body>
 </html>
