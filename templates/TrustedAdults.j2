@@ -3,6 +3,7 @@
 <head>
 	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -23,7 +24,7 @@
 
 	<div class="row">
 		<div class="column1">		
-			<form action="/TrustedAdults" method="POST">
+			<form onsubmit="checkTelNo()" action="/TrustedAdults" method="POST">
 				<legend class="bold">Add a Trusted Adult</legend>
 				<label for="fname">First Name: </label><br><input type="text" id="fname" name="fname" required="required"><br>
 				<label for="lname">Last Name: </label><br><input type="text" id="lname" name="lname" required="required"><br>
