@@ -210,7 +210,6 @@ def Trips():
     # Form stuff
     if request.method == "POST":
 
-        tripID = request.form['selectUpdateTrip']
         tripName = request.form['tripName']
         street = request.form['street']
         city = request.form['city']
@@ -228,6 +227,7 @@ def Trips():
 
         # Update Trip form stuff
         elif request.form["add"] == "updateTrips":
+            tripID = request.form['selectUpdateTrip']
             queryUpdateTrip = "UPDATE Trips SET name = (%s), street = (%s), city = (%s), state = (%s), zipCode = (%s), date = (%s), meetTime = (%s), returnTime = (%s) WHERE tripID = (%s);"
             dataUpdateTrip = (tripName, street, city, state, zipCode, date, meetTime, returnTime, tripID)
             execute_query(db_connection, queryUpdateTrip, dataUpdateTrip)
