@@ -80,10 +80,15 @@ input.short{
 
 .data-table{
 	margin-left: 2%;
+	margin-bottom: 20px;
 }
 
 .margin-top{
 	margin-top: 10px;
+}
+
+.margin-bottom{
+	padding-bottom: 20px;
 }
 
 .second-header{
@@ -105,6 +110,10 @@ a:link{
 a:visited{
 	text-decoration: none;
 	color: black;
+}
+
+select{
+	max-width: 90%;
 }
 
 .beige{
@@ -136,8 +145,13 @@ a:visited{
 
 .vertical-line{
 	border-left: 2px solid black;
-	height: 60%;
-	position: absolute;
-	left: 24%;
+	/* height: 60%; */
+	position: absolute; 
+	left: 24%; 
 }
 
+.spacer{
+	position: absolute;
+	height: 25px;
+	color: white
+}
