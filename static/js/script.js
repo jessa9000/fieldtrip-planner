@@ -28,6 +28,7 @@ function sortNumColumn(){
     //     }
     // }
     headerRowCells[3].onclick = function() {
+        headerRowCells[3].innerHTML = "Allergen ID ▲";
         let switching = true;
         let switchCount = 0;
         var shouldSwitch;
@@ -56,9 +57,10 @@ function sortNumColumn(){
                 switching = true;
                 switchCount ++;
             } else {
-                if (switchCount == 0 && dir == "asc") {
+                if (switchCount == 0 && dir == "asc") {     //Only true if col was already sorted ascending
                     dir = "desc";
                     switching = true;
+                    headerRowCells[3].innerHTML = "Allergen ID ▼";
                 }
             }
         }

@@ -148,7 +148,7 @@ def Allergies():
             execute_query(db_connection, queryInsertAllergen, dataInsertAllergen)
 
     # Retrieve table data
-    queryAllergies = "SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen' FROM Allergies JOIN Students ON Allergies.studentID = Students.studentID JOIN Allergens ON Allergies.allergenID = Allergens.allergenID;"
+    queryAllergies = "SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID ^', Allergens.name AS 'Allergen' FROM Allergies JOIN Students ON Allergies.studentID = Students.studentID JOIN Allergens ON Allergies.allergenID = Allergens.allergenID;"
     queryAllergens = "SELECT allergenID AS 'Allergen ID', name AS 'Allergen Name' FROM Allergens;"
     queryStudents = "SELECT studentID, firstName, lastName FROM Students;"
     cursorAllergies = db.execute_query(db_connection=db_connection, query=queryAllergies)
