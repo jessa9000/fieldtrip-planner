@@ -355,7 +355,7 @@ def TripPlanner():
 
 @app.route('/PlannedSnackUpdate', methods=["POST", "GET"])
 def PlannedSnackUpdate():
-
+ 
     # Load prefilled form
     plannedSnackID = request.args.get("selectUpdatePlannedSnack")
     queryPrefill = "SELECT * FROM PlannedSnacks WHERE plannedSnackID = %s;" % (plannedSnackID,)
@@ -371,13 +371,6 @@ def PlannedSnackUpdate():
     resultsSnacks = cursorSnacks.fetchall()
     resultsAdults = cursorAdults.fetchall()
     return render_template("PlannedSnackUpdate.j2", prefill=resultsPrefill, Trips=resultsTrips, Snacks=resultsSnacks, Adults=resultsAdults)
-
-    # tripID = request.args.get("selectUpdateTrip")
-    # queryPrefill = "SELECT * FROM Trips WHERE tripID = %s;" % (tripID,)
-    # cursorPrefill = db.execute_query(db_connection=db_connection, query=queryPrefill)
-    # resultsPrefill = cursorPrefill.fetchall()
-    # return render_template("TripsUpdate.j2", prefill=resultsPrefill)
-
 
 # Listener
 # Specifying the host explicitly as suggested by classmate in Ed #167 
