@@ -10,6 +10,10 @@ app = Flask(__name__)
 
 db_connection = db.connect_to_database()
 
+# Trying Ed #203 again -- putting a copy here and at bottom, not sure if it matters:
+# db_connection.ping(True)
+# cur=db_connection.cursor()
+
 # Routes 
 
 @app.route('/')
@@ -222,9 +226,14 @@ def Trips():
             dataInsertTrips = (tripName, street, city, state, zipCode, date, meetTime, returnTime)
             execute_query(db_connection, queryInsertTrips, dataInsertTrips)
 
-        # Update Trip form stuff
-        elif request.form["add"] == "updateTrips":
+        # Select Trip to UPDATE, loads TripsUpdate page with prefilled form
+        elif request.form["add"] == "selectTrips":
             tripID = request.form['selectUpdateTrip']
+            return render_template("TripsUpdate.j2")
+
+        # Incoming form data from TripsUpdate page submission
+        elif request.form["add"] == "updateTrips":
+            tripID = request.form['tripID']
             queryUpdateTrip = "UPDATE Trips SET name = (%s), street = (%s), city = (%s), state = (%s), zipCode = (%s), date = (%s), meetTime = (%s), returnTime = (%s) WHERE tripID = (%s);"
             dataUpdateTrip = (tripName, street, city, state, zipCode, date, meetTime, returnTime, tripID)
             execute_query(db_connection, queryUpdateTrip, dataUpdateTrip)
@@ -234,6 +243,16 @@ def Trips():
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("Trips.j2", Trips=results)
+
+@app.route('/TripsUpdate', methods=["POST", "GET"])
+def TripsUpdate():
+
+    # Load prefilled form
+    tripID = request.args.get("selectUpdateTrip")
+    queryPrefill = "SELECT * FROM Trips WHERE tripID = %s;" % (tripID,)
+    cursorPrefill = db.execute_query(db_connection=db_connection, query=queryPrefill)
+    resultsPrefill = cursorPrefill.fetchall()
+    return render_template("TripsUpdate.j2", prefill=resultsPrefill)
 
 @app.route('/TripPlanner', methods=["POST", "GET"])
 def TripPlanner():
@@ -246,7 +265,6 @@ def TripPlanner():
         # Check if Trip filter is active
         if request.form["add"] == "selectPlanningTrip":
             selectTripPlanning = request.form['selectTrip']
-            print(selectTripPlanning)
 
         # Add Attendee form stuff
         if request.form["add"] == "addAttendee":
@@ -268,19 +286,23 @@ def TripPlanner():
             dataInsertPlannedSnack = (plannedSnackTrip, plannedSnackName, plannedSnackBringer)
             execute_query(db_connection, queryInsertPlannedSnack, dataInsertPlannedSnack)
 
-        # Update Planned Snack form stuff
-        elif request.form["add"] == "updatePlannedSnack":
-            selectUpdatePlannedSnack = request.form['selectUpdatePlannedSnack']
-            updatePlannedSnackTrip = request.form['updatePlannedSnackTrip']
-            updatePlannedSnackName = request.form['updatePlannedSnackName']
-            if updatePlannedSnackName == "":
-                updatePlannedSnackName = None
-            updateSnackBringer = request.form['updateSnackBringer']
-            if updateSnackBringer == "":
-                updateSnackBringer = None
+        # Select Planned Snack to UPDATE, loads PlannedSnackUpdate page with prefilled form
+        elif request.form["add"] == "selectPlannedSnack":
+            plannedSnackID = request.form['selectUpdatePlannedSnack']
+            return render_template("PlannedSnackUpdate.j2")
 
+        # Incoming form data from PlannedSnackUpdate page submission
+        elif request.form["add"] == "updatePlannedSnack":
+            plannedSnackID = request.form['plannedSnackID']
+            plannedSnackTrip = request.form['updateTrip']
+            plannedSnackSnack = request.form['updateSnack']
+            if plannedSnackSnack == "":
+                plannedSnackSnack = None
+            plannedSnackBringer = request.form['updateSnackBringer']
+            if plannedSnackBringer == "":
+                plannedSnackBringer = None
             queryUpdatePlannedSnack = "UPDATE PlannedSnacks SET snackID = %s, tripID = %s, adultID = %s WHERE plannedSnackID = %s;"
-            dataUpdatePlannedSnack = (updatePlannedSnackName, updatePlannedSnackTrip, updateSnackBringer, selectUpdatePlannedSnack)
+            dataUpdatePlannedSnack = (plannedSnackSnack, plannedSnackTrip, plannedSnackBringer, plannedSnackID)
             execute_query(db_connection, queryUpdatePlannedSnack, dataUpdatePlannedSnack)
 
     queryTripPlanning = "SELECT tripID AS 'Trip ID', name as 'Name', street as 'Street', city AS 'City', state AS 'State', zipCode AS 'Zip Code', date AS 'Date', meetTime AS 'Meet Time', returnTime AS 'Return Time' FROM Trips;"
@@ -330,6 +352,25 @@ def TripPlanner():
     resultsAdults = cursorAdults.fetchall()
     resultsSnacks = cursorSnacks.fetchall()
     return render_template("TripPlanner.j2", TripPlanning=resultsTripPlanning, Attendees=resultsAttendees, PlannedSnack=resultsPlannedSnack, Trips=resultsTrips, Students=resultsStudents, Adults=resultsAdults, Snacks=resultsSnacks)
+
+@app.route('/PlannedSnackUpdate', methods=["POST", "GET"])
+def PlannedSnackUpdate():
+ 
+    # Load prefilled form
+    plannedSnackID = request.args.get("selectUpdatePlannedSnack")
+    queryPrefill = "SELECT * FROM PlannedSnacks WHERE plannedSnackID = %s;" % (plannedSnackID,)
+    queryTrips = "SELECT tripID, name FROM Trips;"
+    querySnacks = "SELECT snackID, name FROM Snacks;"
+    queryAdults = "SELECT adultID, firstName, lastName FROM TrustedAdults;"
+    cursorPrefill = db.execute_query(db_connection=db_connection, query=queryPrefill)
+    cursorTrips = db.execute_query(db_connection=db_connection, query=queryTrips)
+    cursorSnacks = db.execute_query(db_connection=db_connection, query=querySnacks)
+    cursorAdults = db.execute_query(db_connection=db_connection, query=queryAdults)
+    resultsPrefill = cursorPrefill.fetchall()
+    resultsTrips = cursorTrips.fetchall()
+    resultsSnacks = cursorSnacks.fetchall()
+    resultsAdults = cursorAdults.fetchall()
+    return render_template("PlannedSnackUpdate.j2", prefill=resultsPrefill, Trips=resultsTrips, Snacks=resultsSnacks, Adults=resultsAdults)
 
 # Listener
 # Specifying the host explicitly as suggested by classmate in Ed #167 
