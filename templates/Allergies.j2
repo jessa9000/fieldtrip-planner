@@ -61,17 +61,17 @@
 
 	<div class="row">
 		<div class="column1">
-			<form action="/Allergies" method="POST">
+			<form onsubmit="checkDropdownAllergies()" action="/Allergies" method="POST">
 				<input type="hidden" name="add" value="addStudentsAllergies">
 				<legend class="bold">Add an Allergy</legend>
 				<br>
-					<select name="addAllergyStudents" class="beige">
+					<select id="addAllergyStudents" name="addAllergyStudents" class="beige">
 						<option value="">Please select a Student</option>
 					{% for row in Students %}
 						<option value="{{row["studentID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>
 					{% endfor %}
 					</select> <br>
-					<select name="addAllergyAllergens" class="beige">
+					<select id="addAllergyAllergens" name="addAllergyAllergens" class="beige">
 						<option value="">Please select an Allergen</option>
 					{% for row in Allergens %}
 						<option value="{{row["Allergen ID"]}}">{{row["Allergen Name"]}}</option>

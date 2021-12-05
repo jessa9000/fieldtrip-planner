@@ -4,9 +4,84 @@ function checkTelNo(){
     let telephone = document.getElementById('phone');
     let telValue = telephone.value;
     console.log(telValue);
-    if(telValue.length < 10) {
+    if(telValue.length != 10 ) {
         event.preventDefault(); 
-        alert("Telephone numbers must be at least 10 digits long.");
+        alert("Telephone numbers must be exactly 10 digits long.");
+        return false;
+    }
+    else if(isNaN(telValue) === true || telValue < 0) {
+        event.preventDefault();
+        alert("Entry must not contain letters, symbols, or negative values.");
+        return false;
+    }
+    return true;
+}
+
+function checkDropdownStudents(){
+
+    // Students page; Add Emergency Contact selection checker
+    let addEmergencyContactsStudents = document.getElementById('addEmergencyContactsStudents');
+    let addEmergencyContactsTrustedAdults = document.getElementById('addEmergencyContactsTrustedAdults');
+    if(addEmergencyContactsStudents.value == "" || addEmergencyContactsTrustedAdults.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;
+}
+
+function checkDropdownAllergies(){
+    
+    // Allergies page; Add an Allergy selection checker
+    let addAllergyStudents = document.getElementById('addAllergyStudents');
+    let addAllergyAllergens = document.getElementById('addAllergyAllergens');
+    if(addAllergyStudents.value == "" || addAllergyAllergens.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;
+}
+
+function checkDropdownSnacks(){
+
+    // Snacks page; Remove a Snack and Add Labeled Ingredients selection checker
+    let snackSelect = document.getElementById('snackSelect');
+    let addAllergenSnack = document.getElementById('addAllergenSnack');
+    let addSnackAllergen = document.getElementById('addSnackAllergen');
+    if(snackSelect.value == "" || addAllergenSnack.value == "" || addSnackAllergen.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;   
+}
+
+function checkDropdownTrips(){
+
+    // Trips page; Modify a Trip selection checker
+    let selectUpdateTrip = document.getElementById('selectUpdateTrip');
+    if(selectUpdateTrip.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;
+}
+
+function checkDropdownTripPlanner(){
+
+    // TripPlanner page; Add an Attendee, Add a Planned Snack, Modify a Planned Snack selection checker
+    let attendeeTrip = document.getElementById('attendeeTrip');
+    let attendeeStudent = document.getElementById('attendeeStudent');
+    let attendeeChaperone = document.getElementById('attendeeChaperone');
+    let plannedSnackTrip = document.getElementById('plannedSnackTrip');
+    let plannedSnackName = document.getElementById('plannedSnackName');
+    let plannedSnackBringer = document.getElementById('plannedSnackBringer');
+    let selectUpdatePlannedSnack = document.getElementById('selectUpdatePlannedSnack');
+    if(attendeeTrip.value == "" || attendeeStudent.value == "" || attendeeChaperone.value == "" || plannedSnackTrip.value == "" || plannedSnackName.value == "" || plannedSnackBringer.value == "" || selectUpdatePlannedSnack.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
         return false;
     }
     return true;

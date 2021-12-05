@@ -3,6 +3,7 @@
 <head>
 	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -44,10 +45,10 @@
 				<input type="time" id="returnTime" name="returnTime"><br><br>
 				<input type="submit" value="Submit" id="addTripSubmit">
 			</form> 
-			<form action="/TripsUpdate" method="GET" class="long-form">
+			<form onsubmit="checkDropdownTrips()" action="/TripsUpdate" method="GET" class="long-form">
 				<input type="hidden" name="add" value="selectTrips">
 				<legend class="bold">Modify a Trip</legend>
-					<select name="selectUpdateTrip" class="beige">
+					<select id="selectUpdateTrip" name="selectUpdateTrip" class="beige">
 						<option value="">Please select a Trip</option>
 					{% for row in Trips %}
 						<option value="{{row["Trip ID"]}}">{{row["Name"]}}</option>

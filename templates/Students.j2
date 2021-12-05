@@ -3,6 +3,7 @@
 <head>
 	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -85,16 +86,16 @@
 
 	<div class="row">
 		<div class="column1">		
-			<form action="/Students" method="POST">
+			<form onsubmit="checkDropdownStudents()" action="/Students" method="POST">
 				<input type="hidden" name="add" value="addEmergencyContacts">
 				<legend class="bold">Add an Emergency Contact</legend><br>
-					<select name="addEmergencyContactsStudents" class="beige">
+					<select id="addEmergencyContactsStudents" name="addEmergencyContactsStudents" class="beige">
 						<option value="">Please select a Student</option>
 					{% for row in Students %}
 						<option value="{{row["Student ID"]}}">{{row["First Name"]}} {{row["Last Name"]}}</option>
 					{% endfor %}
 					</select> <br>
-					<select name="addEmergencyContactsTrustedAdults" class="beige">
+					<select id="addEmergencyContactsTrustedAdults" name="addEmergencyContactsTrustedAdults" class="beige">
 						<option value="">Please select an Adult</option>
 					{% for row in TrustedAdults %}
 						<option value="{{row["adultID"]}}">{{row["firstName"]}} {{row["lastName"]}}</option>

@@ -3,6 +3,7 @@
 <head>
 	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -34,12 +35,12 @@
 					<input type="submit" value="Submit" id="snackAddSubmit">
 				</fieldset>
 			</form><br> 
-			<form action="/Snacks" method="POST">
+			<form onsubmit="checkDropdownSnacks()" action="/Snacks" method="POST">
 				<fieldset>
 					<input type="hidden" name="add" value="removeSnacks">
 					<legend class="bold">Remove a Snack:</legend>
 					<label for="snackDelete">Name of Unpopular Snack: </label><br>
-						<select name="snackSelect" class="beige">
+						<select id="snackSelect" name="snackSelect" class="beige">
 							<option value="">Please select a Snack</option>
 						{% for row in Snacks %}
 							<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
@@ -80,18 +81,18 @@
 	<div class="row">
 
 		<div class="column1">
-			<form action="/Snacks" method="POST">
+			<form onsubmit="checkDropdownSnacks()" action="/Snacks" method="POST">
 				<fieldset>
 					<input type="hidden" name="add" value="addIngredients">
 					<legend class="bold">Add Labeled Ingredients:</legend>
 					<br>
-						<select name="addAllergenSnack" class="beige">
+						<select id="addAllergenSnack" name="addAllergenSnack" class="beige">
 							<option value="">Please select a Snack</option>
 						{% for row in Snacks %}
 							<option value="{{row["Snack ID"]}}">{{row["Snack Name"]}}</option>
 						{% endfor %}
 						</select> <br>
-						<select name="addSnackAllergen" class="beige">
+						<select id="addSnackAllergen" name="addSnackAllergen" class="beige">
 							<option value="">Please select an Allergen</option>
 						{% for row in Allergens %}
 							<option value="{{row["allergenID"]}}">{{row["name"]}}</option>

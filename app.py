@@ -296,10 +296,10 @@ def TripPlanner():
             plannedSnackID = request.form['plannedSnackID']
             plannedSnackTrip = request.form['updateTrip']
             plannedSnackSnack = request.form['updateSnack']
-            if plannedSnackSnack == "":
+            if plannedSnackSnack == "none":
                 plannedSnackSnack = None
             plannedSnackBringer = request.form['updateSnackBringer']
-            if plannedSnackBringer == "":
+            if plannedSnackBringer == "none":
                 plannedSnackBringer = None
             queryUpdatePlannedSnack = "UPDATE PlannedSnacks SET snackID = %s, tripID = %s, adultID = %s WHERE plannedSnackID = %s;"
             dataUpdatePlannedSnack = (plannedSnackSnack, plannedSnackTrip, plannedSnackBringer, plannedSnackID)

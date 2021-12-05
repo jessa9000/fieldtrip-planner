@@ -26,21 +26,18 @@
             <input type="hidden" name="add" value="updatePlannedSnack">
             <input type="hidden" id="plannedSnackID" name="plannedSnackID" value="{{prefill[0]["plannedSnackID"]}}">
                 <select name="updateTrip" class="beige">
-                    <option value="">Please select a Trip</option>
                 {% for row in Trips %}
                     <option value="{{row["tripID"]}}" {% if prefill[0]["tripID"]==row["tripID"] %} selected="selected" {% endif %}>{{row["name"]}}</option>
                 {% endfor %}
                 </select> <br>
                 <select name="updateSnack" class="beige">
-                    <option value="">Please select a Snack</option>
-                    <option value="">None</option>
+                    <option value="none">None</option>
                 {% for row in Snacks %}
                     <option value="{{row["snackID"]}}" {% if prefill[0]["snackID"]==row["snackID"] %} selected="selected" {% endif %}>{{row["name"]}}</option>
                 {% endfor %}
                 </select> <br>
                 <select name="updateSnackBringer" class="beige">
-                    <option value="">Please select a Snack Bringer</option>
-                    <option value="">None</option>
+                    <option value="none">None</option>
                 {% for row in Adults %}
                     <option value="{{row["adultID"]}}" {% if prefill[0]["adultID"]==row["adultID"] %} selected="selected" {% endif %}>{{row["firstName"]}} {{row["lastName"]}}</option>
                 {% endfor %}
