@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="sortNumColumn([0], adultsTable); sortWordColumn([2], adultsTable)">
 
 	<div class="nav">
 		<table>
@@ -37,21 +37,14 @@
 
 		<div class="column2 vertical-line">
 
-			<table class="data-table">
+			<table class="data-table" id="adultsTable">
 			<thead>
 				<tr>
-					<!-- Iterate through each key in the first row to get the
-					column name -->
-					{% for key in TrustedAdults[0].keys() %}
-
-					<!-- Create a <th> tag with the key inside of it, this will be
-					our header row -->
-					<th>{{ key }}</th>
-
-					<!-- End of this for loop -->
-					{% endfor %}
+					<th class="sort">Trusted Adult ID ^</th>
+					<th>First Name</th>
+					<th class="sort">Last Name ^</th>
+					<th class="sort">Primary Phone</th>
 				</tr>
-
 			<tbody>
 				<!-- Now, iterate through every row in TrustedAdults -->
 				{% for row in TrustedAdults %}
