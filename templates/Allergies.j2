@@ -85,16 +85,11 @@
 			<table class="data-table" id="allergiesTable">
 			<thead>
 				<tr>
-					<!-- Iterate through each key in the first entry to get the
-					column name -->
-					{% for key in Allergies[0].keys() %}
-
-					<!-- Create a <th> tag with the key inside of it, this will be
-					our header row -->
-					<th>{{ key }}</th>
-
-					<!-- End of this for loop -->
-					{% endfor %}
+					<th class="sort">Student ID ^</th>
+					<th>Student First Name</th>
+					<th class="sort">Student Last Name ^</th>
+					<th class="sort">Allergen ID ^</th>
+					<th>Allergen</th>
 				</tr>
 			<tbody>
 				<!-- Now, iterate through every entry in Allergies -->
