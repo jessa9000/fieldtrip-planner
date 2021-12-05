@@ -38,15 +38,12 @@ def Students():
             queryInsertStudents = "INSERT INTO Students \
                 (firstName, lastName, schoolYear, allergiesFlag, specialPower) VALUES (%s, %s, %s, %s, %s);"
             dataInsertStudents = (fname, lname, year, allergyFlag, power)
-            print("bobcat")
             execute_query(db_connection, queryInsertStudents, dataInsertStudents)
-            print("lion")
 
             # Implement update Allergies table from multiple select
 
             # Get set up to get the ID of the student we just inserted
             if allergyFlag == '1':
-                print("zebra")
                 # 1. Save the SQL query syntax to variable
                 queryNewID = "SELECT LAST_INSERT_ID() FROM Students;"
                 # 2. Execute query and save result to cursor
@@ -137,10 +134,14 @@ def Allergies():
         if request.form["add"] == "addStudentsAllergies":
             studentID = request.form['addAllergyStudents']
             allergenID = request.form['addAllergyAllergens']
+            allergiesFlag = 1
 
             queryInsertStudentsAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
             dataInsertStudentsAllergies = (studentID, allergenID)
+            queryUpdateAllergyFlag = "UPDATE Students SET allergiesFlag = (%s) WHERE studentID = (%s);"
+            dataUpdateAllergyFlag = (allergiesFlag, studentID)
             execute_query(db_connection, queryInsertStudentsAllergies, dataInsertStudentsAllergies)
+            execute_query(db_connection, queryUpdateAllergyFlag, dataUpdateAllergyFlag)
 
         # Allergen form stuff
         elif request.form["add"] == "addAllergens":
@@ -151,7 +152,7 @@ def Allergies():
             execute_query(db_connection, queryInsertAllergen, dataInsertAllergen)
 
     # Retrieve table data
-    queryAllergies = "SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID', Allergens.name AS 'Allergen' FROM Allergies JOIN Students ON Allergies.studentID = Students.studentID JOIN Allergens ON Allergies.allergenID = Allergens.allergenID;"
+    queryAllergies = "SELECT Allergies.studentID AS 'Student ID', Students.firstName AS 'Student First Name', Students.lastName AS 'Student Last Name', Allergies.allergenID AS 'Allergen ID ^', Allergens.name AS 'Allergen' FROM Allergies JOIN Students ON Allergies.studentID = Students.studentID JOIN Allergens ON Allergies.allergenID = Allergens.allergenID;"
     queryAllergens = "SELECT allergenID AS 'Allergen ID', name AS 'Allergen Name' FROM Allergens;"
     queryStudents = "SELECT studentID, firstName, lastName FROM Students;"
     cursorAllergies = db.execute_query(db_connection=db_connection, query=queryAllergies)

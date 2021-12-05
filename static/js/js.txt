@@ -1,2 +1,0 @@
-Dummy file for js folder. (And not sure what js has to do with anything?? 
-Thought we were doing everything in python, but I'm just following the starter app.)

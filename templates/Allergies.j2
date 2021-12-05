@@ -3,9 +3,10 @@
 <head>
 	<title>Ms. Frizzle's Kindergarten Class Field Trip Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 	<script src="https://kit.fontawesome.com/9a64daf693.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="sortNumColumn()">
 
 	<div class="table">
 		<table>
@@ -27,11 +28,12 @@
 			<form action="/Allergies" method="POST">
 				<input type="hidden" name="add" value="addAllergens">
 				<legend class="bold">Add an Allergen</legend>
-				<label for="allergenName">Allergen Name: </label><br><input type="text" id="allergenName" name="allergenName" required="required"><br>
+				<label for="allergenName">Allergen Name: </label><br>
+				<input type="text" id="allergenName" name="allergenName" required="required"><br><br>
 				<input type="submit" value="Submit" id="addAllergenSubmit">
 			</form> 
 		</div>
-		<div class="column2 vertical-line">
+		<div class="column2  vertical-line">
 			<table class="data-table">
 				<thead>
 					<tr>
@@ -79,8 +81,8 @@
 			</form> 
 		</div>
 
-		<div class="column2 vertical-line">
-			<table class="data-table">
+		<div class="column2  vertical-line">
+			<table class="data-table" id="allergiesTable">
 			<thead>
 				<tr>
 					<!-- Iterate through each key in the first entry to get the
@@ -107,8 +109,12 @@
 				</tr>
 				{% endfor %}
 			</table>
+			<br>
+			<div class="spacer"><p>Spacer</p></div>
+
 		</div>
 	</div>
+
 
 
 </body>

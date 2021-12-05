@@ -80,10 +80,15 @@ input.short{
 
 .data-table{
 	margin-left: 2%;
+	margin-bottom: 20px;
 }
 
 .margin-top{
 	margin-top: 10px;
+}
+
+.margin-bottom{
+	padding-bottom: 20px;
 }
 
 .second-header{
@@ -107,8 +112,12 @@ a:visited{
 	color: black;
 }
 
+select{
+	max-width: 90%;
+}
+
 .beige{
-	background-color: rgb(245, 245, 237);
+	background-color:rgb(251, 251, 235);
 }
 
 /* Styling for two-column layout */
@@ -136,8 +145,13 @@ a:visited{
 
 .vertical-line{
 	border-left: 2px solid black;
-	height: 60%;
-	position: absolute;
-	left: 24%;
+	/* height: 60%; */
+	position: absolute; 
+	left: 24%; 
 }
 
+.spacer{
+	position: absolute;
+	height: 25px;
+	color: white
+}
