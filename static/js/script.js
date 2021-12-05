@@ -1,5 +1,6 @@
 // This is the file where we will keep client-side scripts. //
 
+//Validates that a telephone number is at least 10 digits long.// 
 function checkTelNo(){
     let telephone = document.getElementById('phone');
     let telValue = telephone.value;
