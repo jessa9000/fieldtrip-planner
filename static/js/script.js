@@ -15,8 +15,7 @@ function checkTelNo(){
 //Citation: the following sort functions are adapted from starter code at:
 // https://www.w3schools.com/howto/howto_js_sort_table.asp//
 
-function sortNumColumn(array){
-    table = document.getElementById("allergiesTable");
+function sortNumColumn(array, table){
     headerRowCells = table.rows[0].cells;
     for (let num of array){
         headerRowCells[num].onclick = function() {
@@ -61,8 +60,7 @@ function sortNumColumn(array){
     }
 }
 
-function sortWordColumn(array){
-    table = document.getElementById("allergiesTable");
+function sortWordColumn(array, table){
     headerRowCells = table.rows[0].cells;
     for (let num of array){
         headerRowCells[num].onclick = function() {
