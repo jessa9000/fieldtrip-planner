@@ -73,7 +73,7 @@
 
 	<div class="row">
 		<div class="column1">
-			<form onsubmit="checkDropdownTripPlanner()" action="/TripPlanner" method="POST">
+			<form onsubmit="checkDropdownAddAttendee()" action="/TripPlanner" method="POST">
 				<input type="hidden" name="add" value="addAttendee">
 				<legend class="bold">Add an Attendee</legend>
 				<br>
@@ -131,7 +131,7 @@
 
 	<div class="row">
 		<div class="column1">
-			<form onsubmit="checkDropdownTripPlanner()" action="/TripPlanner" method="POST">
+			<form onsubmit="checkDropdownAddPlannedSnack()" action="/TripPlanner" method="POST">
 				<input type="hidden" name="add" value="addPlannedSnack">
 				<legend class="bold">Add a Planned Snack</legend>
 				<br>
@@ -155,7 +155,7 @@
 					</select> <br><br>
 				<input type="submit" value="Submit" id="addPlannedSnackSubmit">
 			</form> 
-			<form onsubmit="checkDropdownTripPlanner()" action="/PlannedSnackUpdate" method="GET">
+			<form onsubmit="checkDropdownModifyPlannedSnack()" action="/PlannedSnackUpdate" method="GET">
 				<input type="hidden" name="add" value="selectPlannedSnack">
 				<legend class="bold">Modify a Planned Snack</legend>
 					<br>

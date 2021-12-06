@@ -35,7 +35,7 @@
 					<input type="submit" value="Submit" id="snackAddSubmit">
 				</fieldset>
 			</form><br> 
-			<form onsubmit="checkDropdownSnacks()" action="/Snacks" method="POST">
+			<form onsubmit="checkDropdownRemoveSnacks()" action="/Snacks" method="POST">
 				<fieldset>
 					<input type="hidden" name="add" value="removeSnacks">
 					<legend class="bold">Remove a Snack:</legend>
@@ -81,7 +81,7 @@
 	<div class="row">
 
 		<div class="column1">
-			<form onsubmit="checkDropdownSnacks()" action="/Snacks" method="POST">
+			<form onsubmit="checkDropdownAddIngredients()" action="/Snacks" method="POST">
 				<fieldset>
 					<input type="hidden" name="add" value="addIngredients">
 					<legend class="bold">Add Labeled Ingredients:</legend>

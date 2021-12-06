@@ -44,13 +44,24 @@ function checkDropdownAllergies(){
     return true;
 }
 
-function checkDropdownSnacks(){
+function checkDropdownRemoveSnacks(){
 
-    // Snacks page; Remove a Snack and Add Labeled Ingredients selection checker
+    // Snacks page; Remove a Snack selection checker
     let snackSelect = document.getElementById('snackSelect');
+    if(snackSelect.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;   
+}
+
+function checkDropdownAddIngredients(){
+
+    // Snacks page; Add Labeled Ingredients selection checker
     let addAllergenSnack = document.getElementById('addAllergenSnack');
     let addSnackAllergen = document.getElementById('addSnackAllergen');
-    if(snackSelect.value == "" || addAllergenSnack.value == "" || addSnackAllergen.value == "") {
+    if(addAllergenSnack.value == "" || addSnackAllergen.value == "") {
         event.preventDefault();
         alert("Please make a selection.");
         return false;
@@ -70,17 +81,39 @@ function checkDropdownTrips(){
     return true;
 }
 
-function checkDropdownTripPlanner(){
+function checkDropdownAddAttendee(){
 
-    // TripPlanner page; Add an Attendee, Add a Planned Snack, Modify a Planned Snack selection checker
+    // TripPlanner page; Add an Attendee selection checker
     let attendeeTrip = document.getElementById('attendeeTrip');
     let attendeeStudent = document.getElementById('attendeeStudent');
     let attendeeChaperone = document.getElementById('attendeeChaperone');
+    if(attendeeTrip.value == "" || attendeeStudent.value == "" || attendeeChaperone.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;
+}
+
+function checkDropdownAddPlannedSnack(){
+
+    // TripPlanner page; Add a Planned Snack selection checker
     let plannedSnackTrip = document.getElementById('plannedSnackTrip');
     let plannedSnackName = document.getElementById('plannedSnackName');
     let plannedSnackBringer = document.getElementById('plannedSnackBringer');
+    if(plannedSnackTrip.value == "" || plannedSnackName.value == "" || plannedSnackBringer.value == "") {
+        event.preventDefault();
+        alert("Please make a selection.");
+        return false;
+    }
+    return true;
+}
+
+function checkDropdownModifyPlannedSnack(){
+
+    // TripPlanner page; Modify a Planned Snack selection checker
     let selectUpdatePlannedSnack = document.getElementById('selectUpdatePlannedSnack');
-    if(attendeeTrip.value == "" || attendeeStudent.value == "" || attendeeChaperone.value == "" || plannedSnackTrip.value == "" || plannedSnackName.value == "" || plannedSnackBringer.value == "" || selectUpdatePlannedSnack.value == "") {
+    if(selectUpdatePlannedSnack.value == "") {
         event.preventDefault();
         alert("Please make a selection.");
         return false;
