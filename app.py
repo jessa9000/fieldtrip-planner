@@ -26,13 +26,15 @@ def root():
 def Students():
 
     if request.method == "POST":
-        # Student form stuff
+        # Form to INSERT new entry into Students table
         if request.form["add"] == "addStudents":
             fname = request.form['fname']
             lname = request.form.get('lname', default=None) # request.form.get() method implements default values if form entry can be left blank
             year = request.form['year'] # I couldn't get request.form.get() working for this one so let's just change it to NOT NULL :)
             power = request.form.get('power', default=None)
             allergyFlag = request.form.get('allergyFlag', default=0)
+
+            # Grabs entries to INSERT new entries into Allergies table, if applicable
             allergies = request.form.getlist('student-allergies', type=int)
 
             queryInsertStudents = "INSERT INTO Students \
@@ -40,8 +42,7 @@ def Students():
             dataInsertStudents = (fname, lname, year, allergyFlag, power)
             execute_query(db_connection, queryInsertStudents, dataInsertStudents)
 
-            # Implement update Allergies table from multiple select
-
+            # Implement INSERT into Allergies table from multiple select
             # Get set up to get the ID of the student we just inserted
             if allergyFlag == '1':
                 # 1. Save the SQL query syntax to variable
@@ -60,7 +61,7 @@ def Students():
                     dataInsertAllergies = (newStudentID, allergy)
                     execute_query(db_connection, queryInsertAllergies, dataInsertAllergies)
 
-        # Emergency Contacts form stuff
+        # Form to INSERT new entry into Emergency Contacts relationship table using FKs from Students and Trusted Adults tables
         elif request.form["add"] == "addEmergencyContacts":
             studentID = request.form['addEmergencyContactsStudents']
             adultID = request.form['addEmergencyContactsTrustedAdults']
@@ -109,7 +110,7 @@ def Students():
 @app.route('/TrustedAdults', methods=["POST", "GET"])
 def TrustedAdults():
 
-    # Form stuff
+    # Form to INSERT new entry into Trusted Adults table
     if request.method == "POST":
         fname = request.form['fname']
         lname = request.form['lname']
@@ -130,10 +131,11 @@ def Allergies():
  
     # Form stuff
     if request.method == "POST":
-        # Student-Allergy form stuff
+        # Form to INSERT new entry into Allergies relationship table using FKs from Students and Allergens tables
         if request.form["add"] == "addStudentsAllergies":
             studentID = request.form['addAllergyStudents']
             allergenID = request.form['addAllergyAllergens']
+            # UPDATEs Students table Allergy flag if a Student previously did not have an allergy recorded
             allergiesFlag = 1
 
             queryInsertStudentsAllergies = "INSERT INTO Allergies (studentID, allergenID) VALUES (%s, %s);"
@@ -143,7 +145,7 @@ def Allergies():
             execute_query(db_connection, queryInsertStudentsAllergies, dataInsertStudentsAllergies)
             execute_query(db_connection, queryUpdateAllergyFlag, dataUpdateAllergyFlag)
 
-        # Allergen form stuff
+        # Form to INSERT new entry into Allergens table
         elif request.form["add"] == "addAllergens":
             allergenName = request.form['allergenName']
 
@@ -168,7 +170,7 @@ def Snacks():
 
     # Form stuff
     if request.method == "POST":
-        # Add Snack form stuff
+        # Form to INSERT new entry into Snacks table
         if request.form["add"] == "addSnacks":
             snackName = request.form['snackAdd']
 
@@ -176,7 +178,7 @@ def Snacks():
             dataInsertSnacks = (snackName,)
             execute_query(db_connection, queryInsertSnacks, dataInsertSnacks)
 
-        # Remove Snack form stuff
+        # Form to DELETE an entry from Snacks table; CASCADES to DELETE related entries in Ingredients table; SET NULL for related entries in Planned Snacks table
         elif request.form["add"] == "removeSnacks":
             snackID = request.form['snackSelect']
 
@@ -184,7 +186,7 @@ def Snacks():
             dataDeleteSnack = (snackID,)
             execute_query(db_connection, queryDeleteSnack, dataDeleteSnack)
 
-         # Add Ingredients form stuff
+         # Form to INSERT new entry into Ingredients relationship table using FKs from Snacks and Allergens tables
         elif request.form["add"] == "addIngredients":
             snackID = request.form['addAllergenSnack']
             allergenID = request.form['addSnackAllergen']
@@ -211,6 +213,7 @@ def Trips():
     # Form stuff
     if request.method == "POST":
 
+        # Attributes common to all forms (per DRY)
         tripName = request.form['tripName']
         street = request.form['street']
         city = request.form['city']
@@ -220,7 +223,7 @@ def Trips():
         meetTime = request.form.get('meetTime', default=None)
         returnTime = request.form.get('returnTime', default=None)
 
-        # Add Trip form stuff
+        # Form to INSERT new entry into Trips table
         if request.form["add"] == "addTrips":
             queryInsertTrips = "INSERT INTO Trips (name, street, city, state, zipCode, date, meetTime, returnTime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
             dataInsertTrips = (tripName, street, city, state, zipCode, date, meetTime, returnTime)
@@ -231,7 +234,7 @@ def Trips():
             tripID = request.form['selectUpdateTrip']
             return render_template("TripsUpdate.j2")
 
-        # Incoming form data from TripsUpdate page submission
+        # Incoming form data from TripsUpdate page submission to UPDATE a Trip
         elif request.form["add"] == "updateTrips":
             tripID = request.form['tripID']
             queryUpdateTrip = "UPDATE Trips SET name = (%s), street = (%s), city = (%s), state = (%s), zipCode = (%s), date = (%s), meetTime = (%s), returnTime = (%s) WHERE tripID = (%s);"
@@ -247,7 +250,7 @@ def Trips():
 @app.route('/TripsUpdate', methods=["POST", "GET"])
 def TripsUpdate():
 
-    # Load prefilled form
+    # Load prefilled form for a selected Trip
     tripID = request.args.get("selectUpdateTrip")
     queryPrefill = "SELECT * FROM Trips WHERE tripID = %s;" % (tripID,)
     cursorPrefill = db.execute_query(db_connection=db_connection, query=queryPrefill)
@@ -257,16 +260,17 @@ def TripsUpdate():
 @app.route('/TripPlanner', methods=["POST", "GET"])
 def TripPlanner():
 
+    # Resetting the Trips filter on page load
     selectTripPlanning = ""
 
     # Form stuff
     if request.method == "POST":
 
-        # Check if Trip filter is active
+        # If Trips filter is active, the selected tripID is pulled here
         if request.form["add"] == "selectPlanningTrip":
             selectTripPlanning = request.form['selectTrip']
 
-        # Add Attendee form stuff
+        # Form to INSERT new entry into Attendees relationship table using FKs from Students, Trips, and Trusted Adults tables
         if request.form["add"] == "addAttendee":
             attendeeTrip = request.form['attendeeTrip']
             attendeeStudent = request.form['attendeeStudent']
@@ -276,7 +280,7 @@ def TripPlanner():
             dataInsertAttendee = (attendeeTrip, attendeeStudent, attendeeChaperone)
             execute_query(db_connection, queryInsertAttendee, dataInsertAttendee)
 
-        # Add Planned Snack form stuff
+        # Form to INSERT new entry into Planned Snacks relationship table using FKs from Snacks, Trips, and Trusted Adults tables
         elif request.form["add"] == "addPlannedSnack":
             plannedSnackTrip = request.form['plannedSnackTrip']
             plannedSnackName = request.form['plannedSnackName']
@@ -291,16 +295,16 @@ def TripPlanner():
             plannedSnackID = request.form['selectUpdatePlannedSnack']
             return render_template("PlannedSnackUpdate.j2")
 
-        # Incoming form data from PlannedSnackUpdate page submission
+        # Incoming form data from PlannedSnackUpdate page submission to UPDATE a Planned Snack
         elif request.form["add"] == "updatePlannedSnack":
             plannedSnackID = request.form['plannedSnackID']
             plannedSnackTrip = request.form['updateTrip']
             plannedSnackSnack = request.form['updateSnack']
             if plannedSnackSnack == "none":
-                plannedSnackSnack = None
+                plannedSnackSnack = None # Assigning NULL if "None" is selected, NULLs the relationship between a Planned Snack and a Snack
             plannedSnackBringer = request.form['updateSnackBringer']
             if plannedSnackBringer == "none":
-                plannedSnackBringer = None
+                plannedSnackBringer = None # NULLs the relationship between a Planned Snack and a Trusted Adult
             queryUpdatePlannedSnack = "UPDATE PlannedSnacks SET snackID = %s, tripID = %s, adultID = %s WHERE plannedSnackID = %s;"
             dataUpdatePlannedSnack = (plannedSnackSnack, plannedSnackTrip, plannedSnackBringer, plannedSnackID)
             execute_query(db_connection, queryUpdatePlannedSnack, dataUpdatePlannedSnack)
@@ -313,7 +317,7 @@ def TripPlanner():
     queryAdults = "SELECT adultID, firstName, lastName FROM TrustedAdults;"
     querySnacks = "SELECT snackID, name FROM Snacks;"
     
-    # Check if Trip filter is active
+    # If Trips filter is active, above queries are modified to include a WHERE filter for the selected tripID
     if selectTripPlanning != "":
         selectQuery = " WHERE tripID = %s;" % (selectTripPlanning,)
         queryTripPlanning = queryTripPlanning[:-1] + selectQuery
@@ -356,7 +360,7 @@ def TripPlanner():
 @app.route('/PlannedSnackUpdate', methods=["POST", "GET"])
 def PlannedSnackUpdate():
  
-    # Load prefilled form
+    # Load prefilled form for a selected Planned Snack
     plannedSnackID = request.args.get("selectUpdatePlannedSnack")
     queryPrefill = "SELECT * FROM PlannedSnacks WHERE plannedSnackID = %s;" % (plannedSnackID,)
     queryTrips = "SELECT tripID, name FROM Trips;"

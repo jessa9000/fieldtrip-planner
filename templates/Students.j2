@@ -22,6 +22,8 @@
 
 	<h1>Students</h1>
 
+	<!-- INSERT into Students form; multiple select available to INSERT into Allergies table -->
+
 	<div class="row">
 		<div class="column1">		
 			<form action="/Students" method="POST" class="long-form">
@@ -50,6 +52,9 @@
 				<input type="submit" value="Submit" name="addStudentSubmit">
 			</form>  
 		</div>
+
+	<!-- SELECT columns and rows from Students table -->
+
 		<div class="column2 vertical-line">
 			<table class="data-table" id="studentsTable">
 			<thead>
@@ -79,6 +84,8 @@
 
 	<h1>Emergency Contacts</h1>
 
+	<!-- INSERT into Emergency Contacts form; dropdowns dynamically generated using attributes from Students and Trusted Adults tables -->
+
 	<div class="row">
 		<div class="column1">		
 			<form onsubmit="checkDropdownStudents()" action="/Students" method="POST">
@@ -101,6 +108,9 @@
 				<input type="submit" value="Submit" name="addEmerContactSubmit">
 			</form> 
 		</div>
+
+	<!-- SELECT columns and rows from Emergency Contacts table -->
+
 		<div class="column2 vertical-line">
 			<table class="data-table">
 			<thead>

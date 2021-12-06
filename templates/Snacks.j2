@@ -22,6 +22,8 @@
 
 	<h1>Snacks</h1>
 
+	<!-- INSERT into Snacks form -->
+
 	<div class="row">
 		<div class="column1">
 			<form action="/Snacks" method="POST">
@@ -35,6 +37,9 @@
 					<input type="submit" value="Submit" id="snackAddSubmit">
 				</fieldset>
 			</form><br> 
+
+	<!-- DELETE from Allergies form; dropdown dynamically generated using attributes from Snacks table -->
+
 			<form onsubmit="checkDropdownRemoveSnacks()" action="/Snacks" method="POST">
 				<fieldset>
 					<input type="hidden" name="add" value="removeSnacks">
@@ -52,6 +57,9 @@
 				</fieldset>
 			</form> 
 		</div>
+
+	<!-- SELECT columns and rows from Snacks table -->
+
 		<div class="column2 vertical-line">
 			<table class="data-table">
 			<thead>
@@ -80,6 +88,8 @@
 
 	<div class="row">
 
+	<!-- INSERT into Ingredients form; dropdowns dynamically generated using attributes from Snacks and Allergens tables -->
+
 		<div class="column1">
 			<form onsubmit="checkDropdownAddIngredients()" action="/Snacks" method="POST">
 				<fieldset>
@@ -103,6 +113,8 @@
 			</form> 
 		</div>
 	
+	<!-- SELECT columns and rows from Ingredients table; additional attributes JOINed from Snacks and Allergens tables -->
+
 		<div class="column2 vertical-line">
 			<table class="data-table">
 			<thead>

@@ -1,6 +1,6 @@
 // This is the file where we will keep client-side scripts. //
 
-//Validates that a telephone number is at least 10 digits long.// 
+//Validates that a telephone number is at least 10 digits long with no letters, symbols, or negative values.// 
 function checkTelNo(){
     let telephone = document.getElementById('phone');
     let telValue = telephone.value;
@@ -18,9 +18,8 @@ function checkTelNo(){
     return true;
 }
 
+// Students page; Add Emergency Contact selection checker
 function checkDropdownStudents(){
-
-    // Students page; Add Emergency Contact selection checker
     let addEmergencyContactsStudents = document.getElementById('addEmergencyContactsStudents');
     let addEmergencyContactsTrustedAdults = document.getElementById('addEmergencyContactsTrustedAdults');
     if(addEmergencyContactsStudents.value == "" || addEmergencyContactsTrustedAdults.value == "") {
@@ -31,9 +30,8 @@ function checkDropdownStudents(){
     return true;
 }
 
+// Allergies page; Add an Allergy selection checker
 function checkDropdownAllergies(){
-    
-    // Allergies page; Add an Allergy selection checker
     let addAllergyStudents = document.getElementById('addAllergyStudents');
     let addAllergyAllergens = document.getElementById('addAllergyAllergens');
     if(addAllergyStudents.value == "" || addAllergyAllergens.value == "") {
@@ -44,9 +42,8 @@ function checkDropdownAllergies(){
     return true;
 }
 
+// Snacks page; Remove a Snack selection checker
 function checkDropdownRemoveSnacks(){
-
-    // Snacks page; Remove a Snack selection checker
     let snackSelect = document.getElementById('snackSelect');
     if(snackSelect.value == "") {
         event.preventDefault();
@@ -56,9 +53,8 @@ function checkDropdownRemoveSnacks(){
     return true;   
 }
 
+// Snacks page; Add Labeled Ingredients selection checker
 function checkDropdownAddIngredients(){
-
-    // Snacks page; Add Labeled Ingredients selection checker
     let addAllergenSnack = document.getElementById('addAllergenSnack');
     let addSnackAllergen = document.getElementById('addSnackAllergen');
     if(addAllergenSnack.value == "" || addSnackAllergen.value == "") {
@@ -69,9 +65,8 @@ function checkDropdownAddIngredients(){
     return true;   
 }
 
+// Trips page; Modify a Trip selection checker
 function checkDropdownTrips(){
-
-    // Trips page; Modify a Trip selection checker
     let selectUpdateTrip = document.getElementById('selectUpdateTrip');
     if(selectUpdateTrip.value == "") {
         event.preventDefault();
@@ -81,9 +76,8 @@ function checkDropdownTrips(){
     return true;
 }
 
+// TripPlanner page; Add an Attendee selection checker
 function checkDropdownAddAttendee(){
-
-    // TripPlanner page; Add an Attendee selection checker
     let attendeeTrip = document.getElementById('attendeeTrip');
     let attendeeStudent = document.getElementById('attendeeStudent');
     let attendeeChaperone = document.getElementById('attendeeChaperone');
@@ -95,9 +89,8 @@ function checkDropdownAddAttendee(){
     return true;
 }
 
+// TripPlanner page; Add a Planned Snack selection checker
 function checkDropdownAddPlannedSnack(){
-
-    // TripPlanner page; Add a Planned Snack selection checker
     let plannedSnackTrip = document.getElementById('plannedSnackTrip');
     let plannedSnackName = document.getElementById('plannedSnackName');
     let plannedSnackBringer = document.getElementById('plannedSnackBringer');
@@ -109,9 +102,8 @@ function checkDropdownAddPlannedSnack(){
     return true;
 }
 
+// TripPlanner page; Modify a Planned Snack selection checker
 function checkDropdownModifyPlannedSnack(){
-
-    // TripPlanner page; Modify a Planned Snack selection checker
     let selectUpdatePlannedSnack = document.getElementById('selectUpdatePlannedSnack');
     if(selectUpdatePlannedSnack.value == "") {
         event.preventDefault();

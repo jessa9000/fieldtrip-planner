@@ -22,6 +22,8 @@
 
 	<h1>Trips</h1>
 
+	<!-- INSERT into Trips form -->
+
 	<div class="row">
 		<div class="column1">
 			<form action="/Trips" method="POST" class="long-form">
@@ -45,6 +47,9 @@
 				<input type="time" id="returnTime" name="returnTime"><br><br>
 				<input type="submit" value="Submit" id="addTripSubmit">
 			</form> 
+
+	<!-- Selection to UPDATE a Trips entry; dropdown dynamically generated using attributes from Trips table -->
+
 			<form onsubmit="checkDropdownTrips()" action="/TripsUpdate" method="GET" class="long-form">
 				<input type="hidden" name="add" value="selectTrips">
 				<legend class="bold">Modify a Trip</legend>
@@ -57,6 +62,9 @@
 				<input type="submit" value="Submit" id="modifyTripSubmit">	
 			</form> 
 		</div>
+
+	<!-- SELECT columns and rows from Trips table -->
+
 		<div class="column2 vertical-line">
 			<table class="data-table">
 			<thead>

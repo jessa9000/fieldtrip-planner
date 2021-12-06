@@ -20,6 +20,7 @@
 		</table>
 	</div>
 
+	<!-- Selection to SELECT/Filter rows in the displayed tables in this page based on tripID -->
 
 	<div>
 		<form class="margin-top" action="/TripPlanner" method="POST">
@@ -38,6 +39,8 @@
 	</div>
 
 	<h1>Trip in Planning</h1>
+
+	<!-- SELECT columns and rows from Trips table; duplicated from Trips page for ease of reference -->
 
 	<div>
         <table>
@@ -71,6 +74,8 @@
 
 	<h1>Attendees</h1>
 
+	<!-- INSERT into Attendees form; dropdowns dynamically generated using attributes from Trips, Students, and Trusted Adults tables -->
+
 	<div class="row">
 		<div class="column1">
 			<form onsubmit="checkDropdownAddAttendee()" action="/TripPlanner" method="POST">
@@ -98,6 +103,9 @@
 				<input type="submit" value="Submit" id="addAttendeeSubmit">
 			</form> 
 		</div>
+
+	<!-- SELECT columns and rows from Attendees table; additional attributes JOINed from Students and Trusted Adults tables -->
+
 		<div class="column2 vertical-line">
 			<table class="data-table">
 			<thead>
@@ -129,6 +137,8 @@
 
 	<h1>Planned Snacks</h1>
 
+	<!-- INSERT into Planned Snacks form; dropdowns dynamically generated using attributes from Trips, Snacks, and Trusted Adults tables -->
+
 	<div class="row">
 		<div class="column1">
 			<form onsubmit="checkDropdownAddPlannedSnack()" action="/TripPlanner" method="POST">
@@ -155,6 +165,9 @@
 					</select> <br><br>
 				<input type="submit" value="Submit" id="addPlannedSnackSubmit">
 			</form> 
+
+	<!-- Selection to UPDATE a Planned Snacks entry; dropdown dynamically generated using attributes from Planned Snacks table -->
+
 			<form onsubmit="checkDropdownModifyPlannedSnack()" action="/PlannedSnackUpdate" method="GET">
 				<input type="hidden" name="add" value="selectPlannedSnack">
 				<legend class="bold">Modify a Planned Snack</legend>
@@ -169,6 +182,7 @@
 			</form> 
 		</div>
 
+	<!-- SELECT columns and rows from Planned Snacks table; additional attributes JOINed from Snacks and Trusted Adults tables -->
 
 		<div class="column2 vertical-line">
 			<table class="data-table">

@@ -23,6 +23,8 @@
 
 	<h1>Possible Allergens</h1>
 
+	<!-- INSERT into Allergens form -->
+
 	<div class="row">
 		<div class="column1">
 			<form action="/Allergies" method="POST">
@@ -33,6 +35,9 @@
 				<input type="submit" value="Submit" id="addAllergenSubmit">
 			</form> 
 		</div>
+
+	<!-- SELECT columns and rows from Allergens table -->
+		
 		<div class="column2  vertical-line">
 			<table class="data-table">
 				<thead>
@@ -59,6 +64,8 @@
 
 	<h1 class="second-header">Allergies</h1>
 
+	<!-- INSERT into Allergies form; dropdowns dynamically generated using attributes from Students and Allergens tables -->
+
 	<div class="row">
 		<div class="column1">
 			<form onsubmit="checkDropdownAllergies()" action="/Allergies" method="POST">
@@ -80,6 +87,8 @@
 				<input type="submit" value="Submit" id="addAllergySubmit">
 			</form> 
 		</div>
+
+	<!-- SELECT columns and rows from Allergies table; additional attributes JOINed from Students and Allergens tables -->
 
 		<div class="column2  vertical-line">
 			<table class="data-table" id="allergiesTable">
