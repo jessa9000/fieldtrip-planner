@@ -145,7 +145,6 @@ select{
 
 .vertical-line{
 	border-left: 2px solid black;
-	/* height: 60%; */
 	position: absolute; 
 	left: 24%; 
 }
@@ -156,11 +155,6 @@ select{
 	color: white
 }
 
-/* li > a:hover {
-    color: #4E5C99;
-    background-color: transparent;
-    text-decoration: underline;
-} */
 .sort:hover {
     color: #4E5C99;
     background-color: transparent;
